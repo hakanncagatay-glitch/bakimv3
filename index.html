@@ -1,1 +1,104 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
 
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Bakım Pro V3</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+
+        <h1>🔧 Bakım Yönetim Sistemi</h1>
+
+        <p>Makine bakım kayıt sistemi</p>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>Makine Ara</h2>
+
+        <input
+            id="envanter"
+            type="text"
+            placeholder="Envanter Kodu">
+
+        <input
+            id="sase"
+            type="text"
+            placeholder="Şase No">
+
+        <button id="btnAra">
+
+            Makineyi Bul
+
+        </button>
+
+    </div>
+
+
+
+    <div
+        id="makineKart"
+        class="card"
+        style="display:none">
+
+        <h2>Makine Bilgileri</h2>
+
+        <table>
+
+            <tr>
+                <td>Envanter</td>
+                <td id="lblEnvanter"></td>
+            </tr>
+
+            <tr>
+                <td>Marka</td>
+                <td id="lblMarka"></td>
+            </tr>
+
+            <tr>
+                <td>Model</td>
+                <td id="lblModel"></td>
+            </tr>
+
+            <tr>
+                <td>Konum</td>
+                <td id="lblKonum"></td>
+            </tr>
+
+            <tr>
+                <td>Periyot</td>
+                <td id="lblPeriyot"></td>
+            </tr>
+
+            <tr>
+                <td>Son Bakım</td>
+                <td id="lblSonBakim"></td>
+            </tr>
+
+            <tr>
+                <td>Sonraki Bakım</td>
+                <td id="lblSonrakiBakim"></td>
+            </tr>
+
+        </table>
+
+    </div>
+
+</div>
+
+<script src="app.js"></script>
+
+</body>
+</html>
