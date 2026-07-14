@@ -62,3 +62,28 @@ async function makineAra() {
 }
 
 }
+document.getElementById("btnKaydet").addEventListener("click", bakimKaydet);
+
+async function bakimKaydet() {
+
+    const veri = {
+
+        action: "bakimKaydet",
+
+        envanterKodu: document.getElementById("lblEnvanter").innerText,
+
+        bakimTuru: document.getElementById("bakimTuru").value,
+
+        bakimiYapan: document.getElementById("bakimiYapan").value,
+
+        arizaNedeni: document.getElementById("arizaNedeni").value,
+
+        degisenParcalar: document.getElementById("degisenParcalar").value,
+
+        aciklama: document.getElementById("aciklama").value
+
+    };
+
+    console.log(veri);
+
+}
