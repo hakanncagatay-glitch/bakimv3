@@ -42,6 +42,7 @@ async function makineAra() {
         const m = sonuc.data;
 
         document.getElementById("makineKart").style.display = "block";
+        document.getElementById("bakimKart").style.display = "block";
 
         document.getElementById("lblEnvanter").innerText = m.EnvanterKodu;
         document.getElementById("lblMarka").innerText = m.Marka;
