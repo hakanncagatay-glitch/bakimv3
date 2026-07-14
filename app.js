@@ -24,7 +24,11 @@ async function makineAra() {
             "&envanter=" + encodeURIComponent(envanter) +
             "&sase=" + encodeURIComponent(sase);
 
-        const response = await fetch(url);
+        const response = await fetch(url, {
+    method: "GET",
+    redirect: "follow",
+    mode: "cors"
+});
 
         const sonuc = await response.json();
 
@@ -48,12 +52,12 @@ async function makineAra() {
         document.getElementById("lblSonrakiBakim").innerText = m.SonrakiBakim || "-";
 
     }
-    catch (err) {
+ catch (err) {
 
-        console.error(err);
+    console.error(err);
 
-        alert("Sunucu bağlantısı kurulamadı.");
+    alert(err.message);
 
-    }
+}
 
 }
