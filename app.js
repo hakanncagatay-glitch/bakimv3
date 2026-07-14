@@ -84,31 +84,28 @@ async function bakimKaydet() {
 
     };
 
-    try {
+  try {
 
-        const response = await fetch(API, {
+    console.log("POST GÖNDERİLİYOR...");
 
-            method: "POST",
+    const response = await fetch(API, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(veri)
+    });
 
-            headers: {
-                "Content-Type": "application/json"
-            },
+    console.log("HTTP DURUMU:", response.status);
 
-            body: JSON.stringify(veri)
+    const text = await response.text();
 
-        });
+    console.log("SUNUCU CEVABI:", text);
 
-        const sonuc = await response.json();
+} catch (err) {
 
-        alert(sonuc.message);
+    console.error("FETCH HATASI:", err);
 
-    }
-    catch (err) {
-
-        console.error(err);
-
-        alert(err.message);
-
-    }
+}
 
 }
