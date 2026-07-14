@@ -84,6 +84,31 @@ async function bakimKaydet() {
 
     };
 
-    console.log(veri);
+    try {
+
+        const response = await fetch(API, {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify(veri)
+
+        });
+
+        const sonuc = await response.json();
+
+        alert(sonuc.message);
+
+    }
+    catch (err) {
+
+        console.error(err);
+
+        alert(err.message);
+
+    }
 
 }
