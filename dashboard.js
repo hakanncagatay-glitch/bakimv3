@@ -6,17 +6,11 @@ window.onload = dashboardYukle;
 
 async function dashboardYukle() {
 
-    alert("dashboardYukle başladı");
-
     try {
 
         const response = await fetch(API + "?action=dashboardOzet");
 
-        alert("HTTP: " + response.status);
-
         const sonuc = await response.json();
-
-        alert(JSON.stringify(sonuc));
 
         const d = sonuc.data;
 
@@ -25,12 +19,15 @@ async function dashboardYukle() {
         document.getElementById("yaklasanBakim").innerText = d.yaklasanBakim;
         document.getElementById("gecikenBakim").innerText = d.gecikenBakim;
 
+        await grafikYukle();
+
     } catch (err) {
 
-        alert(err);
         console.error(err);
 
     }
+
+}
     async function grafikYukle() {
 
     const response = await fetch(API + "?action=dashboardGrafik");
