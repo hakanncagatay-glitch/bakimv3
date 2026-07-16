@@ -69,3 +69,41 @@ async function grafikYukle() {
     }
 
 }
+async function bolumGrafikYukle() {
+
+    const response = await fetch(API + "?action=dashboardBolumDagilim");
+    const sonuc = await response.json();
+
+    if (!sonuc.success) return;
+
+    const labels = sonuc.data.map(x => x.konum);
+    const values = sonuc.data.map(x => x.adet);
+
+    const ctx = document.getElementById("bolumGrafik");
+
+    new Chart(ctx, {
+
+        type: "doughnut",
+
+        data: {
+
+            labels: labels,
+
+            datasets: [{
+
+                data: values
+
+            }]
+
+        },
+
+        options: {
+
+            responsive: true,
+            maintainAspectRatio: false
+
+        }
+
+    });
+
+}
