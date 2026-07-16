@@ -1,5 +1,3 @@
-alert("dashboard.js yüklendi");
-
 const API = "https://script.google.com/macros/s/AKfycbyp4Dexvk759RdZEEdAIS-urDlkJR9-r39_r_gb1w13eidoSpePkYX-6sUBYYZRdCu6ng/exec";
 
 window.onload = dashboardYukle;
@@ -9,7 +7,6 @@ async function dashboardYukle() {
     try {
 
         const response = await fetch(API + "?action=dashboardOzet");
-
         const sonuc = await response.json();
 
         const d = sonuc.data;
@@ -28,7 +25,8 @@ async function dashboardYukle() {
     }
 
 }
-    async function grafikYukle() {
+
+async function grafikYukle() {
 
     const response = await fetch(API + "?action=dashboardGrafik");
     const sonuc = await response.json();
@@ -67,7 +65,5 @@ async function dashboardYukle() {
             }
         }
     });
-
-}
 
 }
