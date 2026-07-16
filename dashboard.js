@@ -75,34 +75,41 @@ async function bolumGrafikYukle() {
     const response = await fetch(API + "?action=dashboardBolumDagilim");
     const sonuc = await response.json();
 
+    console.log("API:", sonuc);
+
     if (!sonuc.success) return;
 
     const labels = sonuc.data.map(x => x.konum);
     const values = sonuc.data.map(x => x.adet);
 
+    console.log("Labels:", labels);
+    console.log("Values:", values);
+
     const ctx = document.getElementById("bolumGrafik");
+
+    console.log("Canvas:", ctx);
 
     new Chart(ctx, {
 
         type: "doughnut",
 
         data: {
-
             labels: labels,
-
             datasets: [{
-
-                data: values
-
+                data: values,
+                backgroundColor: [
+                    "#2563eb",
+                    "#16a34a",
+                    "#f59e0b",
+                    "#dc2626",
+                    "#8b5cf6"
+                ]
             }]
-
         },
 
         options: {
-
             responsive: true,
             maintainAspectRatio: false
-
         }
 
     });
