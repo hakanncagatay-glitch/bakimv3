@@ -28,42 +28,44 @@ async function dashboardYukle() {
 
 async function grafikYukle() {
 
-    const response = await fetch(API + "?action=dashboardGrafik");
-    const sonuc = await response.json();
+    try {
 
-    if (!sonuc.success) return;
+        const response = await fetch(API + "?action=dashboardGrafik");
+        const sonuc = await response.json();
 
-    const labels = sonuc.data.map(x => x.gun);
-    const values = sonuc.data.map(x => x.adet);
+        console.log("API Sonucu:", sonuc);
 
-    const ctx = document.getElementById("bakimGrafik");
+        if (!sonuc.success) return;
 
-    new Chart(ctx, {
-        type: "bar",
-        data: {
-            labels: labels,
-            datasets: [{
-                label: "Bakım Sayısı",
-                data: values,
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    display: false
-                }
+        const labels = sonuc.data.map(x => x.gun);
+        const values = sonuc.data.map(x => x.adet);
+
+        const ctx = document.getElementById("bakimGrafik");
+
+        console.log("Canvas:", ctx);
+        console.log("Labels:", labels);
+        console.log("Values:", values);
+
+        new Chart(ctx, {
+            type: "bar",
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: "Bakım Sayısı",
+                    data: values,
+                    backgroundColor: "#2563eb"
+                }]
             },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    ticks: {
-                        precision: 0
-                    }
-                }
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
             }
-        }
-    });
+        });
+
+    } catch (err) {
+
+        console.error("Grafik Hatası:", err);
+
+    }
 
 }
