@@ -377,10 +377,11 @@ color:#6b7280;
 /* Dashboard Grid */
 
 .dashboard-grid{
-    display:grid;
-    grid-template-columns:2fr 1fr;
-    gap:25px;
-    margin-top:25px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 25px;
+    margin-top: 25px;
+    align-items: start;
 }
 
 .dashboard-grid.alt{
@@ -399,9 +400,7 @@ color:#6b7280;
 }
 
 .panel.large{
-
-    grid-column:span 1;
-
+    width: 100%;
 }
 
 .panel-header{
