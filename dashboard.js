@@ -1,14 +1,39 @@
-const tarih = new Date();
+const API = "https://script.google.com/macros/s/AKfycbyp4Dexvk759RdZEEdAIS-urDlkJR9-r39_r_gb1w13eidoSpePkYX-6sUBYYZRdCu6ng/exec";
 
-document.getElementById("today").innerHTML =
-tarih.toLocaleDateString("tr-TR",{
+window.onload = dashboardYukle;
 
-weekday:"long",
+async function dashboardYukle() {
 
-day:"numeric",
+    try {
 
-month:"long",
+        const response = await fetch(API + "?action=dashboardOzet");
 
-year:"numeric"
+        const sonuc = await response.json();
 
-});
+        if (!sonuc.success) {
+
+            alert(sonuc.message);
+
+            return;
+
+        }
+
+        const d = sonuc.data;
+
+        document.getElementById("toplamMakine").innerText = d.toplamMakine;
+
+        document.getElementById("toplamBakim").innerText = d.toplamBakim;
+
+        document.getElementById("yaklasanBakim").innerText = d.yaklasanBakim;
+
+        document.getElementById("gecikenBakim").innerText = d.gecikenBakim;
+
+    }
+
+    catch (err) {
+
+        console.error(err);
+
+    }
+
+}
