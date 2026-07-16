@@ -18,6 +18,7 @@ async function dashboardYukle() {
 
         await grafikYukle();
         await bolumGrafikYukle();
+        await yaklasanBakimlariYukle();
 
     } catch (err) {
 
