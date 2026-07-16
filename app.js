@@ -1,8 +1,10 @@
 const API = "https://script.google.com/macros/s/AKfycbyp4Dexvk759RdZEEdAIS-urDlkJR9-r39_r_gb1w13eidoSpePkYX-6sUBYYZRdCu6ng/exec";
 
-const btnAra = document.getElementById("btnAra");
+//--------------------
+// MAKİNE ARA
+//--------------------
 
-btnAra.addEventListener("click", makineAra);
+document.getElementById("btnAra").addEventListener("click", makineAra);
 
 async function makineAra() {
 
@@ -10,10 +12,8 @@ async function makineAra() {
     const sase = document.getElementById("sase").value.trim();
 
     if (envanter === "" && sase === "") {
-
         alert("Envanter veya Şase No giriniz.");
         return;
-
     }
 
     try {
@@ -24,19 +24,13 @@ async function makineAra() {
             "&envanter=" + encodeURIComponent(envanter) +
             "&sase=" + encodeURIComponent(sase);
 
-        const response = await fetch(url, {
-    method: "GET",
-    redirect: "follow",
-    mode: "cors"
-});
+        const response = await fetch(url);
 
         const sonuc = await response.json();
 
         if (!sonuc.success) {
-
             alert(sonuc.message);
             return;
-
         }
 
         const m = sonuc.data;
@@ -52,68 +46,56 @@ async function makineAra() {
         document.getElementById("lblSonBakim").innerText = m.SonBakim || "-";
         document.getElementById("lblSonrakiBakim").innerText = m.SonrakiBakim || "-";
 
+    } catch (err) {
+
+        console.error(err);
+        alert(err.message);
+
     }
- catch (err) {
-
-    console.error(err);
-
-    alert(err.message);
 
 }
 
-}
+//--------------------
+// BAKIM KAYDET
+//--------------------
+
 document.getElementById("btnKaydet").addEventListener("click", bakimKaydet);
 
 async function bakimKaydet() {
 
-    const veri = {
+    try {
 
-        action: "bakimKaydet",
+        const url =
+            API +
+            "?action=bakimKaydet" +
+            "&envanterKodu=" + encodeURIComponent(document.getElementById("lblEnvanter").innerText) +
+            "&bakimTuru=" + encodeURIComponent(document.getElementById("bakimTuru").value) +
+            "&bakimiYapan=" + encodeURIComponent(document.getElementById("bakimiYapan").value) +
+            "&arizaNedeni=" + encodeURIComponent(document.getElementById("arizaNedeni").value) +
+            "&degisenParcalar=" + encodeURIComponent(document.getElementById("degisenParcalar").value) +
+            "&aciklama=" + encodeURIComponent(document.getElementById("aciklama").value);
 
-        envanterKodu: document.getElementById("lblEnvanter").innerText,
+        console.log(url);
 
-        bakimTuru: document.getElementById("bakimTuru").value,
+        const response = await fetch(url);
 
-        bakimiYapan: document.getElementById("bakimiYapan").value,
+        const sonuc = await response.json();
 
-        arizaNedeni: document.getElementById("arizaNedeni").value,
+        if (sonuc.success) {
 
-        degisenParcalar: document.getElementById("degisenParcalar").value,
+            alert("Bakım başarıyla kaydedildi.");
 
-        aciklama: document.getElementById("aciklama").value
+        } else {
 
-    };
+            alert(sonuc.message);
 
-  try {
+        }
 
-    console.log("POST GÖNDERİLİYOR...");
+    } catch (err) {
 
-const url =
-API +
-"?action=bakimKaydet" +
-"&envanterKodu=" + encodeURIComponent(veri.envanterKodu) +
-"&bakimTuru=" + encodeURIComponent(veri.bakimTuru) +
-"&bakimiYapan=" + encodeURIComponent(veri.bakimiYapan) +
-"&arizaNedeni=" + encodeURIComponent(veri.arizaNedeni) +
-"&degisenParcalar=" + encodeURIComponent(veri.degisenParcalar) +
-"&aciklama=" + encodeURIComponent(veri.aciklama);
+        console.error(err);
+        alert(err);
 
-const response = await fetch(url);
-
-const sonuc = await response.json();
-
-alert(sonuc.message);
-
-    console.log("HTTP DURUMU:", response.status);
-
-    const text = await response.text();
-
-    console.log("SUNUCU CEVABI:", text);
-
-} catch (err) {
-
-    console.error("FETCH HATASI:", err);
-
-}
+    }
 
 }
