@@ -88,13 +88,21 @@ async function bakimKaydet() {
 
     console.log("POST GÖNDERİLİYOR...");
 
-    const response = await fetch(API, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(veri)
-    });
+const url =
+API +
+"?action=bakimKaydet" +
+"&envanterKodu=" + encodeURIComponent(veri.envanterKodu) +
+"&bakimTuru=" + encodeURIComponent(veri.bakimTuru) +
+"&bakimiYapan=" + encodeURIComponent(veri.bakimiYapan) +
+"&arizaNedeni=" + encodeURIComponent(veri.arizaNedeni) +
+"&degisenParcalar=" + encodeURIComponent(veri.degisenParcalar) +
+"&aciklama=" + encodeURIComponent(veri.aciklama);
+
+const response = await fetch(url);
+
+const sonuc = await response.json();
+
+alert(sonuc.message);
 
     console.log("HTTP DURUMU:", response.status);
 
