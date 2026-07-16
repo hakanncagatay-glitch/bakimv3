@@ -374,3 +374,81 @@ display:block;
 color:#6b7280;
 
 }
+/* Dashboard Grid */
+
+.dashboard-grid{
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:25px;
+    margin-top:25px;
+}
+
+.dashboard-grid.alt{
+    margin-top:25px;
+}
+
+/* Panel */
+
+.panel{
+
+    background:#fff;
+    border-radius:18px;
+    padding:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+}
+
+.panel.large{
+
+    grid-column:span 1;
+
+}
+
+.panel-header{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+
+}
+
+.panel-header h2{
+
+    font-size:20px;
+    color:#182848;
+
+}
+
+/* Grafik */
+
+canvas{
+
+    width:100% !important;
+    height:320px !important;
+
+}
+
+/* Tablo */
+
+table{
+
+    width:100%;
+    border-collapse:collapse;
+
+}
+
+table th{
+
+    text-align:left;
+    padding:12px;
+    background:#f3f6fb;
+
+}
+
+table td{
+
+    padding:12px;
+    border-bottom:1px solid #ececec;
+
+}
