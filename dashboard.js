@@ -31,5 +31,46 @@ async function dashboardYukle() {
         console.error(err);
 
     }
+    async function grafikYukle() {
+
+    const response = await fetch(API + "?action=dashboardGrafik");
+    const sonuc = await response.json();
+
+    if (!sonuc.success) return;
+
+    const labels = sonuc.data.map(x => x.gun);
+    const values = sonuc.data.map(x => x.adet);
+
+    const ctx = document.getElementById("bakimGrafik");
+
+    new Chart(ctx, {
+        type: "bar",
+        data: {
+            labels: labels,
+            datasets: [{
+                label: "Bakım Sayısı",
+                data: values,
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        precision: 0
+                    }
+                }
+            }
+        }
+    });
+
+}
 
 }
