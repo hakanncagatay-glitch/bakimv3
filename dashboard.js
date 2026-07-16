@@ -17,6 +17,7 @@ async function dashboardYukle() {
         document.getElementById("gecikenBakim").innerText = d.gecikenBakim;
 
         await grafikYukle();
+        await bolumGrafikYukle();
 
     } catch (err) {
 
