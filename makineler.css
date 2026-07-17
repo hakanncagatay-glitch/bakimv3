@@ -148,3 +148,136 @@ body{
     grid-template-columns:repeat(auto-fill,minmax(360px,1fr));
     gap:22px;
 }
+/*==========================
+      MAKİNE KARTI
+==========================*/
+
+.makineKart{
+
+    background:#fff;
+
+    border-radius:18px;
+
+    padding:22px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.06);
+
+    transition:.30s;
+
+    cursor:pointer;
+
+    border-left:6px solid #22c55e;
+
+}
+
+.makineKart:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:0 18px 35px rgba(0,0,0,.12);
+
+}
+
+.makineUst{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-start;
+
+    margin-bottom:18px;
+
+}
+
+.makineKod{
+
+    font-size:28px;
+
+    font-weight:700;
+
+    color:#1e3a8a;
+
+}
+
+.periyot{
+
+    background:#2563eb;
+
+    color:#fff;
+
+    padding:6px 12px;
+
+    border-radius:30px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+}
+
+.makineModel{
+
+    font-size:20px;
+
+    font-weight:600;
+
+    margin-bottom:18px;
+
+    color:#374151;
+
+}
+
+.makineBilgi{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    margin-bottom:12px;
+
+    color:#6b7280;
+
+    font-size:15px;
+
+}
+
+.makineBilgi i{
+
+    width:20px;
+
+    color:#2563eb;
+
+}
+
+.detayBtn{
+
+    margin-top:20px;
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    align-items:center;
+
+    gap:8px;
+
+    color:#2563eb;
+
+    font-weight:600;
+
+    transition:.30s;
+
+}
+
+.makineKart:hover .detayBtn{
+
+    transform:translateX(8px);
+
+}
