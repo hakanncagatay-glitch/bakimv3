@@ -208,23 +208,27 @@ async function enCokArizaVerenYukle() {
 
     sonuc.data.forEach((item, index) => {
 
-        let icon = "🏅";
+       let renk = "#22c55e";
 
-        if(index==0) icon="🥇";
-        else if(index==1) icon="🥈";
-        else if(index==2) icon="🥉";
+if(index==0) renk="#dc2626";
+else if(index==1) renk="#f59e0b";
+else if(index==2) renk="#eab308";
 
-        alan.innerHTML += `
+alan.innerHTML += `
 
-            <div class="arizaItem">
+<div class="arizaItem">
 
-                <span>${icon} ${item.makine}</span>
+    <span>
+        <i class="fa-solid fa-triangle-exclamation"
+           style="color:${renk}; margin-right:8px;"></i>
+        ${item.makine}
+    </span>
 
-                <strong>${item.adet}</strong>
+    <strong>${item.adet}</strong>
 
-            </div>
+</div>
 
-        `;
+`;
 
     });
 
