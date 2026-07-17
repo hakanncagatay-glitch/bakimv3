@@ -242,14 +242,41 @@
 
 </div>
 </section>
-    <section id="machinesPage" style="display:none;">
+   <section id="machinesPage" style="display:none;">
 
     <div class="header">
 
         <div>
+
             <h1>Makineler</h1>
-            <p>Makine Envanteri ve Bakım Durumları</p>
+
+            <p>Makine Envanteri</p>
+
         </div>
+
+    </div>
+
+    <div class="toolbar">
+
+        <input
+            type="text"
+            id="makineAra"
+            placeholder="🔍 Makine Ara...">
+
+        <select id="konumFiltre">
+
+            <option value="">Tüm Bölümler</option>
+
+        </select>
+
+        <select id="durumFiltre">
+
+            <option value="">Tüm Durumlar</option>
+            <option value="guncel">Güncel</option>
+            <option value="yaklasan">Yaklaşan</option>
+            <option value="geciken">Geciken</option>
+
+        </select>
 
     </div>
 
