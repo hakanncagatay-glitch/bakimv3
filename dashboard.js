@@ -6,6 +6,8 @@ async function dashboardYukle() {
 
     try {
 
+        console.log("1");
+
         const response = await fetch(API + "?action=dashboardOzet");
         const sonuc = await response.json();
 
@@ -16,10 +18,23 @@ async function dashboardYukle() {
         document.getElementById("yaklasanBakim").innerText = d.yaklasanBakim;
         document.getElementById("gecikenBakim").innerText = d.gecikenBakim;
 
+        console.log("2");
+
         await grafikYukle();
+
+        console.log("3");
+
         await bolumGrafikYukle();
+
+        console.log("4");
+
         await yaklasanBakimlariYukle();
+
+        console.log("5");
+
         await sonBakimlariYukle();
+
+        console.log("6");
 
     } catch (err) {
 
