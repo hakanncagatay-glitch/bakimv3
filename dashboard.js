@@ -1,6 +1,12 @@
 const API = "https://script.google.com/macros/s/AKfycbyp4Dexvk759RdZEEdAIS-urDlkJR9-r39_r_gb1w13eidoSpePkYX-6sUBYYZRdCu6ng/exec";
 
-window.onload = dashboardYukle;
+window.onload = () => {
+
+    dashboardYukle();
+
+    document.getElementById("dashboardPage").style.display = "block";
+
+};
 
 async function dashboardYukle() {
 
@@ -233,36 +239,15 @@ alan.innerHTML += `
     });
 
 }
-// Sayfa göster
-function showPage(pageId){
 
-    document.querySelectorAll("section").forEach(section=>{
-        section.style.display="none";
-    });
-
-    document.getElementById(pageId).style.display="block";
-
-    document.querySelectorAll(".sidebar li").forEach(item=>{
-        item.classList.remove("active");
-    });
-
-}
-// Menü olayları
-document.getElementById("menuDashboard").addEventListener("click", function () {
-    showPage("dashboardPage");
-});
-
-document.getElementById("menuMachines").addEventListener("click", function () {
-    showPage("machinesPage");
-});
 // =============================
-// Sidebar Menü Yönetimi
+// SPA Menü Yönetimi
 // =============================
 document.querySelectorAll(".sidebar li").forEach(item => {
 
     item.addEventListener("click", function () {
 
-        // Menü aktifliği
+        // Aktif menü
         document.querySelectorAll(".sidebar li").forEach(li => {
             li.classList.remove("active");
         });
@@ -274,11 +259,17 @@ document.querySelectorAll(".sidebar li").forEach(item => {
             section.style.display = "none";
         });
 
-        // Seçilen sayfayı göster
+        // İlgili sayfayı göster
         const page = this.dataset.page;
 
         if (page) {
-            document.getElementById(page).style.display = "block";
+
+            const pageElement = document.getElementById(page);
+
+            if (pageElement) {
+                pageElement.style.display = "block";
+            }
+
         }
 
     });
