@@ -1,5 +1,5 @@
 const API = "https://script.google.com/macros/s/AKfycbyp4Dexvk759RdZEEdAIS-urDlkJR9-r39_r_gb1w13eidoSpePkYX-6sUBYYZRdCu6ng/exec";
-
+let tumMakineler = [];
 window.onload = () => {
 
     // İlk açılışta Dashboard
@@ -258,66 +258,79 @@ async function makineleriYukle() {
 
         if (!sonuc.success) return;
 
-        const liste = document.getElementById("makineListe");
-        liste.innerHTML = "";
+        // Tüm makineleri hafızada tut
+        tumMakineler = sonuc.data;
 
-        sonuc.data.forEach(item => {
-
-            let durum = "Güncel";
-            let renk = "#22c55e";
-
-            const bugun = new Date();
-            const sonraki = new Date(item.sonrakiBakim);
-
-            const kalanGun = Math.ceil(
-                (sonraki - bugun) / (1000 * 60 * 60 * 24)
-            );
-
-            if (kalanGun <= 7 && kalanGun >= 0) {
-                durum = "Yaklaşıyor";
-                renk = "#f59e0b";
-            }
-
-            if (kalanGun < 0) {
-                durum = "Gecikmiş";
-                renk = "#dc2626";
-            }
-
-            liste.innerHTML += `
-
-            <div class="machine-card">
-
-                <div class="machine-status" style="background:${renk}"></div>
-
-                <div class="machine-info">
-
-                    <h3>${item.envanter}</h3>
-
-                    <p>${item.marka} ${item.model}</p>
-
-                    <small>📍 ${item.konum}</small><br>
-
-                    <small>🗓 ${item.sonrakiBakim.substring(0,10)}</small>
-
-                </div>
-
-                <div class="machine-badge">
-
-                    ${durum}
-
-                </div>
-
-            </div>
-
-            `;
-
-        });
+        // Kartları göster
+        makineKartlariniGoster(tumMakineler);
 
     } catch (err) {
 
         console.error(err);
 
     }
+
+}
+function makineKartlariniGoster(veriler) {
+
+    const liste = document.getElementById("makineListe");
+    liste.innerHTML = "";
+
+    veriler.forEach(item => {
+
+        let durum = "Güncel";
+        let renk = "#22c55e";
+
+        const bugun = new Date();
+        const sonraki = new Date(item.sonrakiBakim);
+
+        const kalanGun = Math.ceil(
+            (sonraki - bugun) / (1000 * 60 * 60 * 24)
+        );
+
+        if (kalanGun <= 7 && kalanGun >= 0) {
+            durum = "Yaklaşıyor";
+            renk = "#f59e0b";
+        }
+
+        if (kalanGun < 0) {
+            durum = "Gecikmiş";
+            renk = "#dc2626";
+        }
+
+        const tarih = new Date(item.sonrakiBakim)
+            .toLocaleDateString("tr-TR");
+
+        liste.innerHTML += `
+
+        <div class="machine-card">
+
+            <div class="machine-status"
+                 style="background:${renk}"></div>
+
+            <div class="machine-info">
+
+                <h3>${item.envanter}</h3>
+
+                <p>${item.marka} ${item.model}</p>
+
+                <small>📍 ${item.konum}</small><br>
+
+                <small>🗓 ${tarih}</small>
+
+            </div>
+
+            <div class="machine-badge">
+
+                ${durum}
+
+            </div>
+
+        </div>
+
+        `;
+
+    });
 
 }
 
