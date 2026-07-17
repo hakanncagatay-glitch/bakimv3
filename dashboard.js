@@ -168,3 +168,28 @@ async function yaklasanBakimlariYukle() {
     });
 
 }
+async function sonBakimlariYukle() {
+
+    const response = await fetch(API + "?action=sonBakimlar");
+    const sonuc = await response.json();
+
+    if (!sonuc.success) return;
+
+    const tbody = document.querySelector("#sonBakimlar tbody");
+
+    tbody.innerHTML = "";
+
+    sonuc.data.forEach(item => {
+
+        tbody.innerHTML += `
+            <tr>
+                <td>${item.makine}</td>
+                <td>${item.bakim}</td>
+                <td>${item.yapan}</td>
+                <td>${item.tarih}</td>
+            </tr>
+        `;
+
+    });
+
+}
