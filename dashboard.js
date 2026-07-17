@@ -374,7 +374,7 @@ function filtreleriUygula() {
 
     });
 
-    filtreleriUygula();
+    makineKartlariniGoster(filtreli);
 
 }
 function konumFiltresiniDoldur() {
@@ -455,22 +455,9 @@ if (aramaKutusu) {
 
     aramaKutusu.addEventListener("input", function () {
 
-        const aranacak = this.value.trim().toLowerCase();
+    filtreleriUygula();
 
-        const filtreli = tumMakineler.filter(item => {
-
-            return (
-                item.envanter.toLowerCase().includes(aranacak) ||
-                item.marka.toLowerCase().includes(aranacak) ||
-                item.model.toLowerCase().includes(aranacak) ||
-                item.konum.toLowerCase().includes(aranacak)
-            );
-
-        });
-
-        makineKartlariniGoster(filtreli);
-
-    });
+});
 
 }
 const konumFiltre = document.getElementById("konumFiltre");
