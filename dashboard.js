@@ -4,17 +4,6 @@ window.onload = () => {
 
     // İlk açılışta Dashboard
     document.getElementById("dashboardPage").style.display = "block";
-    switch (page) {
-
-    case "dashboardPage":
-        dashboardYukle();
-        break;
-
-    case "machinesPage":
-        // makineleriYukle();
-        break;
-
-}
 
     // Diğer sayfaları gizle
     document.querySelectorAll("section").forEach(section => {
@@ -356,13 +345,26 @@ document.querySelectorAll(".sidebar li").forEach(item => {
 
         if (page) {
 
-            const pageElement = document.getElementById(page);
+    const pageElement = document.getElementById(page);
 
-            if (pageElement) {
-                pageElement.style.display = "block";
-            }
+    if (pageElement) {
+        pageElement.style.display = "block";
+    }
 
-        }
+    // Sayfaya özel işlemler
+    switch (page) {
+
+        case "dashboardPage":
+            dashboardYukle();
+            break;
+
+        case "machinesPage":
+            makineleriYukle();
+            break;
+
+    }
+
+}
 
     });
 
