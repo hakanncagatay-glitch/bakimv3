@@ -234,15 +234,17 @@ alan.innerHTML += `
 
 }
 // Sayfa göster
-function showPage(pageId) {
+function showPage(pageId){
 
-    // Tüm sayfaları gizle
-    document.querySelectorAll("section").forEach(section => {
-        section.style.display = "none";
+    document.querySelectorAll("section").forEach(section=>{
+        section.style.display="none";
     });
 
-    // Seçilen sayfayı göster
-    document.getElementById(pageId).style.display = "block";
+    document.getElementById(pageId).style.display="block";
+
+    document.querySelectorAll(".sidebar li").forEach(item=>{
+        item.classList.remove("active");
+    });
 
 }
 // Menü olayları
