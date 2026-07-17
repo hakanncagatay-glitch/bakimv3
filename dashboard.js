@@ -20,6 +20,7 @@ async function dashboardYukle() {
         await bolumGrafikYukle();
         await yaklasanBakimlariYukle();
         await sonBakimlariYukle();
+        await enCokArizaVerenYukle();
 
     } catch (err) {
 
@@ -189,6 +190,40 @@ async function sonBakimlariYukle() {
                 <td>${item.yapan}</td>
                 <td>${item.tarih}</td>
             </tr>
+        `;
+
+    });
+
+}
+async function enCokArizaVerenYukle() {
+
+    const response = await fetch(API + "?action=enCokArizaVeren");
+    const sonuc = await response.json();
+
+    if (!sonuc.success) return;
+
+    const alan = document.getElementById("arizaTop10");
+
+    alan.innerHTML = "";
+
+    sonuc.data.forEach((item, index) => {
+
+        let icon = "🏅";
+
+        if(index==0) icon="🥇";
+        else if(index==1) icon="🥈";
+        else if(index==2) icon="🥉";
+
+        alan.innerHTML += `
+
+            <div class="arizaItem">
+
+                <span>${icon} ${item.makine}</span>
+
+                <strong>${item.adet}</strong>
+
+            </div>
+
         `;
 
     });
