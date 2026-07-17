@@ -264,7 +264,11 @@ async function makineleriYukle() {
         tumMakineler = sonuc.data;
 
         // Kartları göster
-        makineKartlariniGoster(tumMakineler);
+      // Bölüm listesini oluştur
+konumFiltresiniDoldur();
+
+// Filtreleri uygula
+filtreleriUygula();
 
     } catch (err) {
 
@@ -373,6 +377,25 @@ function filtreleriUygula() {
     filtreleriUygula();
 
 }
+function konumFiltresiniDoldur() {
+
+    const select = document.getElementById("konumFiltre");
+
+    select.innerHTML = '<option value="">Tüm Bölümler</option>';
+
+    const konumlar = [...new Set(tumMakineler.map(x => x.konum))];
+
+    konumlar.sort().forEach(konum => {
+
+        select.innerHTML += `
+            <option value="${konum}">
+                ${konum}
+            </option>
+        `;
+
+    });
+
+}
 
 // =============================
 // SPA Menü Yönetimi
@@ -446,6 +469,19 @@ if (aramaKutusu) {
         });
 
         makineKartlariniGoster(filtreli);
+
+    });
+
+}
+const konumFiltre = document.getElementById("konumFiltre");
+
+if (konumFiltre) {
+
+    konumFiltre.addEventListener("change", function () {
+
+        aktifKonum = this.value;
+
+        filtreleriUygula();
 
     });
 
