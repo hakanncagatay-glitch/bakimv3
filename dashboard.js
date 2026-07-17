@@ -1,5 +1,7 @@
 const API = "https://script.google.com/macros/s/AKfycbyp4Dexvk759RdZEEdAIS-urDlkJR9-r39_r_gb1w13eidoSpePkYX-6sUBYYZRdCu6ng/exec";
 let tumMakineler = [];
+let aktifKonum = "";
+let aktifDurum = "";
 window.onload = () => {
 
     // İlk açılışta Dashboard
@@ -331,6 +333,44 @@ function makineKartlariniGoster(veriler) {
         `;
 
     });
+
+}
+function filtreleriUygula() {
+
+    const aranan = document
+        .getElementById("makineAra")
+        .value
+        .toLowerCase()
+        .trim();
+
+    const filtreli = tumMakineler.filter(item => {
+
+        const metinUygun =
+            item.envanter.toLowerCase().includes(aranan) ||
+            item.marka.toLowerCase().includes(aranan) ||
+            item.model.toLowerCase().includes(aranan) ||
+            item.konum.toLowerCase().includes(aranan);
+
+        const bugun = new Date();
+        const sonraki = new Date(item.sonrakiBakim);
+        const kalan = Math.ceil((sonraki - bugun) / (1000 * 60 * 60 * 24));
+
+        let durum = "Güncel";
+
+        if (kalan <= 7 && kalan >= 0) durum = "Yaklaşıyor";
+        if (kalan < 0) durum = "Gecikmiş";
+
+        const konumUygun =
+            aktifKonum === "" || item.konum === aktifKonum;
+
+        const durumUygun =
+            aktifDurum === "" || durum === aktifDurum;
+
+        return metinUygun && konumUygun && durumUygun;
+
+    });
+
+    filtreleriUygula();
 
 }
 
