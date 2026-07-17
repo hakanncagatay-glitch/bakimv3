@@ -359,10 +359,10 @@ function filtreleriUygula() {
         const sonraki = new Date(item.sonrakiBakim);
         const kalan = Math.ceil((sonraki - bugun) / (1000 * 60 * 60 * 24));
 
-        let durum = "Güncel";
+       let durum = "guncel";
 
-        if (kalan <= 7 && kalan >= 0) durum = "Yaklaşıyor";
-        if (kalan < 0) durum = "Gecikmiş";
+if (kalan <= 7 && kalan >= 0) durum = "yaklasan";
+if (kalan < 0) durum = "geciken";
 
         const konumUygun =
             aktifKonum === "" || item.konum === aktifKonum;
@@ -473,3 +473,17 @@ if (konumFiltre) {
     });
 
 }
+const durumFiltre = document.getElementById("durumFiltre");
+
+if (durumFiltre) {
+
+    durumFiltre.addEventListener("change", function () {
+
+        aktifDurum = this.value;
+
+        filtreleriUygula();
+
+    });
+
+}
+
