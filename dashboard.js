@@ -383,3 +383,30 @@ document.querySelectorAll(".sidebar li").forEach(item => {
 
 });
 
+// =============================
+// Makine Arama
+// =============================
+const aramaKutusu = document.getElementById("makineAra");
+
+if (aramaKutusu) {
+
+    aramaKutusu.addEventListener("input", function () {
+
+        const aranacak = this.value.trim().toLowerCase();
+
+        const filtreli = tumMakineler.filter(item => {
+
+            return (
+                item.envanter.toLowerCase().includes(aranacak) ||
+                item.marka.toLowerCase().includes(aranacak) ||
+                item.model.toLowerCase().includes(aranacak) ||
+                item.konum.toLowerCase().includes(aranacak)
+            );
+
+        });
+
+        makineKartlariniGoster(filtreli);
+
+    });
+
+}
