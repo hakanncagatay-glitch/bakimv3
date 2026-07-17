@@ -260,6 +260,77 @@ alan.innerHTML += `
     });
 
 }
+async function makineleriYukle() {
+
+    try {
+
+        const response = await fetch(API + "?action=makineleriListele");
+        const sonuc = await response.json();
+
+        if (!sonuc.success) return;
+
+        const liste = document.getElementById("makineListe");
+        liste.innerHTML = "";
+
+        sonuc.data.forEach(item => {
+
+            let durum = "Güncel";
+            let renk = "#22c55e";
+
+            const bugun = new Date();
+            const sonraki = new Date(item.sonrakiBakim);
+
+            const kalanGun = Math.ceil(
+                (sonraki - bugun) / (1000 * 60 * 60 * 24)
+            );
+
+            if (kalanGun <= 7 && kalanGun >= 0) {
+                durum = "Yaklaşıyor";
+                renk = "#f59e0b";
+            }
+
+            if (kalanGun < 0) {
+                durum = "Gecikmiş";
+                renk = "#dc2626";
+            }
+
+            liste.innerHTML += `
+
+            <div class="machine-card">
+
+                <div class="machine-status" style="background:${renk}"></div>
+
+                <div class="machine-info">
+
+                    <h3>${item.envanter}</h3>
+
+                    <p>${item.marka} ${item.model}</p>
+
+                    <small>📍 ${item.konum}</small><br>
+
+                    <small>🗓 ${item.sonrakiBakim.substring(0,10)}</small>
+
+                </div>
+
+                <div class="machine-badge">
+
+                    ${durum}
+
+                </div>
+
+            </div>
+
+            `;
+
+        });
+
+    } catch (err) {
+
+        console.error(err);
+
+    }
+
+}
 
 // =============================
 // SPA Menü Yönetimi
