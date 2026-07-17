@@ -2,9 +2,30 @@ const API = "https://script.google.com/macros/s/AKfycbyp4Dexvk759RdZEEdAIS-urDlk
 
 window.onload = () => {
 
-    dashboardYukle();
-
+    // İlk açılışta Dashboard
     document.getElementById("dashboardPage").style.display = "block";
+    switch (page) {
+
+    case "dashboardPage":
+        dashboardYukle();
+        break;
+
+    case "machinesPage":
+        // makineleriYukle();
+        break;
+
+}
+
+    // Diğer sayfaları gizle
+    document.querySelectorAll("section").forEach(section => {
+
+        if (section.id !== "dashboardPage") {
+            section.style.display = "none";
+        }
+
+    });
+
+    dashboardYukle();
 
 };
 
