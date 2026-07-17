@@ -382,25 +382,4 @@ document.querySelectorAll(".sidebar li").forEach(item => {
     });
 
 });
-async function makineleriYukle() {
 
-    try {
-
-        const response = await fetch(API + "?action=makineleriListele");
-        const sonuc = await response.json();
-
-        if (!sonuc.success) return;
-
-        // Tüm makineleri hafızada tut
-        tumMakineler = sonuc.data;
-
-        // Kartları göster
-        makineKartlariniGoster(tumMakineler);
-
-    } catch (err) {
-
-        console.error(err);
-
-    }
-
-}
