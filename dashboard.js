@@ -255,3 +255,32 @@ document.getElementById("menuDashboard").addEventListener("click", function () {
 document.getElementById("menuMachines").addEventListener("click", function () {
     showPage("machinesPage");
 });
+// =============================
+// Sidebar Menü Yönetimi
+// =============================
+document.querySelectorAll(".sidebar li").forEach(item => {
+
+    item.addEventListener("click", function () {
+
+        // Menü aktifliği
+        document.querySelectorAll(".sidebar li").forEach(li => {
+            li.classList.remove("active");
+        });
+
+        this.classList.add("active");
+
+        // Sayfaları gizle
+        document.querySelectorAll("section").forEach(section => {
+            section.style.display = "none";
+        });
+
+        // Seçilen sayfayı göster
+        const page = this.dataset.page;
+
+        if (page) {
+            document.getElementById(page).style.display = "block";
+        }
+
+    });
+
+});
