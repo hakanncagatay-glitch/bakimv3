@@ -233,3 +233,23 @@ alan.innerHTML += `
     });
 
 }
+// Sayfa göster
+function showPage(pageId) {
+
+    // Tüm sayfaları gizle
+    document.querySelectorAll("section").forEach(section => {
+        section.style.display = "none";
+    });
+
+    // Seçilen sayfayı göster
+    document.getElementById(pageId).style.display = "block";
+
+}
+// Menü olayları
+document.getElementById("menuDashboard").addEventListener("click", function () {
+    showPage("dashboardPage");
+});
+
+document.getElementById("menuMachines").addEventListener("click", function () {
+    showPage("machinesPage");
+});
