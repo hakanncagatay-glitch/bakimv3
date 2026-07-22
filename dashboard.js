@@ -486,4 +486,33 @@ if (durumFiltre) {
     });
 
 }
+function modalAc() {
+
+    document.getElementById("makineModal").style.display = "block";
+
+}
+
+function modalKapat() {
+
+    document.getElementById("makineModal").style.display = "none";
+
+}
+
+// Modal dışına tıklayınca kapansın
+window.onclick = function (event) {
+
+    const modal = document.getElementById("makineModal");
+
+    if (event.target === modal) {
+
+        modalKapat();
+
+    }
+
+}
+async function yeniMakineKaydet() {
+
+    alert("Buraya kayıt işlemi gelecek.");
+
+}
 
