@@ -512,7 +512,77 @@ window.onclick = function (event) {
 }
 async function yeniMakineKaydet() {
 
-    alert("Buraya kayıt işlemi gelecek.");
+    const veri = {
+
+        action: "makineEkle",
+
+        envanter: document.getElementById("envanter").value.trim(),
+        marka: document.getElementById("marka").value.trim(),
+        model: document.getElementById("model").value.trim(),
+        sase: document.getElementById("sase").value.trim(),
+        konum: document.getElementById("konum").value.trim(),
+        periyot: document.getElementById("periyot").value,
+        aciklama: document.getElementById("aciklama").value.trim()
+
+    };
+
+    if (
+        !veri.envanter ||
+        !veri.marka ||
+        !veri.model ||
+        !veri.konum
+    ) {
+
+        alert("Lütfen zorunlu alanları doldurun.");
+        return;
+
+    }
+
+    try {
+
+        const response = await fetch(API, {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify(veri)
+
+        });
+
+        const sonuc = await response.json();
+
+        if (sonuc.success) {
+
+            alert("Makine başarıyla eklendi.");
+
+            modalKapat();
+
+            document.getElementById("envanter").value = "";
+            document.getElementById("marka").value = "";
+            document.getElementById("model").value = "";
+            document.getElementById("sase").value = "";
+            document.getElementById("konum").value = "";
+            document.getElementById("periyot").value = 180;
+            document.getElementById("aciklama").value = "";
+
+            await makineleriYukle();
+
+        } else {
+
+            alert(sonuc.message);
+
+        }
+
+    } catch (err) {
+
+        console.error(err);
+
+        alert("Kayıt sırasında hata oluştu.");
+
+    }
 
 }
 
