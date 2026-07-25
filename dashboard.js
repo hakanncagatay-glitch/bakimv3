@@ -736,3 +736,26 @@ function qrBaslat(){
     );
 
 }
+function barTenderExport() {
+
+    const veri = tumMakineler.map(m => ({
+
+        Envanter: m.envanter,
+
+        MakineAdi: (m.marka || "") + " " + (m.model || ""),
+
+        SaseNo: m.saseNo || "",
+
+        QR: m.envanter
+
+    }));
+
+    const ws = XLSX.utils.json_to_sheet(veri);
+
+    const wb = XLSX.utils.book_new();
+
+    XLSX.utils.book_append_sheet(wb, ws, "QR");
+
+    XLSX.writeFile(wb, "BakimPro_QR.xlsx");
+
+}
