@@ -430,17 +430,22 @@ document.querySelectorAll(".sidebar li").forEach(item => {
     // Sayfaya özel işlemler
     switch (page) {
 
-        case "dashboardPage":
-            dashboardYukle();
-            break;
+    case "dashboardPage":
+        dashboardYukle();
+        break;
 
-        case "machinesPage":
-            makineleriYukle();
-            break;
-            case "newMaintenancePage":
-    break;
+    case "machinesPage":
+        makineleriYukle();
+        break;
 
-    }
+    case "newMaintenancePage":
+        break;
+
+    case "historyPage":
+        bakimGecmisiYukle();
+        break;
+
+}
 
 }
 
