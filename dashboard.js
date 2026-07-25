@@ -673,17 +673,17 @@ async function bakimKaydet() {
 
     try {
 
-        const response = await fetch(API, {
+       const url =
+    API +
+    "?action=bakimKaydet" +
+    "&envanterKodu=" + encodeURIComponent(veri.envanterKodu) +
+    "&bakimTuru=" + encodeURIComponent(veri.bakimTuru) +
+    "&bakimiYapan=" + encodeURIComponent(veri.bakimiYapan) +
+    "&arizaNedeni=" + encodeURIComponent(veri.arizaNedeni) +
+    "&degisenParcalar=" + encodeURIComponent(veri.degisenParcalar) +
+    "&aciklama=" + encodeURIComponent(veri.aciklama);
 
-            method: "POST",
-
-            headers: {
-                "Content-Type": "application/json"
-            },
-
-            body: JSON.stringify(veri)
-
-        });
+const response = await fetch(url);
 
         const sonuc = await response.json();
 
