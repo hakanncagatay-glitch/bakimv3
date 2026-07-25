@@ -512,26 +512,15 @@ window.onclick = function (event) {
 }
 async function yeniMakineKaydet() {
 
-    const veri = {
+    const envanter = document.getElementById("envanter").value.trim();
+    const marka = document.getElementById("marka").value.trim();
+    const model = document.getElementById("model").value.trim();
+    const sase = document.getElementById("sase").value.trim();
+    const konum = document.getElementById("konum").value.trim();
+    const periyot = document.getElementById("periyot").value;
+    const aciklama = document.getElementById("aciklama").value.trim();
 
-        action: "makineEkle",
-
-        envanter: document.getElementById("envanter").value.trim(),
-        marka: document.getElementById("marka").value.trim(),
-        model: document.getElementById("model").value.trim(),
-        sase: document.getElementById("sase").value.trim(),
-        konum: document.getElementById("konum").value.trim(),
-        periyot: document.getElementById("periyot").value,
-        aciklama: document.getElementById("aciklama").value.trim()
-
-    };
-
-    if (
-        !veri.envanter ||
-        !veri.marka ||
-        !veri.model ||
-        !veri.konum
-    ) {
+    if (!envanter || !marka || !model || !konum) {
 
         alert("Lütfen zorunlu alanları doldurun.");
         return;
@@ -540,17 +529,18 @@ async function yeniMakineKaydet() {
 
     try {
 
-        const response = await fetch(API, {
+        const url =
+            API +
+            "?action=makineEkle" +
+            "&envanter=" + encodeURIComponent(envanter) +
+            "&marka=" + encodeURIComponent(marka) +
+            "&model=" + encodeURIComponent(model) +
+            "&konum=" + encodeURIComponent(konum) +
+            "&sase=" + encodeURIComponent(sase) +
+            "&periyot=" + encodeURIComponent(periyot) +
+            "&aciklama=" + encodeURIComponent(aciklama);
 
-            method: "POST",
-
-            headers: {
-                "Content-Type": "application/json"
-            },
-
-            body: JSON.stringify(veri)
-
-        });
+        const response = await fetch(url);
 
         const sonuc = await response.json();
 
@@ -579,7 +569,6 @@ async function yeniMakineKaydet() {
     } catch (err) {
 
         console.error(err);
-
         alert("Kayıt sırasında hata oluştu.");
 
     }
