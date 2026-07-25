@@ -612,7 +612,13 @@ async function bakimMakineBul() {
         }
 
         const m = sonuc.data;
+const sonBakim = m.SonBakim
+    ? new Date(m.SonBakim).toLocaleDateString("tr-TR")
+    : "-";
 
+const sonrakiBakim = m.SonrakiBakim
+    ? new Date(m.SonrakiBakim).toLocaleDateString("tr-TR")
+    : "-";
         document.getElementById("bakimMakineBilgi").innerHTML = `
 
             <h3>${m.EnvanterKodu}</h3>
@@ -621,9 +627,9 @@ async function bakimMakineBul() {
 
             <p>📍 ${m.Konum}</p>
 
-            <p>🛠 Son Bakım : ${m.SonBakim || "-"}</p>
+           <p>🛠 Son Bakım : ${sonBakim}</p>
 
-            <p>📅 Sonraki Bakım : ${m.SonrakiBakim || "-"}</p>
+<p>📅 Sonraki Bakım : ${sonrakiBakim}</p>
 
             <p>⏱ Periyot : ${m.BakimPeriyotGun} Gün</p>
 
