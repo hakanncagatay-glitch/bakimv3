@@ -660,22 +660,13 @@ async function bakimKaydet() {
         bilgi.querySelector("h3").innerText;
 
     const veri = {
-
-        action: "bakimKaydet",
-
-        envanterKodu: envanter,
-
-        bakimTuru: document.getElementById("bakimTipi").value,
-
-        bakimiYapan: "Hakan Çağatay",
-
-        arizaNedeni: "",
-
-        degisenParcalar: "",
-
-        aciklama: document.getElementById("bakimAciklama").value
-
-    };
+    action: "bakimKaydet",
+    envanterKodu: secilenMakine.envanter,
+    bakimTuru: document.getElementById("bakimTipi").value,
+    arizaNedeni: document.getElementById("arizaNedeni").value,
+    degisenParcalar: document.getElementById("degisenParcalar").value,
+    aciklama: document.getElementById("bakimAciklama").value
+};
 
     try {
 
