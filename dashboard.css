@@ -638,4 +638,41 @@ table td{
 .btn-secondary:hover{
     background:#e5e7eb;
 }
+#bakimMakineBilgi{
+
+    background:#f8fafc;
+
+    border:1px solid #e5e7eb;
+
+    border-radius:12px;
+
+    padding:20px;
+
+    min-height:120px;
+
+}
+
+#bakimMakineBilgi p{
+
+    margin:6px 0;
+
+}
+
+#newMaintenancePage textarea{
+
+    width:100%;
+
+}
+
+#newMaintenancePage select{
+
+    width:100%;
+
+    padding:10px;
+
+    border-radius:8px;
+
+    border:1px solid #dcdcdc;
+
+}
 
