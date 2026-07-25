@@ -759,3 +759,38 @@ console.log(tumMakineler);
     XLSX.writeFile(wb, "BakimPro_QR.xlsx");
 
 }
+async function bakimGecmisiYukle() {
+
+    const tbody = document.querySelector("#bakimGecmisTablo tbody");
+
+    tbody.innerHTML = "<tr><td colspan='5'>Yükleniyor...</td></tr>";
+
+    const r = await fetch(API + "?action=tumBakimlariGetir");
+
+    const sonuc = await r.json();
+
+    if (!sonuc.success) {
+
+        tbody.innerHTML = "<tr><td colspan='5'>Kayıt bulunamadı.</td></tr>";
+
+        return;
+
+    }
+
+    tbody.innerHTML = "";
+
+    sonuc.data.forEach(k => {
+
+        tbody.innerHTML += `
+            <tr>
+                <td>${formatTarih(k.BakimTarihi)}</td>
+                <td>${k.EnvanterKodu}</td>
+                <td>${k.BakimTuru}</td>
+                <td>${k.BakimiYapan}</td>
+                <td>${k.Durum}</td>
+            </tr>
+        `;
+
+    });
+
+}
