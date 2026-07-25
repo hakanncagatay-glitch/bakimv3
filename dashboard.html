@@ -288,6 +288,94 @@
     </div>
 
 </section>
+    <section id="newMaintenancePage" style="display:none;">
+
+    <div class="header">
+
+        <div>
+
+            <h1>Yeni Bakım</h1>
+            <p>QR Kod veya manuel arama ile bakım oluştur.</p>
+
+        </div>
+
+    </div>
+
+    <div class="panel">
+
+        <div class="toolbar">
+
+            <button class="btn-primary" id="qrOku">
+
+                <i class="fa-solid fa-qrcode"></i>
+
+                QR Kod Oku
+
+            </button>
+
+            <input
+                type="text"
+                id="bakimMakineAra"
+                placeholder="Envanter Kodu...">
+
+            <button
+                class="btn-secondary"
+                onclick="bakimMakineBul()">
+
+                Bul
+
+            </button>
+
+        </div>
+
+        <hr style="margin:25px 0;">
+
+        <div id="bakimMakineBilgi">
+
+            <h3>Makine Bilgileri</h3>
+
+            <p>Henüz makine seçilmedi.</p>
+
+        </div>
+
+        <hr style="margin:25px 0;">
+
+        <label>Bakım Tipi</label>
+
+        <select id="bakimTipi">
+
+            <option>Periyodik Bakım</option>
+            <option>Arıza Bakımı</option>
+            <option>Revizyon</option>
+
+        </select>
+
+        <label style="display:block;margin-top:20px;">
+
+            Yapılan İşlem
+
+        </label>
+
+        <textarea
+            id="bakimAciklama"
+            rows="6"
+            placeholder="Yapılan işlemleri yazınız..."></textarea>
+
+        <div style="margin-top:25px;">
+
+            <button
+                class="btn-primary"
+                onclick="bakimKaydet()">
+
+                Kaydet
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
             
     <div id="makineModal" class="modal">
 
