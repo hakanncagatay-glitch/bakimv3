@@ -437,6 +437,8 @@ document.querySelectorAll(".sidebar li").forEach(item => {
         case "machinesPage":
             makineleriYukle();
             break;
+            case "newMaintenancePage":
+    break;
 
     }
 
