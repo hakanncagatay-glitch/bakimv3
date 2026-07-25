@@ -576,9 +576,68 @@ async function yeniMakineKaydet() {
     }
 
 }
-async function bakimMakineBul(){
+async function bakimMakineBul() {
 
-    alert("Bir sonraki adımda API bağlanacak.");
+    const envanter = document
+        .getElementById("bakimMakineAra")
+        .value
+        .trim();
+
+    if (!envanter) {
+
+        alert("Envanter kodu giriniz.");
+        return;
+
+    }
+
+    try {
+
+        const response = await fetch(
+
+            API + "?action=makineGetir&envanter=" + encodeURIComponent(envanter)
+
+        );
+
+        const sonuc = await response.json();
+
+        if (!sonuc.success) {
+
+            document.getElementById("bakimMakineBilgi").innerHTML = `
+                <h3>Makine Bilgileri</h3>
+                <p>Makine bulunamadı.</p>
+            `;
+
+            return;
+
+        }
+
+        const m = sonuc.data;
+
+        document.getElementById("bakimMakineBilgi").innerHTML = `
+
+            <h3>${m.EnvanterKodu}</h3>
+
+            <p><strong>${m.Marka} ${m.Model}</strong></p>
+
+            <p>📍 ${m.Konum}</p>
+
+            <p>🛠 Son Bakım : ${m.SonBakim || "-"}</p>
+
+            <p>📅 Sonraki Bakım : ${m.SonrakiBakim || "-"}</p>
+
+            <p>⏱ Periyot : ${m.BakimPeriyotGun} Gün</p>
+
+        `;
+
+    }
+
+    catch(err){
+
+        console.error(err);
+
+        alert("Makine okunamadı.");
+
+    }
 
 }
 
