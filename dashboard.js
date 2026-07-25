@@ -574,4 +574,14 @@ async function yeniMakineKaydet() {
     }
 
 }
+async function bakimMakineBul(){
 
+    alert("Bir sonraki adımda API bağlanacak.");
+
+}
+
+async function bakimKaydet(){
+
+    alert("Bakım kayıt sistemi hazırlanıyor.");
+
+}
