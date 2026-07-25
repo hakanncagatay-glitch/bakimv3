@@ -48,73 +48,7 @@
     <i class="fa-solid fa-clock-rotate-left"></i>
     Bakım Geçmişi
 </li>
-<section id="historyPage" style="display:none;">
 
-    <div class="header">
-
-        <div>
-
-            <h1>Bakım Geçmişi</h1>
-
-            <p>Yapılan tüm bakım kayıtları</p>
-
-        </div>
-
-    </div>
-
-    <div class="panel">
-
-        <div class="toolbar">
-
-            <input
-                type="text"
-                id="gecmisAra"
-                placeholder="Envanter Kodu...">
-
-            <select id="gecmisBakimTuru">
-
-                <option value="">Tüm Bakımlar</option>
-                <option>Periyodik Bakım</option>
-                <option>Arıza Bakımı</option>
-                <option>Revizyon</option>
-
-            </select>
-
-            <button
-                class="btn-primary"
-                onclick="bakimGecmisiYukle()">
-
-                Listele
-
-            </button>
-
-        </div>
-
-        <table id="bakimGecmisTablo">
-
-            <thead>
-
-                <tr>
-
-                    <th>Tarih</th>
-                    <th>Envanter</th>
-                    <th>Bakım Türü</th>
-                    <th>Yapan</th>
-                    <th>Durum</th>
-
-                </tr>
-
-            </thead>
-
-            <tbody>
-
-            </tbody>
-
-        </table>
-
-    </div>
-
-</section>
 <li id="menuPlanned" data-page="plannedPage">
     <i class="fa-solid fa-calendar-days"></i>
     Planlı Bakımlar
@@ -479,7 +413,73 @@
     </div>
 
 </section>
-            
+     <section id="historyPage" style="display:none;">
+
+    <div class="header">
+
+        <div>
+
+            <h1>Bakım Geçmişi</h1>
+
+            <p>Yapılan tüm bakım kayıtları</p>
+
+        </div>
+
+    </div>
+
+    <div class="panel">
+
+        <div class="toolbar">
+
+            <input
+                type="text"
+                id="gecmisAra"
+                placeholder="Envanter Kodu...">
+
+            <select id="gecmisBakimTuru">
+
+                <option value="">Tüm Bakımlar</option>
+                <option>Periyodik Bakım</option>
+                <option>Arıza Bakımı</option>
+                <option>Revizyon</option>
+
+            </select>
+
+            <button
+                class="btn-primary"
+                onclick="bakimGecmisiYukle()">
+
+                Listele
+
+            </button>
+
+        </div>
+
+        <table id="bakimGecmisTablo">
+
+            <thead>
+
+                <tr>
+
+                    <th>Tarih</th>
+                    <th>Envanter</th>
+                    <th>Bakım Türü</th>
+                    <th>Yapan</th>
+                    <th>Durum</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>       
     <div id="makineModal" class="modal">
 
     <div class="modal-content">
