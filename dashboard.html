@@ -342,19 +342,47 @@
 
         <label>Bakım Tipi</label>
 
-        <select id="bakimTipi">
+<select id="bakimTipi">
 
-            <option>Periyodik Bakım</option>
-            <option>Arıza Bakımı</option>
-            <option>Revizyon</option>
+    <option>Periyodik Bakım</option>
+    <option>Arıza Bakımı</option>
+    <option>Revizyon</option>
+    <option>Parça Değişimi</option>
+    <option>Kalibrasyon / Ayar</option>
+    <option>Kontrol</option>
 
-        </select>
+</select>
 
-        <label style="display:block;margin-top:20px;">
+<label style="display:block;margin-top:20px;">
+    Arıza Nedeni
+</label>
 
-            Yapılan İşlem
+<select id="arizaNedeni">
 
-        </label>
+    <option value="">Seçiniz</option>
+    <option>Mekanik</option>
+    <option>Elektrik</option>
+    <option>Elektronik</option>
+    <option>Pnömatik</option>
+    <option>Yazılım</option>
+    <option>Aşınma</option>
+    <option>Operatör Kaynaklı</option>
+    <option>Diğer</option>
+
+</select>
+
+<label style="display:block;margin-top:20px;">
+    Değişen Parçalar
+</label>
+
+<textarea
+    id="degisenParcalar"
+    rows="3"
+    placeholder="Örn: Çağanoz, Kayış"></textarea>
+
+<label style="display:block;margin-top:20px;">
+    Yapılan İşlem
+</label>
 
         <textarea
             id="bakimAciklama"
