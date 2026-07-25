@@ -641,8 +641,70 @@ async function bakimMakineBul() {
 
 }
 
-async function bakimKaydet(){
+async function bakimKaydet() {
 
-    alert("Bakım kayıt sistemi hazırlanıyor.");
+    const bilgi = document.getElementById("bakimMakineBilgi");
+
+    if (bilgi.innerHTML.includes("Henüz")) {
+        alert("Önce makine seçiniz.");
+        return;
+    }
+
+    const envanter =
+        bilgi.querySelector("h3").innerText;
+
+    const veri = {
+
+        action: "bakimKaydet",
+
+        envanterKodu: envanter,
+
+        bakimTuru: document.getElementById("bakimTipi").value,
+
+        bakimiYapan: "Hakan Çağatay",
+
+        arizaNedeni: "",
+
+        degisenParcalar: "",
+
+        aciklama: document.getElementById("bakimAciklama").value
+
+    };
+
+    try {
+
+        const response = await fetch(API, {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify(veri)
+
+        });
+
+        const sonuc = await response.json();
+
+        if (sonuc.success) {
+
+            alert("Bakım başarıyla kaydedildi.");
+
+            document.getElementById("bakimAciklama").value = "";
+
+        } else {
+
+            alert(sonuc.message);
+
+        }
+
+    } catch (err) {
+
+        console.error(err);
+
+        alert("Kayıt sırasında hata oluştu.");
+
+    }
 
 }
