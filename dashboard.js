@@ -737,7 +737,7 @@ function qrBaslat(){
 
 }
 function barTenderExport() {
-
+console.log(tumMakineler);
     const veri = tumMakineler.map(m => ({
 
         Envanter: m.envanter,
