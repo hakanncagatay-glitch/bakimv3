@@ -661,8 +661,9 @@ async function bakimKaydet() {
 
     const veri = {
     action: "bakimKaydet",
-    envanterKodu: secilenMakine.envanter,
+    envanterKodu: envanter,
     bakimTuru: document.getElementById("bakimTipi").value,
+    bakimiYapan: "Hakan Çağatay", // Şimdilik sabit, giriş sistemi gelince otomatik olacak
     arizaNedeni: document.getElementById("arizaNedeni").value,
     degisenParcalar: document.getElementById("degisenParcalar").value,
     aciklama: document.getElementById("bakimAciklama").value
