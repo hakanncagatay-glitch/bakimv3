@@ -135,6 +135,19 @@ function planliKartOlustur(k){
     `;
 
 }
+function planliKartlariGoster(liste){
+
+    const alan = document.getElementById("plannedCards");
+
+    alan.innerHTML="";
+
+    liste.forEach(k=>{
+
+        alan.innerHTML += planliKartOlustur(k);
+
+    });
+
+}
 document.addEventListener("DOMContentLoaded", () => {
 
     planliBakimlariYukle();
