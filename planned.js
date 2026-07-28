@@ -146,11 +146,13 @@ function planliKartOlustur(k){
 
                 </button>
 
-                <button class="btn-primary">
+                <button
+    class="btn-primary"
+    onclick="planliBakimBaslat('${k.envanter}')">
 
-                    Bakıma Başla
+    Bakıma Başla
 
-                </button>
+</button>
 
             </div>
 
@@ -204,4 +206,29 @@ document.addEventListener("DOMContentLoaded", () => {
     planliBakimlariYukle();
 
 });
+async function planliBakimBaslat(envanter){
 
+    // Tüm sayfaları gizle
+    document.querySelectorAll("section").forEach(section=>{
+        section.style.display="none";
+    });
+
+    // Yeni Bakım sayfasını aç
+    document.getElementById("newMaintenancePage").style.display="block";
+
+    // Sidebar aktif menü
+    document.querySelectorAll(".sidebar li").forEach(li=>{
+        li.classList.remove("active");
+    });
+
+    document
+        .querySelector('[data-page="newMaintenancePage"]')
+        ?.classList.add("active");
+
+    // Envanter kodunu doldur
+    document.getElementById("bakimMakineAra").value = envanter;
+
+    // Makine bilgilerini otomatik getir
+    await bakimMakineBul();
+
+}
