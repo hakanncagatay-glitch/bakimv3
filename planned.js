@@ -99,9 +99,13 @@ function planliKartOlustur(k){
 
             <hr>
 
-            <p><strong>Son Bakım</strong><br>${k.sonBakim}</p>
+            <p><strong>Son Bakım</strong><br>${
+    new Date(k.sonBakim).toLocaleDateString("tr-TR")
+}</p>
 
-            <p><strong>Planlanan</strong><br>${k.sonrakiBakim}</p>
+<p><strong>Planlanan</strong><br>${
+    new Date(k.sonrakiBakim).toLocaleDateString("tr-TR")
+}</p>
 
             <div class="planned-status"
                  style="color:${renk};">
