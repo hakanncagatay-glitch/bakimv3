@@ -180,16 +180,21 @@ function planliFiltrele(){
         .toLowerCase()
         .trim();
 
-    const filtreli = tumPlanliBakimlar.filter(k => {
+   const filtreli = tumPlanliBakimlar.filter(k => {
 
-        return (
-            k.envanter.toLowerCase().includes(ara) ||
-            k.marka.toLowerCase().includes(ara) ||
-            k.model.toLowerCase().includes(ara) ||
-            k.konum.toLowerCase().includes(ara)
-        );
+    const aramaUygun =
+        k.envanter.toLowerCase().includes(ara) ||
+        k.marka.toLowerCase().includes(ara) ||
+        k.model.toLowerCase().includes(ara) ||
+        k.konum.toLowerCase().includes(ara);
 
-    });
+    const konumUygun =
+        aktifPlannedKonum === "" ||
+        k.konum === aktifPlannedKonum;
+
+    return aramaUygun && konumUygun;
+
+});
 
     planliKartlariGoster(filtreli);
 
