@@ -782,6 +782,7 @@ async function bakimGecmisiYukle() {
         const r = await fetch(API + "?action=tumBakimlariGetir");
 
         const sonuc = await r.json();
+        tumBakimlar = sonuc.data;
 
         console.log("API Sonucu:", sonuc);
 
@@ -796,21 +797,7 @@ async function bakimGecmisiYukle() {
 
         console.log("Kayıt Sayısı:", sonuc.data.length);
 
-        tbody.innerHTML = "";
-
-        sonuc.data.forEach(k => {
-
-            tbody.innerHTML += `
-                <tr>
-                    <td>${formatTarih(k.BakimTarihi)}</td>
-                    <td>${k.EnvanterKodu}</td>
-                    <td>${k.BakimTuru}</td>
-                    <td>${k.BakimiYapan}</td>
-                    <td>${k.Durum}</td>
-                </tr>
-            `;
-
-        });
+        filtreliBakimlariGoster(tumBakimlar);
 
     } catch (err) {
 
@@ -829,3 +816,66 @@ function formatTarih(tarih){
     return new Date(tarih).toLocaleDateString("tr-TR");
 
 }
+function filtreliBakimlariGoster(liste){
+
+    const tbody = document.querySelector("#bakimGecmisTablo tbody");
+
+    const ara =
+        document.getElementById("gecmisAra").value.toLowerCase().trim();
+
+    const tur =
+        document.getElementById("gecmisBakimTuru").value;
+
+    tbody.innerHTML = "";
+
+    const filtreli = liste.filter(k => {
+
+        const araUygun =
+            !ara ||
+            k.EnvanterKodu.toLowerCase().includes(ara);
+
+        const turUygun =
+            !tur ||
+            k.BakimTuru === tur;
+
+        return araUygun && turUygun;
+
+    });
+
+    if(filtreli.length===0){
+
+        tbody.innerHTML =
+        "<tr><td colspan='5'>Kayıt bulunamadı.</td></tr>";
+
+        return;
+
+    }
+
+    filtreli.forEach(k=>{
+
+        tbody.innerHTML += `
+        <tr>
+            <td>${formatTarih(k.BakimTarihi)}</td>
+            <td>${k.EnvanterKodu}</td>
+            <td>${k.BakimTuru}</td>
+            <td>${k.BakimiYapan}</td>
+            <td>${k.Durum}</td>
+        </tr>
+        `;
+
+    });
+
+}
+document.getElementById("gecmisAra")
+?.addEventListener("input",()=>{
+
+    filtreliBakimlariGoster(tumBakimlar);
+
+});
+
+document.getElementById("gecmisBakimTuru")
+?.addEventListener("change",()=>{
+
+    filtreliBakimlariGoster(tumBakimlar);
+
+});
