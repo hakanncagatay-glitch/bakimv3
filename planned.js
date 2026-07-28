@@ -51,13 +51,12 @@ async function planliBakimlariYukle(){
         }
 
         alan.innerHTML = "";
+
 tumPlanliBakimlar = sonuc.data;
-    
-        sonuc.data.forEach(k=>{
 
-            alan.innerHTML += planliKartOlustur(k);
+plannedKonumlariniDoldur();
 
-        });
+planliKartlariGoster(tumPlanliBakimlar);
 
         document.getElementById("plannedOverdue").innerText =
             sonuc.data.filter(x=>x.durum=="geciken").length;
