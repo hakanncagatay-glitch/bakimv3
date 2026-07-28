@@ -879,3 +879,34 @@ document.getElementById("gecmisBakimTuru")
     filtreliBakimlariGoster(tumBakimlar);
 
 });
+function detayGoster(k){
+
+    document.getElementById("bakimDetay").classList.add("active");
+
+    document.getElementById("bakimDetayIcerik").innerHTML = `
+
+        <p><strong>Envanter</strong><br>${k.EnvanterKodu}</p>
+
+        <p><strong>Bakım Tarihi</strong><br>${formatTarih(k.BakimTarihi)}</p>
+
+        <p><strong>Bakım Türü</strong><br>${k.BakimTuru}</p>
+
+        <p><strong>Bakımı Yapan</strong><br>${k.BakimiYapan || "-"}</p>
+
+        <p><strong>Arıza Nedeni</strong><br>${k.ArizaNedeni || "-"}</p>
+
+        <p><strong>Değişen Parçalar</strong><br>${k.DegisenParcalar || "-"}</p>
+
+        <p><strong>Yapılan İşlem</strong><br>${k.Aciklama || "-"}</p>
+
+        <p><strong>Durum</strong><br>${k.Durum}</p>
+
+    `;
+
+}
+
+function detayKapat(){
+
+    document.getElementById("bakimDetay").classList.remove("active");
+
+}
