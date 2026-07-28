@@ -617,6 +617,7 @@ async function bakimMakineBul() {
         }
 
         const m = sonuc.data;
+        secilenMakine = m;
 const sonBakim = m.SonBakim
     ? new Date(m.SonBakim).toLocaleDateString("tr-TR")
     : "-";
