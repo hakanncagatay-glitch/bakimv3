@@ -751,3 +751,20 @@ table td{
     font-size:26px;
 
 }
+/* ============================= */
+/* BAKIM GEÇMİŞİ TABLO */
+/* ============================= */
+
+#bakimGecmisTablo tbody tr{
+
+    cursor:pointer;
+
+    transition:0.25s;
+
+}
+
+#bakimGecmisTablo tbody tr:hover{
+
+    background:#eef5ff;
+
+}
