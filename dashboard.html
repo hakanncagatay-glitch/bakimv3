@@ -483,6 +483,76 @@
     </div>
 
 </section>    
+    <section id="plannedPage" style="display:none;">
+
+    <div class="header">
+
+        <div>
+
+            <h1>📅 Planlı Bakımlar</h1>
+
+            <p>Planlanan tüm periyodik bakım işlemleri</p>
+
+        </div>
+
+        <button class="btn-secondary">
+
+            <i class="fa-solid fa-rotate"></i>
+
+            Yenile
+
+        </button>
+
+    </div>
+
+    <div class="planned-summary">
+
+        <div class="summary-card overdue">
+
+            <h4>🔴 Geciken</h4>
+
+            <h2 id="plannedOverdue">0</h2>
+
+        </div>
+
+        <div class="summary-card today">
+
+            <h4>🟡 Bugün</h4>
+
+            <h2 id="plannedToday">0</h2>
+
+        </div>
+
+        <div class="summary-card upcoming">
+
+            <h4>🟢 Yaklaşan</h4>
+
+            <h2 id="plannedUpcoming">0</h2>
+
+        </div>
+
+    </div>
+
+    <div class="toolbar">
+
+        <input
+            type="text"
+            id="plannedSearch"
+            placeholder="🔍 Makine Ara...">
+
+        <select id="plannedLocation">
+
+            <option value="">Tüm Bölümler</option>
+
+        </select>
+
+    </div>
+
+    <div id="plannedCards" class="planned-grid">
+
+    </div>
+
+</section>
     <div id="bakimDetay" class="drawer">
 
     <div class="drawer-header">
