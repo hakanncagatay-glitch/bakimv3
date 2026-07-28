@@ -1,7 +1,7 @@
 // ==========================
 // PLANLI BAKIMLAR
 // ==========================
-
+let tumPlanliBakimlar = [];
 async function planliBakimlariYukle(){
 
     const alan = document.getElementById("plannedCards");
@@ -27,7 +27,7 @@ async function planliBakimlariYukle(){
         }
 
         alan.innerHTML = "";
-
+tumPlanliBakimlar = sonuc.data;
         sonuc.data.forEach(k=>{
 
             alan.innerHTML += planliKartOlustur(k);
