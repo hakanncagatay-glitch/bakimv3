@@ -236,3 +236,68 @@ async function planliBakimBaslat(envanter){
     await bakimMakineBul();
 
 }
+async function planliDetay(envanter){
+
+    // Makine listesi boşsa yükle
+    if(tumMakineler.length === 0){
+        await makineleriYukle();
+    }
+
+    // Makineyi bul
+    const m = tumMakineler.find(x => x.envanter == envanter);
+
+    if(!m){
+        alert("Makine bulunamadı.");
+        return;
+    }
+
+    // Sağ paneli aç
+    document.getElementById("bakimDetay").classList.add("active");
+
+    // İçeriği doldur
+    document.getElementById("bakimDetayIcerik").innerHTML = `
+
+<div class="detayKart">
+<h3>🏷 Makine</h3>
+<p><b>${m.envanter}</b><br>${m.marka} ${m.model}</p>
+</div>
+
+<div class="detayKart">
+<h3>📍 Konum</h3>
+<p>${m.konum}</p>
+</div>
+
+<div class="detayKart">
+<h3>🛠 Son Bakım</h3>
+<p>${formatTarih(m.sonBakim)}</p>
+</div>
+
+<div class="detayKart">
+<h3>📅 Sonraki Bakım</h3>
+<p>${formatTarih(m.sonrakiBakim)}</p>
+</div>
+
+<div class="detayKart">
+<h3>⏱ Bakım Periyodu</h3>
+<p>${m.periyot} Gün</p>
+</div>
+
+<div class="detayKart">
+<h3>🔩 Şase No</h3>
+<p>${m.saseNo || "-"}</p>
+</div>
+
+<div class="detayKart">
+<button
+    class="btn-primary"
+    style="width:100%;"
+    onclick="detayKapat();planliBakimBaslat('${m.envanter}')">
+
+    Bakıma Başla
+
+</button>
+</div>
+
+`;
+
+}
