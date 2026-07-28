@@ -18,6 +18,7 @@ window.onload = async () => {
     await makineleriYukle();
 
     await dashboardYukle();
+    planliBakimlariYukle();
 
 };
 
