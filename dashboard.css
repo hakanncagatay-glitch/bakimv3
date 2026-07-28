@@ -768,3 +768,34 @@ table td{
     background:#eef5ff;
 
 }
+.detayKart{
+
+    background:#f8fafc;
+
+    border-radius:12px;
+
+    padding:15px;
+
+    margin-bottom:14px;
+
+    border:1px solid #e5e7eb;
+
+}
+
+.detayKart h3{
+
+    margin:0 0 8px;
+
+    color:#2563eb;
+
+    font-size:15px;
+
+}
+
+.detayKart p{
+
+    margin:0;
+
+    line-height:1.6;
+
+}
