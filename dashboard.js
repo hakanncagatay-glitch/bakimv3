@@ -880,7 +880,7 @@ document.getElementById("gecmisBakimTuru")
     filtreliBakimlariGoster(tumBakimlar);
 
 });
-function detayGoster(k){
+async function detayGoster(k){
      if(tumMakineler.length===0){
 
         await makineleriYukle();
