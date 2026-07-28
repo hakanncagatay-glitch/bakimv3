@@ -27,7 +27,6 @@ async function dashboardYukle() {
 
         const response = await fetch(API + "?action=dashboardOzet");
         const sonuc = await response.json();
- tumMakineler = sonuc.data;
         const d = sonuc.data;
 
         document.getElementById("toplamMakine").innerText = d.toplamMakine;
@@ -882,6 +881,11 @@ document.getElementById("gecmisBakimTuru")
 
 });
 function detayGoster(k){
+     if(tumMakineler.length===0){
+
+        await makineleriYukle();
+
+    }
 
     document.getElementById("bakimDetay").classList.add("active");
 
