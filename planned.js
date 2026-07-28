@@ -2,60 +2,58 @@
 // PLANLI BAKIMLAR
 // ==========================
 
-const planliBakimlar = [
+async function planliBakimlariYukle(){
 
-    {
-        envanter:"A3",
-        marka:"JUKI",
-        model:"DDL8700",
-        konum:"HAT-2",
-        sonBakim:"28.03.2026",
-        sonrakiBakim:"25.07.2026",
-        periyot:120,
-        durum:"geciken",
-        kalan:-5
-    },
-
-    {
-        envanter:"A5",
-        marka:"YUKI",
-        model:"YK5214",
-        konum:"HAT-1",
-        sonBakim:"01.04.2026",
-        sonrakiBakim:"28.07.2026",
-        periyot:120,
-        durum:"bugun",
-        kalan:0
-    },
-
-    {
-        envanter:"A7",
-        marka:"JUKI",
-        model:"D9000",
-        konum:"HAT-4",
-        sonBakim:"05.04.2026",
-        sonrakiBakim:"31.07.2026",
-        periyot:120,
-        durum:"yaklasan",
-        kalan:3
-    }
-
-];
-function planliBakimlariYukle(){
-
-    const alan=document.getElementById("plannedCards");
+    const alan = document.getElementById("plannedCards");
 
     if(!alan) return;
 
-    alan.innerHTML="";
+    alan.innerHTML = "Yükleniyor...";
 
-    planliBakimlar.forEach(k=>{
+    try{
 
-        alan.innerHTML+=planliKartOlustur(k);
+        const response = await fetch(API + "?action=planliBakimlar");
 
-    });
+        const sonuc = await response.json();
+
+        console.log("Planlı Bakımlar:", sonuc);
+
+        if(!sonuc.success){
+
+            alan.innerHTML = "Kayıt bulunamadı.";
+
+            return;
+
+        }
+
+        alan.innerHTML = "";
+
+        sonuc.data.forEach(k=>{
+
+            alan.innerHTML += planliKartOlustur(k);
+
+        });
+
+        document.getElementById("plannedOverdue").innerText =
+            sonuc.data.filter(x=>x.durum=="geciken").length;
+
+        document.getElementById("plannedToday").innerText =
+            sonuc.data.filter(x=>x.durum=="bugun").length;
+
+        document.getElementById("plannedUpcoming").innerText =
+            sonuc.data.filter(x=>x.durum=="yaklasan").length;
+
+    }
+    catch(err){
+
+        console.error(err);
+
+        alan.innerHTML = "Veri alınamadı.";
+
+    }
 
 }
+
 function planliKartOlustur(k){
 
     let renk = "#22c55e";
