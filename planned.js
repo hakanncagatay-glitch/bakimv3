@@ -2,6 +2,30 @@
 // PLANLI BAKIMLAR
 // ==========================
 let tumPlanliBakimlar = [];
+let aktifPlannedKonum = "";
+function plannedKonumlariniDoldur(){
+
+    const select = document.getElementById("plannedLocation");
+
+    if(!select) return;
+
+    select.innerHTML = '<option value="">Tüm Bölümler</option>';
+
+    const konumlar = [...new Set(
+        tumPlanliBakimlar.map(x => x.konum)
+    )];
+
+    konumlar.sort().forEach(k => {
+
+        select.innerHTML += `
+            <option value="${k}">
+                ${k}
+            </option>
+        `;
+
+    });
+
+}
 async function planliBakimlariYukle(){
 
     const alan = document.getElementById("plannedCards");
@@ -28,6 +52,7 @@ async function planliBakimlariYukle(){
 
         alan.innerHTML = "";
 tumPlanliBakimlar = sonuc.data;
+    
         sonuc.data.forEach(k=>{
 
             alan.innerHTML += planliKartOlustur(k);
