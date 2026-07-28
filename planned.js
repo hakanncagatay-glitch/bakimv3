@@ -140,19 +140,23 @@ function planliKartOlustur(k){
 
             <div class="planned-actions">
 
-                <button class="btn-secondary">
+    <button
+        class="btn-secondary"
+        onclick="planliDetay('${k.envanter}')">
 
-                    Detay
+        Detay
 
-                </button>
+    </button>
 
-                <button
-    class="btn-primary"
-    onclick="planliBakimBaslat('${k.envanter}')">
+    <button
+        class="btn-primary"
+        onclick="planliBakimBaslat('${k.envanter}')">
 
-    Bakıma Başla
+        Bakıma Başla
 
-</button>
+    </button>
+
+</div>
 
             </div>
 
