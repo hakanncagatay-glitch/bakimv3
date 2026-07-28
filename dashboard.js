@@ -27,7 +27,7 @@ async function dashboardYukle() {
 
         const response = await fetch(API + "?action=dashboardOzet");
         const sonuc = await response.json();
-
+ tumMakineler = sonuc.data;
         const d = sonuc.data;
 
         document.getElementById("toplamMakine").innerText = d.toplamMakine;
@@ -887,7 +887,13 @@ function detayGoster(k){
 
     document.getElementById("bakimDetayIcerik").innerHTML = `
 
-        <p><strong>Envanter</strong><br>${k.EnvanterKodu}</p>
+        <p><strong>🏷 Makine</strong><br>
+
+<b>${k.EnvanterKodu}</b><br>
+
+${makineAdiBul(k.EnvanterKodu)}
+
+</p>
 
         <p><strong>Bakım Tarihi</strong><br>${formatTarih(k.BakimTarihi)}</p>
 
@@ -910,5 +916,14 @@ function detayGoster(k){
 function detayKapat(){
 
     document.getElementById("bakimDetay").classList.remove("active");
+
+}
+function makineAdiBul(envanter){
+
+    const m = tumMakineler.find(x => x.envanter == envanter);
+
+    if(!m) return "";
+
+    return `${m.marka} ${m.model}`;
 
 }
