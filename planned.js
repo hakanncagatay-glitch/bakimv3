@@ -133,3 +133,8 @@ function planliKartOlustur(k){
     `;
 
 }
+document.addEventListener("DOMContentLoaded", () => {
+
+    planliBakimlariYukle();
+
+});
