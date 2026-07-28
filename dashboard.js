@@ -694,11 +694,34 @@ const response = await fetch(url);
 
         if (sonuc.success) {
 
-            alert("Bakım başarıyla kaydedildi.");
+    alert("Bakım başarıyla kaydedildi.");
 
-            document.getElementById("bakimAciklama").value = "";
+    document.getElementById("bakimAciklama").value = "";
+    document.getElementById("degisenParcalar").value = "";
+    document.getElementById("arizaNedeni").value = "";
+    document.getElementById("bakimTipi").selectedIndex = 0;
 
-        } else {
+    if (planliBakimdanGelindi) {
+
+        planliBakimdanGelindi = false;
+
+        document.querySelectorAll("section").forEach(s=>{
+            s.style.display="none";
+        });
+
+        document.getElementById("plannedPage").style.display="block";
+
+        document.querySelectorAll(".sidebar li")
+            .forEach(li=>li.classList.remove("active"));
+
+        document.querySelector('[data-page="plannedPage"]')
+            ?.classList.add("active");
+
+        await planliBakimlariYukle();
+
+    }
+
+} else {
 
             alert(sonuc.message);
 
