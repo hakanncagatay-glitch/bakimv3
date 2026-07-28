@@ -676,3 +676,78 @@ table td{
 
 }
 
+.drawer{
+
+    position:fixed;
+
+    top:0;
+
+    right:-450px;
+
+    width:420px;
+
+    height:100%;
+
+    background:#fff;
+
+    box-shadow:-5px 0 20px rgba(0,0,0,.15);
+
+    transition:.35s;
+
+    z-index:9999;
+
+    overflow:auto;
+
+}
+
+.drawer.active{
+
+    right:0;
+
+}
+
+.drawer-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:20px;
+
+    border-bottom:1px solid #eee;
+
+}
+
+.drawer-header h2{
+
+    margin:0;
+
+}
+
+.drawer-body{
+
+    padding:20px;
+
+}
+
+.drawer-body p{
+
+    margin:14px 0;
+
+}
+
+.drawer-body strong{
+
+    color:#1e3a8a;
+
+}
+
+.close{
+
+    cursor:pointer;
+
+    font-size:26px;
+
+}
