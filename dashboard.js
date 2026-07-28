@@ -887,7 +887,11 @@ function detayGoster(k){
 
     document.getElementById("bakimDetayIcerik").innerHTML = `
 
-        <p><strong>🏷 Makine</strong><br>
+<div class="detayKart">
+
+<h3>🏷 Makine</h3>
+
+<p>
 
 <b>${k.EnvanterKodu}</b><br>
 
@@ -895,21 +899,65 @@ ${makineAdiBul(k.EnvanterKodu)}
 
 </p>
 
-        <p><strong>Bakım Tarihi</strong><br>${formatTarih(k.BakimTarihi)}</p>
+</div>
 
-        <p><strong>Bakım Türü</strong><br>${k.BakimTuru}</p>
+<div class="detayKart">
 
-        <p><strong>Bakımı Yapan</strong><br>${k.BakimiYapan || "-"}</p>
+<h3>📅 Bakım Tarihi</h3>
 
-        <p><strong>Arıza Nedeni</strong><br>${k.ArizaNedeni || "-"}</p>
+<p>${formatTarih(k.BakimTarihi)}</p>
 
-        <p><strong>Değişen Parçalar</strong><br>${k.DegisenParcalar || "-"}</p>
+</div>
 
-        <p><strong>Yapılan İşlem</strong><br>${k.Aciklama || "-"}</p>
+<div class="detayKart">
 
-        <p><strong>Durum</strong><br>${k.Durum}</p>
+<h3>🔧 Bakım Türü</h3>
 
-    `;
+<p>${k.BakimTuru}</p>
+
+</div>
+
+<div class="detayKart">
+
+<h3>👤 Bakımı Yapan</h3>
+
+<p>${k.BakimiYapan || "-"}</p>
+
+</div>
+
+<div class="detayKart">
+
+<h3>⚠ Arıza Nedeni</h3>
+
+<p>${k.ArizaNedeni || "-"}</p>
+
+</div>
+
+<div class="detayKart">
+
+<h3>🔩 Değişen Parçalar</h3>
+
+<p>${k.DegisenParcalar || "-"}</p>
+
+</div>
+
+<div class="detayKart">
+
+<h3>📝 Yapılan İşlem</h3>
+
+<p>${k.Aciklama || "-"}</p>
+
+</div>
+
+<div class="detayKart">
+
+<h3>✅ Durum</h3>
+
+<p>${k.Durum}</p>
+
+</div>
+
+`;
 
 }
 
