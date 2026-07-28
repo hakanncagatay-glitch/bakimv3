@@ -820,3 +820,10 @@ async function bakimGecmisiYukle() {
     }
 
 }
+function formatTarih(tarih){
+
+    if(!tarih) return "-";
+
+    return new Date(tarih).toLocaleDateString("tr-TR");
+
+}
