@@ -1,5 +1,6 @@
 const API = "https://script.google.com/macros/s/AKfycbyp4Dexvk759RdZEEdAIS-urDlkJR9-r39_r_gb1w13eidoSpePkYX-6sUBYYZRdCu6ng/exec";
 let tumMakineler = [];
+let tumBakimlar = [];
 let aktifKonum = "";
 let aktifDurum = "";
 window.onload = () => {
