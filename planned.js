@@ -148,8 +148,41 @@ function planliKartlariGoster(liste){
     });
 
 }
+function planliFiltrele(){
+
+    const ara = document
+        .getElementById("plannedSearch")
+        .value
+        .toLowerCase()
+        .trim();
+
+    const filtreli = tumPlanliBakimlar.filter(k => {
+
+        return (
+            k.envanter.toLowerCase().includes(ara) ||
+            k.marka.toLowerCase().includes(ara) ||
+            k.model.toLowerCase().includes(ara) ||
+            k.konum.toLowerCase().includes(ara)
+        );
+
+    });
+
+    planliKartlariGoster(filtreli);
+
+}
 document.addEventListener("DOMContentLoaded", () => {
 
     planliBakimlariYukle();
 
 });
+const plannedSearch = document.getElementById("plannedSearch");
+
+if(plannedSearch){
+
+    plannedSearch.addEventListener("input", function(){
+
+        planliFiltrele();
+
+    });
+
+}
