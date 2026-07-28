@@ -854,14 +854,16 @@ function filtreliBakimlariGoster(liste){
     filtreli.forEach(k=>{
 
         tbody.innerHTML += `
-        <tr>
-            <td>${formatTarih(k.BakimTarihi)}</td>
-            <td>${k.EnvanterKodu}</td>
-            <td>${k.BakimTuru}</td>
-            <td>${k.BakimiYapan}</td>
-            <td>${k.Durum}</td>
-        </tr>
-        `;
+<tr onclick='detayGoster(${JSON.stringify(k).replace(/'/g,"&#39;")})'>
+
+    <td>${formatTarih(k.BakimTarihi)}</td>
+    <td>${k.EnvanterKodu}</td>
+    <td>${k.BakimTuru}</td>
+    <td>${k.BakimiYapan}</td>
+    <td>${k.Durum}</td>
+
+</tr>
+`;
 
     });
 
