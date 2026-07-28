@@ -1,6 +1,7 @@
 // ==========================
 // PLANLI BAKIMLAR
 // ==========================
+let planliBakimdanGelindi = false;
 let tumPlanliBakimlar = [];
 let aktifPlannedKonum = "";
 function plannedKonumlariniDoldur(){
@@ -211,7 +212,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 async function planliBakimBaslat(envanter){
-
+planliBakimdanGelindi = true;
     // Tüm sayfaları gizle
     document.querySelectorAll("section").forEach(section=>{
         section.style.display="none";
