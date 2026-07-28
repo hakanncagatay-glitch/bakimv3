@@ -175,14 +175,4 @@ document.addEventListener("DOMContentLoaded", () => {
     planliBakimlariYukle();
 
 });
-const plannedSearch = document.getElementById("plannedSearch");
 
-if(plannedSearch){
-
-    plannedSearch.addEventListener("input", function(){
-
-        planliFiltrele();
-
-    });
-
-}
