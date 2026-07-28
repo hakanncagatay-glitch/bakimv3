@@ -541,7 +541,8 @@
     placeholder="🔍 Makine Ara..."
     oninput="planliFiltrele()">
 
-        <select id="plannedLocation">
+        <select id="plannedLocation"
+        onchange="aktifPlannedKonum=this.value;planliFiltrele();">
 
             <option value="">Tüm Bölümler</option>
 
