@@ -252,15 +252,34 @@ function arizaDetay(id){
 
     document.getElementById("bakimDetayIcerik").innerHTML = `
 
+        <h2 style="margin-bottom:20px;">
+            🚨 Arıza Detayı
+        </h2>
+
         <div class="detail-grid">
 
             <div class="detail-item">
                 <label>Arıza No</label>
-                <strong>F${String(a.id).padStart(5,"0")}</strong>
+                <strong>${a.id}</strong>
             </div>
 
             <div class="detail-item">
-                <label>Makine</label>
+                <label>Durum</label>
+                <strong>${a.durum}</strong>
+            </div>
+
+            <div class="detail-item">
+                <label>Tarih</label>
+                <strong>${a.tarih}</strong>
+            </div>
+
+            <div class="detail-item">
+                <label>Saat</label>
+                <strong>${a.saat}</strong>
+            </div>
+
+            <div class="detail-item">
+                <label>Envanter</label>
                 <strong>${a.envanter}</strong>
             </div>
 
@@ -275,7 +294,7 @@ function arizaDetay(id){
             </div>
 
             <div class="detail-item">
-                <label>Bölüm</label>
+                <label>Hat</label>
                 <strong>${a.konum}</strong>
             </div>
 
@@ -285,28 +304,29 @@ function arizaDetay(id){
             </div>
 
             <div class="detail-item">
-                <label>Durum</label>
-                <strong>${a.durum}</strong>
-            </div>
-
-            <div class="detail-item">
-                <label>Bekleme</label>
-                <strong>${a.bekleme}</strong>
+                <label>Bakımcı</label>
+                <strong>${a.bakimci || "-"}</strong>
             </div>
 
         </div>
 
         <hr>
 
-        <h4>Arıza Açıklaması</h4>
+        <h4>📝 Arıza Açıklaması</h4>
 
         <p>${a.aciklama}</p>
+
+        <hr>
+
+        <h4>🔧 Çözüm</h4>
+
+        <p>${a.cozum || "-"}</p>
 
         <br>
 
         <button
             class="btn-primary"
-            onclick="faultMudahale(${a.id})">
+            onclick="faultMudahale('${a.id}')">
 
             🛠 Müdahale Et
 
@@ -315,8 +335,8 @@ function arizaDetay(id){
     `;
 
     document
-    .getElementById("bakimDetay")
-    .classList.add("active");
+        .getElementById("bakimDetay")
+        .classList.add("open");
 
 }
 function faultMudahale(id){
