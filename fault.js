@@ -324,3 +324,12 @@ function arizaDetay(id){
         .classList.add("open");
 
 }
+
+
+function faultMudahale(id){
+
+    detayKapat();
+
+    showPage("newMaintenancePage");
+
+}
