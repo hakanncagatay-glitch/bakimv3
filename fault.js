@@ -439,4 +439,20 @@ async function arizaGonder(){
     }
 
 }
+function toggleFaultForm(){
 
+    const form = document.getElementById("faultForm");
+
+    if(!form) return;
+
+    if(form.style.display === "none" || form.style.display === ""){
+
+        form.style.display = "block";
+
+    }else{
+
+        form.style.display = "none";
+
+    }
+
+}
