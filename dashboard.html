@@ -605,19 +605,24 @@
     <div class="fault-filters">
 
         <input
-            id="faultSearch"
-            type="text"
-            placeholder="🔍 Makine Ara">
+    id="faultSearch"
+    type="text"
+    placeholder="🔍 Makine Ara"
+    oninput="arizaFiltrele()">
 
-        <select id="faultLocation">
+        <select
+    id="faultLocation"
+    onchange="aktifFaultKonum=this.value;arizaFiltrele();">
             <option>Tüm Bölümler</option>
         </select>
 
-        <select id="faultStatus">
-            <option>Tüm Durumlar</option>
-            <option>Açık</option>
-            <option>Müdahale Ediliyor</option>
-            <option>Tamamlandı</option>
+       <select
+    id="faultStatus"
+    onchange="aktifFaultDurum=this.value;arizaFiltrele();">
+            <option value="">Tüm Durumlar</option>
+<option value="acik">Açık</option>
+<option value="mudahale">Müdahale Ediliyor</option>
+<option value="kapali">Tamamlandı</option>
         </select>
 
     </div>
