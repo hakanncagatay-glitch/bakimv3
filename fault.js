@@ -353,5 +353,90 @@ setTimeout(async () => {
 }, 100);
 
 }
+async function arizaGonder(){
 
+    const envanter = document.getElementById("faultEnvanter").value.trim();
+    const hat = document.getElementById("faultHat").value.trim();
+    const bildiren = document.getElementById("faultBildiren").value.trim();
+    const aciklama = document.getElementById("faultAciklama").value.trim();
+
+    if(envanter==""){
+
+        alert("Makine seçiniz.");
+
+        return;
+
+    }
+
+    if(bildiren==""){
+
+        alert("Bildiren adını giriniz.");
+
+        return;
+
+    }
+
+    if(aciklama==""){
+
+        alert("Arıza açıklamasını giriniz.");
+
+        return;
+
+    }
+
+    try{
+
+        const response = await fetch(
+
+            API +
+
+            "?action=arizaKaydet" +
+
+            "&envanter=" + encodeURIComponent(envanter) +
+
+            "&marka=" + encodeURIComponent(secilenMakine.Marka) +
+
+            "&model=" + encodeURIComponent(secilenMakine.Model) +
+
+            "&hat=" + encodeURIComponent(hat) +
+
+            "&bildiren=" + encodeURIComponent(bildiren) +
+
+            "&aciklama=" + encodeURIComponent(aciklama)
+
+        );
+
+        const sonuc = await response.json();
+
+        if(!sonuc.success){
+
+            alert("Kayıt başarısız.");
+
+            return;
+
+        }
+
+        alert("✅ Arıza başarıyla kaydedildi.");
+
+        document.getElementById("faultEnvanter").value="";
+        document.getElementById("faultHat").value="";
+        document.getElementById("faultBildiren").value="";
+        document.getElementById("faultAciklama").value="";
+        document.getElementById("faultMakineBilgi").innerHTML="Makine seçilmedi.";
+
+        toggleFaultForm();
+
+        arizalariYukle();
+
+    }
+
+    catch(err){
+
+        console.error(err);
+
+        alert("Sunucu bağlantı hatası.");
+
+    }
+
+}
 
