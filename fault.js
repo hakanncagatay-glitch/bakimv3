@@ -1,7 +1,8 @@
 // ==========================
 // ARIZALAR
 // ==========================
-
+let aktifFaultKonum = "";
+let aktifFaultDurum = "";
 let tumArizalar = [
 
     {
@@ -172,3 +173,74 @@ document.addEventListener("DOMContentLoaded",()=>{
     arizalariYukle();
 
 });
+function arizaFiltrele(){
+
+    const ara = document
+        .getElementById("faultSearch")
+        .value
+        .toLowerCase()
+        .trim();
+
+    const liste = tumArizalar.filter(a=>{
+
+        const araUygun=
+
+            a.envanter.toLowerCase().includes(ara) ||
+
+            a.marka.toLowerCase().includes(ara) ||
+
+            a.model.toLowerCase().includes(ara) ||
+
+            a.konum.toLowerCase().includes(ara);
+
+        const konumUygun=
+
+            aktifFaultKonum=="" ||
+
+            a.konum==aktifFaultKonum;
+
+        const durumUygun=
+
+            aktifFaultDurum=="" ||
+
+            a.durum==aktifFaultDurum;
+
+        return araUygun && konumUygun && durumUygun;
+
+    });
+
+    const alan=document.getElementById("faultList");
+
+    alan.innerHTML="";
+
+    liste.forEach(a=>{
+
+        alan.innerHTML+=arizaSatiri(a);
+
+    });
+
+}
+function faultKonumlariniDoldur(){
+
+    const select=document.getElementById("faultLocation");
+
+    select.innerHTML=
+        '<option value="">Tüm Bölümler</option>';
+
+    const konumlar=[...new Set(
+
+        tumArizalar.map(x=>x.konum)
+
+    )];
+
+    konumlar.sort().forEach(k=>{
+
+        select.innerHTML+=`
+        <option value="${k}">
+        ${k}
+        </option>
+        `;
+
+    });
+
+}
