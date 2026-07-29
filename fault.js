@@ -320,8 +320,8 @@ function arizaDetay(id){
     `;
 
     document
-        .getElementById("bakimDetay")
-        .classList.add("open");
+    .getElementById("bakimDetay")
+    .classList.add("active");
 
 }
 
@@ -330,6 +330,19 @@ function faultMudahale(id){
 
     detayKapat();
 
-    showPage("newMaintenancePage");
+    // Tüm sayfaları gizle
+    document.querySelectorAll("section").forEach(section=>{
+        section.style.display="none";
+    });
+
+    // Yeni Bakım sayfasını aç
+    document.getElementById("newMaintenancePage").style.display="block";
+
+    // Sol menüyü güncelle
+    document.querySelectorAll(".sidebar li")
+        .forEach(li=>li.classList.remove("active"));
+
+    document.getElementById("menuNewMaintenance")
+        .classList.add("active");
 
 }
