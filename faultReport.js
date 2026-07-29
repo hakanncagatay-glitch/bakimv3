@@ -2,6 +2,8 @@
 // OPERATÖR - ARIZA BİLDİR
 // ==========================
 
+let secilenMakine = null;
+
 async function faultMakineBul(){
 
     const envanter = document
@@ -14,7 +16,8 @@ async function faultMakineBul(){
     try{
 
         const response = await fetch(
-            API + "?action=makineGetir&envanter=" +
+            API +
+            "?action=makineGetir&envanter=" +
             encodeURIComponent(envanter)
         );
 
@@ -23,7 +26,7 @@ async function faultMakineBul(){
         if(!sonuc.success){
 
             document.getElementById("faultMakineBilgi").innerHTML =
-                "<p>❌ Makine bulunamadı.</p>";
+                "❌ Makine bulunamadı.";
 
             return;
 
@@ -31,16 +34,15 @@ async function faultMakineBul(){
 
         const m = sonuc.data;
 
+        // Seçilen makineyi hafızada tut
+        secilenMakine = m;
+
         document.getElementById("faultHat").value = m.Konum;
 
         document.getElementById("faultMakineBilgi").innerHTML = `
             <h3>${m.EnvanterKodu}</h3>
-
             <p><strong>${m.Marka}</strong> ${m.Model}</p>
-
             <p>📍 ${m.Konum}</p>
-
-            <p>⏱ ${m.BakimPeriyotGun} Gün</p>
         `;
 
     }
@@ -48,8 +50,7 @@ async function faultMakineBul(){
 
         console.error(err);
 
-        document.getElementById("faultMakineBilgi").innerHTML =
-            "<p>❌ Veri alınamadı.</p>";
+        alert("Makine bilgisi alınamadı.");
 
     }
 
