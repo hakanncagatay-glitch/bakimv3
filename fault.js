@@ -6,13 +6,31 @@ let aktifFaultKonum = "";
 let aktifFaultDurum = "";
 
 fetch(API + "?action=arizaListele")
-function arizalariYukle(){
+async function arizalariYukle(){
 
-    const alan=document.getElementById("faultList");
+    const alan = document.getElementById("faultList");
 
     if(!alan) return;
 
-    alan.innerHTML="";
+    alan.innerHTML = "Yükleniyor...";
+
+    try{
+
+        const response = await fetch(API + "?action=arizaListele");
+
+        const sonuc = await response.json();
+
+        if(!sonuc.success){
+
+            alan.innerHTML = "Kayıt bulunamadı.";
+
+            return;
+
+        }
+
+        tumArizalar = sonuc.data;
+
+        alan.innerHTML = "";
 
     tumArizalar.forEach(a=>{
 
@@ -31,7 +49,17 @@ function arizalariYukle(){
 
     document.getElementById("faultAvg").innerText="18 dk";
     faultKonumlariniDoldur();
+    }
 
+    catch(err){
+
+        console.error(err);
+
+        alan.innerHTML = "Veriler alınamadı.";
+
+    }
+
+}
 }
 
 function arizaSatiri(a){
