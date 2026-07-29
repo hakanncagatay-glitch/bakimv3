@@ -144,7 +144,7 @@ justify-content:flex-end;
 
 <button
     class="btn-secondary"
-    onclick="arizaDetay('${a.id}')"
+    onclick="arizaDetay('${a.id}')">
 
     Detay
 
@@ -152,7 +152,7 @@ justify-content:flex-end;
 
 <button
     class="btn-primary"
-   onclick="faultMudahale('${a.id}')"
+   onclick="faultMudahale('${a.id}')">
 
     Müdahale Et
 
