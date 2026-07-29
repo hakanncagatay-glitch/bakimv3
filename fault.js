@@ -5,7 +5,7 @@ let secilenAriza = null;
 let aktifFaultKonum = "";
 let aktifFaultDurum = "";
 
-fetch(API + "?action=arizaListele")
+let tumArizalar = [];
 async function arizalariYukle(){
 
     const alan = document.getElementById("faultList");
@@ -38,14 +38,14 @@ async function arizalariYukle(){
 
     });
 
-    document.getElementById("faultOpen").innerText=
-        tumArizalar.filter(x=>x.durum=="acik").length;
+    document.getElementById("faultOpen").innerText =
+    tumArizalar.filter(x=>x.durum=="Açık").length;
 
     document.getElementById("faultProgress").innerText=
-        tumArizalar.filter(x=>x.durum=="mudahale").length;
+        tumArizalar.filter(x=>x.durum=="Müdahale Ediliyor").length;
 
     document.getElementById("faultClosed").innerText=
-        tumArizalar.filter(x=>x.durum=="kapali").length;
+        tumArizalar.filter(x=>x.durum=="Tamamlandı").length;
 
     document.getElementById("faultAvg").innerText="18 dk";
     faultKonumlariniDoldur();
@@ -60,7 +60,7 @@ async function arizalariYukle(){
     }
 
 }
-}
+
 
 function arizaSatiri(a){
 
