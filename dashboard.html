@@ -555,6 +555,79 @@
     </div>
 
 </section>
+    <section id="faultPage" class="page">
+
+    <div class="page-header">
+
+        <div>
+
+            <h2>🚨 Arızalar</h2>
+
+            <p>Makine arızalarını takip edin ve yönetin</p>
+
+        </div>
+
+        <button class="btn-primary">
+
+            🔄 Yenile
+
+        </button>
+
+    </div>
+
+    <!-- KPI -->
+    <div class="fault-kpi">
+
+        <div class="kpi-card red">
+            <span>Açık Arıza</span>
+            <h2 id="faultOpen">0</h2>
+        </div>
+
+        <div class="kpi-card orange">
+            <span>Müdahale Ediliyor</span>
+            <h2 id="faultProgress">0</h2>
+        </div>
+
+        <div class="kpi-card green">
+            <span>Tamamlandı</span>
+            <h2 id="faultClosed">0</h2>
+        </div>
+
+        <div class="kpi-card blue">
+            <span>Ort. Müdahale</span>
+            <h2 id="faultAvg">0 dk</h2>
+        </div>
+
+    </div>
+
+    <!-- Filtre -->
+    <div class="fault-filters">
+
+        <input
+            id="faultSearch"
+            type="text"
+            placeholder="🔍 Makine Ara">
+
+        <select id="faultLocation">
+            <option>Tüm Bölümler</option>
+        </select>
+
+        <select id="faultStatus">
+            <option>Tüm Durumlar</option>
+            <option>Açık</option>
+            <option>Müdahale Ediliyor</option>
+            <option>Tamamlandı</option>
+        </select>
+
+    </div>
+
+    <!-- Liste -->
+
+    <div id="faultList">
+
+    </div>
+
+</section>
     <div id="bakimDetay" class="drawer">
 
     <div class="drawer-header">
