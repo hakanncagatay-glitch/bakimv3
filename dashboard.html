@@ -634,6 +634,91 @@
     </div>
 
 </section>
+    <section id="faultReportPage" style="display:none;">
+
+<div class="page-header">
+
+<h2>🚨 Arıza Bildir</h2>
+
+<p>Operatör Arıza Bildirim Ekranı</p>
+
+</div>
+
+<div class="card">
+
+<div class="form-grid">
+
+<div class="form-group">
+
+<label>Envanter Kodu</label>
+
+<input
+id="faultEnvanter"
+placeholder="QR okut veya yaz">
+
+</div>
+
+<div class="form-group">
+
+<button
+class="btn-primary"
+style="margin-top:28px;"
+onclick="faultMakineBul()">
+
+Makineyi Bul
+
+</button>
+
+</div>
+
+</div>
+
+<div
+id="faultMakineBilgi"
+class="machine-card"
+style="margin-top:20px;">
+
+Makine seçilmedi.
+
+</div>
+
+<div class="form-group">
+
+<label>Hat</label>
+
+<input id="faultHat">
+
+</div>
+
+<div class="form-group">
+
+<label>Bildiren</label>
+
+<input id="faultBildiren">
+
+</div>
+
+<div class="form-group">
+
+<label>Açıklama</label>
+
+<textarea
+id="faultAciklama"
+rows="5"></textarea>
+
+</div>
+
+<button
+class="btn-danger"
+onclick="arizaGonder()">
+
+🚨 Arızayı Bildir
+
+</button>
+
+</div>
+
+</section>
     <div id="bakimDetay" class="drawer">
 
     <div class="drawer-header">
@@ -709,6 +794,7 @@
 <script src="dashboard.js"></script>
     <script src="planned.js"></script>
     <script src="fault.js"></script>
+    <script src="faultReport.js"></script>
 
 </div>
 
