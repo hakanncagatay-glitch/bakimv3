@@ -155,9 +155,11 @@ justify-content:flex-end;
 
 </button>
 
-<button class="btn-primary">
+<button
+    class="btn-primary"
+    onclick="faultMudahale(${a.id})">
 
-Müdahale Et
+    Müdahale Et
 
 </button>
 
