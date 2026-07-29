@@ -4,46 +4,8 @@
 let secilenAriza = null;
 let aktifFaultKonum = "";
 let aktifFaultDurum = "";
-let tumArizalar = [
 
-    {
-        id:1,
-        envanter:"A4",
-        marka:"BROTHER",
-        model:"SDF",
-        konum:"HAT-2",
-        aciklama:"Makine çalışmıyor.",
-        bildiren:"Ahmet",
-        durum:"acik",
-        bekleme:"45 dk"
-    },
-
-    {
-        id:2,
-        envanter:"A8",
-        marka:"JUKI",
-        model:"DDL8700",
-        konum:"HAT-4",
-        aciklama:"İplik koparıyor.",
-        bildiren:"Mehmet",
-        durum:"mudahale",
-        bekleme:"12 dk"
-    },
-
-    {
-        id:3,
-        envanter:"A12",
-        marka:"YUKI",
-        model:"YK5214",
-        konum:"HAT-1",
-        aciklama:"Ses yapıyor.",
-        bildiren:"Ali",
-        durum:"kapali",
-        bekleme:"Tamamlandı"
-    }
-
-];
-
+fetch(API + "?action=arizaListele")
 function arizalariYukle(){
 
     const alan=document.getElementById("faultList");
