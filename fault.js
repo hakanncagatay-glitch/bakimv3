@@ -350,14 +350,17 @@ function faultMudahale(id){
     document.getElementById("menuNewMaintenance")
         .classList.add("active");
 
-    // Envanteri otomatik yaz
-    document.getElementById("bakimMakineAra").value = a.envanter;
+  // Envanteri otomatik yaz
+document.getElementById("bakimMakineAra").value = a.envanter;
 
-    // Makineyi otomatik getir
-    bakimMakineBul();
+// Sayfa açıldıktan sonra bilgileri yükle
+setTimeout(async () => {
 
-    // Bakım tipini otomatik seç
+    await bakimMakineBul();
+
     document.getElementById("bakimTipi").value = "Arıza Bakımı";
+
+}, 100);
 
 }
 
