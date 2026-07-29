@@ -612,7 +612,6 @@ async function bakimMakineBul() {
                 <h3>Makine Bilgileri</h3>
                 <p>Makine bulunamadı.</p>
             `;
-
             return;
 
         }
@@ -641,6 +640,12 @@ const sonrakiBakim = m.SonrakiBakim
             <p>⏱ Periyot : ${m.BakimPeriyotGun} Gün</p>
 
         `;
+        if (window.secilenAriza) {
+
+    document.getElementById("bakimAciklama").value =
+        "ARIZA BİLDİRİMİ\n\n" + secilenAriza.aciklama;
+
+}
 
     }
 
