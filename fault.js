@@ -67,6 +67,7 @@ function arizalariYukle(){
         tumArizalar.filter(x=>x.durum=="kapali").length;
 
     document.getElementById("faultAvg").innerText="18 dk";
+    faultKonumlariniDoldur();
 
 }
 
