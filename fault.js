@@ -1,6 +1,7 @@
 // ==========================
 // ARIZALAR
 // ==========================
+let secilenAriza = null;
 let aktifFaultKonum = "";
 let aktifFaultDurum = "";
 let tumArizalar = [
@@ -324,13 +325,17 @@ function arizaDetay(id){
     .classList.add("active");
 
 }
-
-
 function faultMudahale(id){
 
     detayKapat();
 
-    // Tüm sayfaları gizle
+    const a = tumArizalar.find(x => x.id == id);
+
+    if(!a) return;
+
+    secilenAriza = a;
+
+    // Sayfaları gizle
     document.querySelectorAll("section").forEach(section=>{
         section.style.display="none";
     });
@@ -338,11 +343,22 @@ function faultMudahale(id){
     // Yeni Bakım sayfasını aç
     document.getElementById("newMaintenancePage").style.display="block";
 
-    // Sol menüyü güncelle
+    // Menü
     document.querySelectorAll(".sidebar li")
         .forEach(li=>li.classList.remove("active"));
 
     document.getElementById("menuNewMaintenance")
         .classList.add("active");
 
+    // Envanteri otomatik yaz
+    document.getElementById("bakimMakineAra").value = a.envanter;
+
+    // Makineyi otomatik getir
+    bakimMakineBul();
+
+    // Bakım tipini otomatik seç
+    document.getElementById("bakimTipi").value = "Arıza Bakımı";
+
 }
+
+
