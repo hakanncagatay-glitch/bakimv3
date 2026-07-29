@@ -461,6 +461,7 @@ function toggleFaultForm(){
 
 }
 function beklemeHesapla(tarih,saat){
+    console.log(tarih, saat);
 
     if(!tarih || !saat) return "-";
 
