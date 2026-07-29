@@ -147,9 +147,11 @@ gap:10px;
 justify-content:flex-end;
 ">
 
-<button class="btn-secondary">
+<button
+    class="btn-secondary"
+    onclick="arizaDetay(${a.id})">
 
-Detay
+    Detay
 
 </button>
 
