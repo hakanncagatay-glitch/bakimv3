@@ -124,9 +124,13 @@ ${durum}
 
 </div>
 
-<div>
+<div style="
+font-size:13px;
+color:#6b7280;
+margin-top:8px;
+">
 
-${a.bekleme}
+🕒 ${beklemeHesapla(a.tarih,a.saat)}
 
 </div>
 
@@ -452,6 +456,41 @@ function toggleFaultForm(){
     }else{
 
         form.style.display = "none";
+
+    }
+
+}
+function beklemeHesapla(tarih,saat){
+
+    if(!tarih || !saat) return "-";
+
+    try{
+
+        const p = tarih.split(".");
+        const s = saat.split(":");
+
+        const baslangic = new Date(
+
+            Number(p[2]),
+            Number(p[1])-1,
+            Number(p[0]),
+            Number(s[0]),
+            Number(s[1])
+        );
+
+        const fark = Math.floor((new Date()-baslangic)/60000);
+
+        if(fark<60)
+            return fark+" dk";
+
+        if(fark<1440)
+            return Math.floor(fark/60)+" sa";
+
+        return Math.floor(fark/1440)+" gün";
+
+    }catch{
+
+        return "-";
 
     }
 
