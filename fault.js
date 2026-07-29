@@ -245,3 +245,78 @@ function faultKonumlariniDoldur(){
     });
 
 }
+function arizaDetay(id){
+
+    const a = tumArizalar.find(x => x.id == id);
+
+    if(!a) return;
+
+    document.getElementById("bakimDetayIcerik").innerHTML = `
+
+        <div class="detail-grid">
+
+            <div class="detail-item">
+                <label>Arıza No</label>
+                <strong>F${String(a.id).padStart(5,"0")}</strong>
+            </div>
+
+            <div class="detail-item">
+                <label>Makine</label>
+                <strong>${a.envanter}</strong>
+            </div>
+
+            <div class="detail-item">
+                <label>Marka</label>
+                <strong>${a.marka}</strong>
+            </div>
+
+            <div class="detail-item">
+                <label>Model</label>
+                <strong>${a.model}</strong>
+            </div>
+
+            <div class="detail-item">
+                <label>Bölüm</label>
+                <strong>${a.konum}</strong>
+            </div>
+
+            <div class="detail-item">
+                <label>Bildiren</label>
+                <strong>${a.bildiren}</strong>
+            </div>
+
+            <div class="detail-item">
+                <label>Durum</label>
+                <strong>${a.durum}</strong>
+            </div>
+
+            <div class="detail-item">
+                <label>Bekleme</label>
+                <strong>${a.bekleme}</strong>
+            </div>
+
+        </div>
+
+        <hr>
+
+        <h4>Arıza Açıklaması</h4>
+
+        <p>${a.aciklama}</p>
+
+        <br>
+
+        <button
+            class="btn-primary"
+            onclick="faultMudahale(${a.id})">
+
+            🛠 Müdahale Et
+
+        </button>
+
+    `;
+
+    document
+        .getElementById("bakimDetay")
+        .classList.add("open");
+
+}
