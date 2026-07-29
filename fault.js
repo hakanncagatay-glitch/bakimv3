@@ -245,7 +245,8 @@ function faultKonumlariniDoldur(){
 
 }
 function arizaDetay(id){
-
+    
+console.log("DETAY ÇALIŞTI", id);
     const a = tumArizalar.find(x => x.id == id);
 
     if(!a) return;
