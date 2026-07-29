@@ -589,7 +589,112 @@
 </div>
 
     </div>
+<div
+id="faultForm"
+style="
+display:none;
+margin-bottom:20px;
+">
 
+<div class="panel">
+
+<h3>🚨 Yeni Arıza Bildir</h3>
+
+<div class="form-grid">
+
+<div class="form-group">
+
+<label>Envanter</label>
+
+<input
+id="faultEnvanter"
+placeholder="QR okut veya yaz">
+
+</div>
+
+<div class="form-group">
+
+<label>&nbsp;</label>
+
+<button
+class="btn-primary"
+onclick="faultMakineBul()">
+
+Makineyi Bul
+
+</button>
+
+</div>
+
+</div>
+
+<div
+id="faultMakineBilgi"
+class="machine-card"
+style="margin-top:20px;">
+
+Makine seçilmedi.
+
+</div>
+
+<div class="form-grid">
+
+<div class="form-group">
+
+<label>Hat</label>
+
+<input id="faultHat">
+
+</div>
+
+<div class="form-group">
+
+<label>Bildiren</label>
+
+<input id="faultBildiren">
+
+</div>
+
+</div>
+
+<div class="form-group">
+
+<label>Açıklama</label>
+
+<textarea
+id="faultAciklama"
+rows="5"></textarea>
+
+</div>
+
+<div
+style="
+display:flex;
+justify-content:flex-end;
+gap:10px;
+">
+
+<button
+class="btn-secondary"
+onclick="toggleFaultForm()">
+
+Vazgeç
+
+</button>
+
+<button
+class="btn-danger"
+onclick="arizaGonder()">
+
+🚨 Arızayı Bildir
+
+</button>
+
+</div>
+
+</div>
+
+</div>
     <!-- KPI -->
     <div class="fault-kpi">
 
@@ -648,91 +753,7 @@
     </div>
 
 </section>
-    <section id="faultReportPage" style="display:none;">
-
-<div class="page-header">
-
-<h2>🚨 Arıza Bildir</h2>
-
-<p>Operatör Arıza Bildirim Ekranı</p>
-
-</div>
-
-<div class="card">
-
-<div class="form-grid">
-
-<div class="form-group">
-
-<label>Envanter Kodu</label>
-
-<input
-id="faultEnvanter"
-placeholder="QR okut veya yaz">
-
-</div>
-
-<div class="form-group">
-
-<button
-class="btn-primary"
-style="margin-top:28px;"
-onclick="faultMakineBul()">
-
-Makineyi Bul
-
-</button>
-
-</div>
-
-</div>
-
-<div
-id="faultMakineBilgi"
-class="machine-card"
-style="margin-top:20px;">
-
-Makine seçilmedi.
-
-</div>
-
-<div class="form-group">
-
-<label>Hat</label>
-
-<input id="faultHat">
-
-</div>
-
-<div class="form-group">
-
-<label>Bildiren</label>
-
-<input id="faultBildiren">
-
-</div>
-
-<div class="form-group">
-
-<label>Açıklama</label>
-
-<textarea
-id="faultAciklama"
-rows="5"></textarea>
-
-</div>
-
-<button
-class="btn-danger"
-onclick="arizaGonder()">
-
-🚨 Arızayı Bildir
-
-</button>
-
-</div>
-
-</section>
+   
     <div id="bakimDetay" class="drawer">
 
     <div class="drawer-header">
