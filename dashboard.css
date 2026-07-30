@@ -925,3 +925,40 @@ table td{
     color:#16a34a;
 
 }
+/* ===========================
+   ARIZALAR HEADER
+=========================== */
+
+.page-header{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:30px;
+
+}
+
+.page-header h2{
+
+    margin:0;
+    font-size:34px;
+    font-weight:700;
+    color:#111827;
+
+}
+
+.page-header p{
+
+    margin-top:8px;
+    color:#6b7280;
+    font-size:15px;
+
+}
+
+.fault-actions{
+
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+}
