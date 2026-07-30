@@ -156,3 +156,115 @@ document.addEventListener("DOMContentLoaded",()=>{
     parcalariYukle();
 
 });
+// ==========================
+// FORM AÇ / KAPAT
+// ==========================
+
+function togglePartForm(){
+
+    const form = document.getElementById("partForm");
+
+    form.style.display =
+        form.style.display=="none"
+        ? "block"
+        : "none";
+
+}
+// ==========================
+// FORM TEMİZLE
+// ==========================
+
+function partFormTemizle(){
+
+    document.getElementById("partName").value="";
+    document.getElementById("partBrand").value="";
+    document.getElementById("partLocation").value="";
+    document.getElementById("partStock").value=0;
+    document.getElementById("partMin").value=0;
+    document.getElementById("partPrice").value="";
+    document.getElementById("partNote").value="";
+
+    document.getElementById("partCategory").selectedIndex=0;
+    document.getElementById("partUnit").selectedIndex=0;
+
+}
+// ==========================
+// PARÇA KAYDET
+// ==========================
+
+async function parcaKaydet(){
+
+    const veri={
+
+        parcaAdi:document.getElementById("partName").value,
+
+        kategori:document.getElementById("partCategory").value,
+
+        marka:document.getElementById("partBrand").value,
+
+        konum:document.getElementById("partLocation").value,
+
+        stok:document.getElementById("partStock").value,
+
+        minStok:document.getElementById("partMin").value,
+
+        birim:document.getElementById("partUnit").value,
+
+        birimFiyat:document.getElementById("partPrice").value,
+
+        aciklama:document.getElementById("partNote").value
+
+    };
+
+    if(veri.parcaAdi==""){
+
+        alert("Parça adı zorunludur.");
+
+        return;
+
+    }
+
+    try{
+
+        const url =
+        API+
+        "?action=parcaEkle"+
+        "&parcaAdi="+encodeURIComponent(veri.parcaAdi)+
+        "&kategori="+encodeURIComponent(veri.kategori)+
+        "&marka="+encodeURIComponent(veri.marka)+
+        "&konum="+encodeURIComponent(veri.konum)+
+        "&stok="+encodeURIComponent(veri.stok)+
+        "&minStok="+encodeURIComponent(veri.minStok)+
+        "&birim="+encodeURIComponent(veri.birim)+
+        "&birimFiyat="+encodeURIComponent(veri.birimFiyat)+
+        "&aciklama="+encodeURIComponent(veri.aciklama);
+
+        const response=await fetch(url);
+
+        const sonuc=await response.json();
+
+        if(sonuc.success){
+
+            alert("Parça başarıyla eklendi.");
+
+            partFormTemizle();
+
+            togglePartForm();
+
+            parcalariYukle();
+
+        }else{
+
+            alert(sonuc.message);
+
+        }
+
+    }catch(err){
+
+        console.error(err);
+
+        alert("Kayıt sırasında hata oluştu.");
+
+    }
+
+}
