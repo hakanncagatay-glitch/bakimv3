@@ -149,3 +149,143 @@
     border-radius:14px;
 
 }
+/*====================================
+FAULT FORM V4
+====================================*/
+
+.fault-form{
+
+    display:none;
+
+    background:#fff;
+
+    border-radius:20px;
+
+    padding:30px;
+
+    margin-bottom:30px;
+
+    box-shadow:0 15px 35px rgba(0,0,0,.08);
+
+}
+
+.fault-form h3{
+
+    font-size:24px;
+
+    margin-bottom:25px;
+
+    color:#111827;
+
+}
+
+.fault-grid{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:22px;
+
+    margin-top:20px;
+
+}
+
+.fault-group{
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+.fault-group label{
+
+    font-size:14px;
+
+    font-weight:600;
+
+    color:#374151;
+
+    margin-bottom:8px;
+
+}
+
+.fault-group input{
+
+    width:100%;
+
+    height:48px;
+
+    padding:0 15px;
+
+    border:1px solid #d1d5db;
+
+    border-radius:10px;
+
+    font-size:15px;
+
+    transition:.25s;
+
+}
+
+.fault-group textarea{
+
+    width:100%;
+
+    min-height:140px;
+
+    padding:15px;
+
+    border:1px solid #d1d5db;
+
+    border-radius:10px;
+
+    resize:vertical;
+
+    font-size:15px;
+
+}
+
+.fault-group input:focus,
+.fault-group textarea:focus{
+
+    border-color:#2563eb;
+
+    outline:none;
+
+    box-shadow:0 0 0 4px rgba(37,99,235,.12);
+
+}
+#faultMakineBilgi{
+
+    margin:25px 0;
+
+    padding:20px;
+
+    border-radius:14px;
+
+    background:#f8fafc;
+
+    border:1px solid #e5e7eb;
+
+    min-height:90px;
+
+    display:flex;
+
+    align-items:center;
+
+    font-weight:600;
+
+}
+.fault-form-footer{
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    gap:12px;
+
+    margin-top:25px;
+
+}
