@@ -445,7 +445,9 @@ document.querySelectorAll(".sidebar li").forEach(item => {
     case "historyPage":
         bakimGecmisiYukle();
         break;
-
+case "partsPage":
+    parcalariYukle();
+    break;
 }
 
 }
