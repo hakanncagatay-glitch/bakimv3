@@ -70,3 +70,82 @@
     flex-direction:column;
     gap:18px;
 }
+/* ===========================
+   FAULT HEADER
+=========================== */
+
+.page-header{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:30px;
+
+}
+
+.page-header h2{
+
+    font-size:34px;
+    margin:0;
+    color:#111827;
+
+}
+
+.page-header p{
+
+    margin-top:8px;
+    color:#6b7280;
+
+}
+
+.fault-actions{
+
+    display:flex;
+    gap:12px;
+
+}
+/* ===========================
+   BUTTONS
+=========================== */
+
+.fault-actions .btn-danger{
+
+    background:#ef4444;
+
+    color:white;
+
+    min-width:220px;
+
+    height:52px;
+
+    border:none;
+
+    border-radius:14px;
+
+    font-size:16px;
+
+    font-weight:700;
+
+    box-shadow:0 8px 20px rgba(239,68,68,.25);
+
+    transition:.25s;
+
+}
+
+.fault-actions .btn-danger:hover{
+
+    transform:translateY(-2px);
+
+    background:#dc2626;
+
+}
+
+.fault-actions .btn-primary{
+
+    height:52px;
+
+    padding:0 22px;
+
+    border-radius:14px;
+
+}
