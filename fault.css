@@ -372,3 +372,18 @@ font-weight:700;
 box-shadow:0 8px 20px rgba(239,68,68,.25);
 
 }
+#qrReader{
+
+    width:400px !important;
+
+    height:400px;
+
+    display:block;
+
+    margin:20px auto;
+
+    border:3px solid #2563eb;
+
+    border-radius:12px;
+
+}
