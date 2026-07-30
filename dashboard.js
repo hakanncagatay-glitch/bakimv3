@@ -996,7 +996,7 @@ ${makineAdiBul(k.EnvanterKodu)}
 
 function detayKapat(){
 
-    document.getElementById("bakimDetay").classList.remove("active");
+   document.getElementById("bakimDetay").classList.remove("open");
 
 }
 function makineAdiBul(envanter){
