@@ -10,6 +10,7 @@
 
     <link rel="stylesheet" href="dashboard.css">
     <link rel="stylesheet" href="fault.css">
+    <link rel="stylesheet" href="parts.css">
 
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
@@ -75,7 +76,6 @@
     Ayarlar
 </li>
 </ul>
-
 </div>
 <div class="main">
     <section id="dashboardPage">
@@ -769,7 +769,68 @@ onclick="arizaGonder()">
     </div>
 
 </section>
-   
+   <section id="partsPage" style="display:none;">
+
+    <div class="page-header">
+
+        <div>
+
+            <h2>📦 Yedek Parçalar</h2>
+
+            <p>Depodaki yedek parçaları yönetin</p>
+
+        </div>
+
+        <div style="display:flex;gap:10px;">
+
+            <button class="btn-danger" onclick="togglePartForm()">
+                ➕ Yeni Parça
+            </button>
+
+            <button class="btn-primary" onclick="parcalariYukle()">
+                🔄 Yenile
+            </button>
+
+        </div>
+
+    </div>
+
+    <div class="parts-kpi">
+
+        <div class="kpi-card blue">
+            <span>Toplam Parça</span>
+            <h2 id="partCount">0</h2>
+        </div>
+
+        <div class="kpi-card red">
+            <span>Kritik Stok</span>
+            <h2 id="criticalCount">0</h2>
+        </div>
+
+        <div class="kpi-card green">
+            <span>Toplam Stok</span>
+            <h2 id="totalStock">0</h2>
+        </div>
+
+        <div class="kpi-card orange">
+            <span>Toplam Değer</span>
+            <h2 id="totalValue">0 ₺</h2>
+        </div>
+
+    </div>
+
+    <div class="parts-filters">
+
+        <input
+            id="partSearch"
+            type="text"
+            placeholder="🔍 Parça Ara">
+
+    </div>
+
+    <div id="partsList"></div>
+
+</section>
     <div id="bakimDetay" class="drawer">
 
     <div class="drawer-header">
@@ -846,6 +907,7 @@ onclick="arizaGonder()">
     <script src="planned.js"></script>
     <script src="fault.js"></script>
     <script src="faultReport.js"></script>
+    <script src="parts.js"></script>
 
 </div>
 
