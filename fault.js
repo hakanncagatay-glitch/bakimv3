@@ -523,23 +523,31 @@ function faultQrOku(){
 
     html5QrCode.start(
 
-        { facingMode:"environment" },
+        { facingMode: "environment" },
 
         {
-            fps:10,
-            qrbox:250
+            fps: 10,
+            qrbox: 250
         },
 
         function(decodedText){
 
-            html5QrCode.stop();
+            html5QrCode.stop().then(()=>{
 
-            document.getElementById("qrReader").style.display = "none";
+                document.getElementById("qrReader").style.display="none";
 
-            document.getElementById("faultEnvanter").value = decodedText;
+                // QR değerini yaz
+                document.getElementById("faultEnvanter").value = decodedText;
 
-            faultMakineBul();
+                // Makineyi otomatik getir
+                faultMakineBul();
 
+            });
+
+        },
+
+        function(errorMessage){
+            // okumaya devam et
         }
 
     );
