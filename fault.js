@@ -479,40 +479,60 @@ function toggleFaultForm(){
     }
 
 }
-function beklemeHesapla(tarih,saat){
-    console.log(tarih, saat);
+function beklemeHesapla(tarih, saat){
 
-    if(!tarih || !saat) return "-";
+    if(!tarih) return "-";
 
-    try{
+    let baslangic;
 
-        const p = tarih.split(".");
-        const s = saat.split(":");
+    // Google Sheets Date objesi geldiyse
+    if(tarih instanceof Date){
 
-        const baslangic = new Date(
+        baslangic = new Date(tarih);
+
+        if(saat){
+
+            const s = String(saat).split(":");
+
+            baslangic.setHours(Number(s[0]) || 0);
+            baslangic.setMinutes(Number(s[1]) || 0);
+
+        }
+
+    }
+    // String geldiyse
+    else{
+
+        const p = String(tarih).split(".");
+
+        if(p.length !== 3) return "-";
+
+        const s = (saat || "00:00").split(":");
+
+        baslangic = new Date(
 
             Number(p[2]),
-            Number(p[1])-1,
+            Number(p[1]) - 1,
             Number(p[0]),
             Number(s[0]),
             Number(s[1])
+
         );
 
-        const fark = Math.floor((new Date()-baslangic)/60000);
+    }
 
-        if(fark<60)
-            return fark+" dk";
-
-        if(fark<1440)
-            return Math.floor(fark/60)+" sa";
-
-        return Math.floor(fark/1440)+" gün";
-
-    }catch{
-
+    if(isNaN(baslangic.getTime()))
         return "-";
 
-    }
+    const fark = Math.floor((Date.now() - baslangic.getTime()) / 60000);
+
+    if(fark < 60)
+        return fark + " dk";
+
+    if(fark < 1440)
+        return Math.floor(fark / 60) + " sa";
+
+    return Math.floor(fark / 1440) + " gün";
 
 }
 function faultQrOku(){
