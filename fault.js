@@ -517,6 +517,31 @@ function beklemeHesapla(tarih,saat){
 }
 function faultQrOku(){
 
-    qrBaslat();
+    document.getElementById("qrReader").style.display = "block";
+
+    const html5QrCode = new Html5Qrcode("qrReader");
+
+    html5QrCode.start(
+
+        { facingMode:"environment" },
+
+        {
+            fps:10,
+            qrbox:250
+        },
+
+        function(decodedText){
+
+            html5QrCode.stop();
+
+            document.getElementById("qrReader").style.display = "none";
+
+            document.getElementById("faultEnvanter").value = decodedText;
+
+            faultMakineBul();
+
+        }
+
+    );
 
 }
