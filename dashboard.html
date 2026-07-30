@@ -794,7 +794,151 @@ onclick="arizaGonder()">
         </div>
 
     </div>
+<div id="partForm" style="display:none;margin-bottom:20px;">
 
+    <div class="panel">
+
+        <h3>📦 Yeni Parça</h3>
+
+        <div class="form-grid">
+
+            <div class="form-group">
+
+                <label>Parça Adı</label>
+
+                <input id="partName">
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Kategori</label>
+
+                <select id="partCategory">
+
+                    <option>Rulman</option>
+                    <option>İğne</option>
+                    <option>Lüper</option>
+                    <option>Bıçak</option>
+                    <option>Kayış</option>
+                    <option>Motor</option>
+                    <option>Elektrik</option>
+                    <option>Pnömatik</option>
+                    <option>Diğer</option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+        <div class="form-grid">
+
+            <div class="form-group">
+
+                <label>Marka</label>
+
+                <input id="partBrand">
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Konum</label>
+
+                <input id="partLocation">
+
+            </div>
+
+        </div>
+
+        <div class="form-grid">
+
+            <div class="form-group">
+
+                <label>Stok</label>
+
+                <input
+                    id="partStock"
+                    type="number"
+                    value="0">
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Minimum Stok</label>
+
+                <input
+                    id="partMin"
+                    type="number"
+                    value="0">
+
+            </div>
+
+        </div>
+
+        <div class="form-grid">
+
+            <div class="form-group">
+
+                <label>Birim</label>
+
+                <select id="partUnit">
+
+                    <option>Adet</option>
+                    <option>Takım</option>
+                    <option>Metre</option>
+
+                </select>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Birim Fiyat</label>
+
+                <input
+                    id="partPrice"
+                    type="number">
+
+            </div>
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Açıklama</label>
+
+            <textarea
+                id="partNote"
+                rows="4"></textarea>
+
+        </div>
+
+        <div style="display:flex;justify-content:flex-end;gap:10px;">
+
+            <button
+                class="btn-secondary"
+                onclick="togglePartForm()">
+
+                Vazgeç
+
+            </button>
+
+            <button
+                class="btn-danger"
+                onclick="parcaKaydet()">
+
+                💾 Kaydet
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
     <div class="parts-kpi">
 
         <div class="kpi-card blue">
