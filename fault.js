@@ -515,3 +515,8 @@ function beklemeHesapla(tarih,saat){
     }
 
 }
+function faultQrOku(){
+
+    qrBaslat();
+
+}
