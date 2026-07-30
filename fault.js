@@ -335,7 +335,7 @@ console.log("DETAY ÇALIŞTI", id);
 
     `;
 
-    document.getElementById("bakimDetay").style.right = "0";
+   document.getElementById("bakimDetay").classList.add("active");
 
 }
 function faultMudahale(id){
