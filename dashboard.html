@@ -604,11 +604,24 @@ margin-bottom:20px;
 
 <div class="fault-group">
 
-<label>Envanter</label>
+<label>Envanter Kodu</label>
+
+<div class="fault-search-box">
 
 <input
 id="faultEnvanter"
 placeholder="QR okut veya yaz">
+
+<button
+class="qr-btn"
+onclick="faultQrOku()"
+title="QR Kod Oku">
+
+<i class="fa-solid fa-qrcode"></i>
+
+</button>
+
+</div>
 
 </div>
 
@@ -667,12 +680,7 @@ rows="5"></textarea>
 
 </div>
 
-<div
-style="
-display:flex;
-justify-content:flex-end;
-gap:10px;
-">
+<div class="fault-form-footer">
 
 <button
 class="btn-secondary"
