@@ -29,6 +29,7 @@ async function arizalariYukle(){
         }
 
         tumArizalar = sonuc.data;
+        console.log(tumArizalar[0]);
 
         alan.innerHTML = "";
 
