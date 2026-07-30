@@ -700,7 +700,20 @@ const response = await fetch(url);
         if (sonuc.success) {
 
     alert("Bakım başarıyla kaydedildi.");
+// Arıza bakımından gelindiyse arızayı kapat
+if (secilenAriza) {
 
+    await fetch(
+        API +
+        "?action=arizaKapat&id=" +
+        encodeURIComponent(secilenAriza.id)
+    );
+
+    secilenAriza = null;
+
+    await arizalariYukle();
+
+}
     document.getElementById("bakimAciklama").value = "";
     document.getElementById("degisenParcalar").value = "";
     document.getElementById("arizaNedeni").value = "";
