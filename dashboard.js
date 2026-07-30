@@ -747,11 +747,11 @@ if (secilenAriza) {
 
     } catch (err) {
 
-        console.error(err);
+    console.error("HATA:", err);
 
-        alert("Kayıt sırasında hata oluştu.");
+    alert(err.message);
 
-    }
+}
 
 }
 function qrBaslat(){
