@@ -517,37 +517,31 @@ function beklemeHesapla(tarih,saat){
 }
 function faultQrOku(){
 
-    document.getElementById("qrReader").style.display = "block";
+    document.getElementById("faultQrReader").style.display = "block";
 
-    const html5QrCode = new Html5Qrcode("qrReader");
+    const html5QrCode = new Html5Qrcode("faultQrReader");
 
     html5QrCode.start(
 
-        { facingMode: "environment" },
+        { facingMode:"environment" },
 
         {
-            fps: 10,
-            qrbox: 250
+            fps:10,
+            qrbox:250
         },
 
         function(decodedText){
 
             html5QrCode.stop().then(()=>{
 
-                document.getElementById("qrReader").style.display="none";
+                document.getElementById("faultQrReader").style.display="none";
 
-                // QR değerini yaz
                 document.getElementById("faultEnvanter").value = decodedText;
 
-                // Makineyi otomatik getir
                 faultMakineBul();
 
             });
 
-        },
-
-        function(errorMessage){
-            // okumaya devam et
         }
 
     );
