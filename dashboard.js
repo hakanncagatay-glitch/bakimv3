@@ -683,7 +683,7 @@ async function bakimKaydet() {
 
     try {
 
-       const url =
+       let url =
     API +
     "?action=bakimKaydet" +
     "&envanterKodu=" + encodeURIComponent(veri.envanterKodu) +
@@ -692,6 +692,13 @@ async function bakimKaydet() {
     "&arizaNedeni=" + encodeURIComponent(veri.arizaNedeni) +
     "&degisenParcalar=" + encodeURIComponent(veri.degisenParcalar) +
     "&aciklama=" + encodeURIComponent(veri.aciklama);
+        if (secilenAriza) {
+
+    url +=
+        "&arizaId=" +
+        encodeURIComponent(secilenAriza.id);
+
+}
 
 const response = await fetch(url);
 
@@ -700,20 +707,7 @@ const response = await fetch(url);
         if (sonuc.success) {
 
     alert("Bakım başarıyla kaydedildi.");
-// Arıza bakımından gelindiyse arızayı kapat
-if (secilenAriza) {
 
-    await fetch(
-        API +
-        "?action=arizaKapat&id=" +
-        encodeURIComponent(secilenAriza.id)
-    );
-
-    secilenAriza = null;
-
-    await arizalariYukle();
-
-}
     document.getElementById("bakimAciklama").value = "";
     document.getElementById("degisenParcalar").value = "";
     document.getElementById("arizaNedeni").value = "";
