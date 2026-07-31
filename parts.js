@@ -3,6 +3,7 @@
 // ==========================
 
 let tumParcalar = [];
+let seciliParca = null;
 
 async function parcalariYukle(){
 
@@ -318,6 +319,7 @@ async function parcaKaydet(){
 function parcaDetay(kod){
 
     const p = tumParcalar.find(x=>x.kod==kod);
+    seciliParca=p;
 
     if(!p) return;
 
