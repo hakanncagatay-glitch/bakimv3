@@ -374,6 +374,49 @@ function parcaDetay(kod){
 </div>
 
 `;
+   </div>
+
+<hr style="margin:20px 0;">
+
+<div style="
+display:flex;
+justify-content:center;
+gap:12px;
+flex-wrap:wrap;
+">
+
+<button
+class="btn-primary"
+onclick="stokGirisiModal()">
+
+➕ Stok Girişi
+
+</button>
+
+<button
+class="btn-warning"
+onclick="stokCikisiModal()">
+
+➖ Stok Çıkışı
+
+</button>
+
+<button
+class="btn-secondary"
+onclick="parcaDuzenleModal()">
+
+✏ Düzenle
+
+</button>
+
+</div>
+
+<div id="partHistory"
+style="margin-top:25px;">
+
+</div>
+
+`; 
 
 }
 function partModalKapat(){
