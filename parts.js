@@ -174,7 +174,8 @@ Min : ${p.min}
 <br><br>
 
 <button
-class="btn-secondary">
+class="btn-secondary"
+onclick="parcaDetay('${p.kod}')">
 
 Detay
 
