@@ -305,3 +305,18 @@ async function parcaKaydet(){
     }
 
 }
+// ==========================
+// PARÇA DETAY
+// ==========================
+
+function parcaDetay(kod){
+
+    const parca = tumParcalar.find(x => x.kod == kod);
+
+    if(!parca) return;
+
+    console.log(parca);
+
+    alert(parca.ad);
+
+}
