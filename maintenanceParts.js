@@ -84,19 +84,30 @@ console.log("INPUT ÇALIŞTI:", this.value);
 });
 function parcaSec(kod,ad,fiyat){
 
-    secilenParcalar.push({
+    const mevcut = secilenParcalar.find(p => p.kod === kod);
 
-        kod,
+    if(mevcut){
 
-        ad,
+        mevcut.adet++;
 
-        fiyat,
+    }else{
 
-        adet:1
+        secilenParcalar.push({
 
-    });
+            kod,
+            ad,
+            fiyat,
+            adet:1
+
+        });
+
+    }
 
     secilenParcalariGoster();
+
+    document.getElementById("partSearchInput").value = "";
+    document.getElementById("partSearchResult").innerHTML = "";
+    document.getElementById("partSearchInput").focus();
 
 }
 function secilenParcalariGoster(){
