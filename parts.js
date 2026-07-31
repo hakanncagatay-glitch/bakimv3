@@ -376,41 +376,6 @@ function parcaDetay(kod){
 
 <hr style="margin:20px 0;">
 
-<div style="
-display:flex;
-justify-content:center;
-gap:12px;
-flex-wrap:wrap;
-">
-
-<button
-class="btn-primary"
-onclick="stokGirisiModal()">
-
-➕ Stok Girişi
-
-</button>
-
-<button
-class="btn-primary"
-onclick="stokCikisiModal()">
-
-➖ Stok Çıkışı
-
-</button>
-
-<button
-class="btn-secondary"
-onclick="parcaDuzenleModal()">
-
-✏ Düzenle
-
-</button>
-
-</div>
-
-<hr style="margin:20px 0;">
-
 <div style="text-align:center;">
 
 <h4>Stok İşlemi</h4>
