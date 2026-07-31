@@ -318,14 +318,15 @@ async function parcaKaydet(){
 
 function parcaDetay(kod){
 
-    const p = tumParcalar.find(x=>x.kod==kod);
-    seciliParca=p;
+    const p = tumParcalar.find(x => x.kod == kod);
 
     if(!p) return;
 
-    document.getElementById("partModal").style.display="block";
+    seciliParca = p;
 
-    document.getElementById("partDetailContent").innerHTML=`
+    document.getElementById("partModal").style.display = "block";
+
+    document.getElementById("partDetailContent").innerHTML = `
 
 <div class="detayKart">
 
@@ -369,9 +370,10 @@ function parcaDetay(kod){
 <b>${Number(p.fiyat).toLocaleString("tr-TR")} ₺</b></p>
 
 <p>Toplam Değer :
-<b>${(p.stok*p.fiyat).toLocaleString("tr-TR")} ₺</b></p>
+<b>${(p.stok * p.fiyat).toLocaleString("tr-TR")} ₺</b></p>
 
 </div>
+
 <hr style="margin:20px 0;">
 
 <div style="
@@ -390,7 +392,7 @@ onclick="stokGirisiModal()">
 </button>
 
 <button
-class="btn-warning"
+class="btn-primary"
 onclick="stokCikisiModal()">
 
 ➖ Stok Çıkışı
@@ -407,17 +409,9 @@ onclick="parcaDuzenleModal()">
 
 </div>
 
-<div id="partHistory"
-style="margin-top:25px;">
-
-</div>
-
+<div id="partHistory" style="margin-top:25px;"></div>
 
 `;
-   </div>
-
-
-`; 
 
 }
 function partModalKapat(){
