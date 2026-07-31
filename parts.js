@@ -381,3 +381,29 @@ function partModalKapat(){
     document.getElementById("partModal").style.display="none";
 
 }
+function stokGirisiModal(){
+
+    alert(
+        seciliParca.ad +
+        "\n\nStok Girişi yapılacak."
+    );
+
+}
+
+function stokCikisiModal(){
+
+    alert(
+        seciliParca.ad +
+        "\n\nStok Çıkışı yapılacak."
+    );
+
+}
+
+function parcaDuzenleModal(){
+
+    alert(
+        seciliParca.ad +
+        "\n\nDüzenleme ekranı açılacak."
+    );
+
+}
