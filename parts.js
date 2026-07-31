@@ -317,12 +317,65 @@ async function parcaKaydet(){
 
 function parcaDetay(kod){
 
-    const parca = tumParcalar.find(x => x.kod == kod);
+    const p = tumParcalar.find(x=>x.kod==kod);
 
-    if(!parca) return;
+    if(!p) return;
 
-    console.log(parca);
+    document.getElementById("partModal").style.display="block";
 
-    alert(parca.ad);
+    document.getElementById("partDetailContent").innerHTML=`
+
+<div class="detayKart">
+
+<h4>Parça Bilgisi</h4>
+
+<p><b>${p.ad}</b></p>
+
+<p>Kod : ${p.kod}</p>
+
+<p>Kategori : ${p.kategori}</p>
+
+<p>Marka : ${p.marka}</p>
+
+</div>
+
+<div class="detayKart">
+
+<h4>Stok</h4>
+
+<p>Stok : ${p.stok}</p>
+
+<p>Minimum : ${p.min}</p>
+
+<p>Birim : ${p.birim}</p>
+
+</div>
+
+<div class="detayKart">
+
+<h4>Konum</h4>
+
+<p>${p.konum}</p>
+
+</div>
+
+<div class="detayKart">
+
+<h4>Maliyet</h4>
+
+<p>Birim Fiyat :
+<b>${Number(p.fiyat).toLocaleString("tr-TR")} ₺</b></p>
+
+<p>Toplam Değer :
+<b>${(p.stok*p.fiyat).toLocaleString("tr-TR")} ₺</b></p>
+
+</div>
+
+`;
+
+}
+function partModalKapat(){
+
+    document.getElementById("partModal").style.display="none";
 
 }
