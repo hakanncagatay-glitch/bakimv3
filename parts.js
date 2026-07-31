@@ -460,34 +460,29 @@ function partModalKapat(){
 }
 async function stokGirisiModal(){
 
-    const miktar = Number(
-        document.getElementById("stokMiktar").value
-    );
+    const miktar = Number(document.getElementById("stokMiktar").value);
 
     if(miktar <= 0){
-
         alert("Geçerli bir miktar giriniz.");
-
         return;
-
     }
 
-    const url =
+    const response = await fetch(
+
         API +
         "?action=stokGirisi" +
-        "&kod=" + encodeURIComponent(seciliParca.kod) +
-        "&miktar=" + encodeURIComponent(miktar);
+        "&parcaKodu=" + encodeURIComponent(seciliParca.kod) +
+        "&miktar=" + encodeURIComponent(miktar)
 
-    const response = await fetch(url);
+    );
+
     const sonuc = await response.json();
 
     if(sonuc.success){
 
-        alert("Stok başarıyla eklendi.");
+        await parcalariYukle();
 
-        partModalKapat();
-
-        parcalariYukle();
+        parcaDetay(seciliParca.kod);
 
     }else{
 
@@ -497,12 +492,37 @@ async function stokGirisiModal(){
 
 }
 
-function stokCikisiModal(){
+async function stokCikisiModal(){
 
-    alert(
-        seciliParca.ad +
-        "\n\nStok Çıkışı yapılacak."
+    const miktar = Number(document.getElementById("stokMiktar").value);
+
+    if(miktar <= 0){
+        alert("Geçerli bir miktar giriniz.");
+        return;
+    }
+
+    const response = await fetch(
+
+        API +
+        "?action=stokCikisi" +
+        "&parcaKodu=" + encodeURIComponent(seciliParca.kod) +
+        "&miktar=" + encodeURIComponent(miktar)
+
     );
+
+    const sonuc = await response.json();
+
+    if(sonuc.success){
+
+        await parcalariYukle();
+
+        parcaDetay(seciliParca.kod);
+
+    }else{
+
+        alert(sonuc.message);
+
+    }
 
 }
 
