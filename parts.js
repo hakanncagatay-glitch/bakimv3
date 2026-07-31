@@ -66,7 +66,7 @@ async function parcalariYukle(){
 // ==========================
 
 function parcaFiltrele(){
-
+console.log("Filtre çalıştı");
     const q = document
         .getElementById("partSearch")
         .value
