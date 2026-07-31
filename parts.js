@@ -186,9 +186,17 @@ Detay
 
 }
 
-document.addEventListener("DOMContentLoaded",()=>{
+document.addEventListener("DOMContentLoaded", () => {
 
     parcalariYukle();
+
+    const search = document.getElementById("partSearch");
+
+    if (search) {
+
+        search.addEventListener("input", parcaFiltrele);
+
+    }
 
 });
 // ==========================
