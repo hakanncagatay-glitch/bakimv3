@@ -82,8 +82,20 @@ document.getElementById("partSearchInput")
     }
 
 });
-function parcaSec(kod){
+function parcaSec(kod,ad,fiyat){
 
-    alert(kod);
+    secilenParcalar.push({
+
+        kod,
+
+        ad,
+
+        fiyat,
+
+        adet:1
+
+    });
+
+    console.log(secilenParcalar);
 
 }
