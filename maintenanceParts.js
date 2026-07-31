@@ -47,14 +47,23 @@ document.getElementById("partSearchInput")
 
             html += `
 
-<div class="part-result"
-onclick="parcaSec('${p.kod}')">
+<div class="part-result">
 
-<b>${p.ad}</b>
+    <div>
 
-<br>
+        <b>${p.ad}</b><br>
 
-Stok : ${p.stok}
+        <small>📦 Stok : ${p.stok}</small>
+
+    </div>
+
+    <button
+        class="btn-primary"
+        onclick="parcaSec('${p.kod}','${p.ad}',${p.fiyat})">
+
+        + Ekle
+
+    </button>
 
 </div>
 
