@@ -372,10 +372,6 @@ function parcaDetay(kod){
 <b>${(p.stok*p.fiyat).toLocaleString("tr-TR")} ₺</b></p>
 
 </div>
-
-`;
-   </div>
-
 <hr style="margin:20px 0;">
 
 <div style="
@@ -415,6 +411,11 @@ onclick="parcaDuzenleModal()">
 style="margin-top:25px;">
 
 </div>
+
+
+`;
+   </div>
+
 
 `; 
 
