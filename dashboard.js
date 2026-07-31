@@ -681,6 +681,7 @@ async function bakimKaydet() {
     arizaNedeni: document.getElementById("arizaNedeni").value,
     degisenParcalar: document.getElementById("degisenParcalar").value,
     aciklama: document.getElementById("bakimAciklama").value
+        parcalar: JSON.stringify(secilenParcalar)
 };
 
     try {
@@ -693,7 +694,11 @@ async function bakimKaydet() {
     "&bakimiYapan=" + encodeURIComponent(veri.bakimiYapan) +
     "&arizaNedeni=" + encodeURIComponent(veri.arizaNedeni) +
     "&degisenParcalar=" + encodeURIComponent(veri.degisenParcalar) +
-    "&aciklama=" + encodeURIComponent(veri.aciklama);
+    "&aciklama=" +
+encodeURIComponent(veri.aciklama) +
+
+"&parcalar=" +
+encodeURIComponent(veri.parcalar);
         if (secilenAriza) {
 
     url +=
