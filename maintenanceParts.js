@@ -96,6 +96,66 @@ function parcaSec(kod,ad,fiyat){
 
     });
 
-    console.log(secilenParcalar);
+    secilenParcalariGoster();
+
+}
+function secilenParcalariGoster(){
+
+    const alan =
+        document.getElementById("selectedParts");
+
+    let html = "<h4>Seçilen Parçalar</h4>";
+
+    secilenParcalar.forEach((p,index)=>{
+
+        html += `
+
+<div
+style="
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:10px;
+margin:8px 0;
+background:#f8fafc;
+border-radius:8px;
+">
+
+<div>
+
+<b>${p.ad}</b>
+
+<br>
+
+<small>
+
+1 Adet
+
+</small>
+
+</div>
+
+<button
+class="btn-danger"
+onclick="parcaSil(${index})">
+
+Sil
+
+</button>
+
+</div>
+
+`;
+
+    });
+
+    alan.innerHTML = html;
+
+}
+function parcaSil(index){
+
+    secilenParcalar.splice(index,1);
+
+    secilenParcalariGoster();
 
 }
