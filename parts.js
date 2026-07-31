@@ -458,12 +458,42 @@ function partModalKapat(){
     document.getElementById("partModal").style.display="none";
 
 }
-function stokGirisiModal(){
+async function stokGirisiModal(){
 
-    alert(
-        seciliParca.ad +
-        "\n\nStok Girişi yapılacak."
+    const miktar = Number(
+        document.getElementById("stokMiktar").value
     );
+
+    if(miktar <= 0){
+
+        alert("Geçerli bir miktar giriniz.");
+
+        return;
+
+    }
+
+    const url =
+        API +
+        "?action=stokGirisi" +
+        "&kod=" + encodeURIComponent(seciliParca.kod) +
+        "&miktar=" + encodeURIComponent(miktar);
+
+    const response = await fetch(url);
+    const sonuc = await response.json();
+
+    if(sonuc.success){
+
+        alert("Stok başarıyla eklendi.");
+
+        partModalKapat();
+
+        parcalariYukle();
+
+    }else{
+
+        alert(sonuc.message);
+
+    }
 
 }
 
