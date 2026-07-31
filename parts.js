@@ -409,7 +409,46 @@ onclick="parcaDuzenleModal()">
 
 </div>
 
-<div id="partHistory" style="margin-top:25px;"></div>
+<hr style="margin:20px 0;">
+
+<div style="text-align:center;">
+
+<h4>Stok İşlemi</h4>
+
+<input
+id="stokMiktar"
+type="number"
+min="1"
+value="1"
+style="
+width:120px;
+padding:10px;
+text-align:center;
+font-size:16px;
+margin:15px 0;
+">
+
+<br><br>
+
+<button
+class="btn-primary"
+onclick="stokGirisiModal()">
+
+➕ Stok Girişi
+
+</button>
+
+<button
+class="btn-primary"
+onclick="stokCikisiModal()">
+
+➖ Stok Çıkışı
+
+</button>
+
+</div>
+
+<div id="partHistory"></div>
 
 `;
 
