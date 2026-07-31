@@ -677,11 +677,12 @@ async function bakimKaydet() {
     action: "bakimKaydet",
     envanterKodu: envanter,
     bakimTuru: document.getElementById("bakimTipi").value,
-    bakimiYapan: "Hakan Çağatay", // Şimdilik sabit, giriş sistemi gelince otomatik olacak
+    bakimiYapan: "Hakan Çağatay",
     arizaNedeni: document.getElementById("arizaNedeni").value,
     degisenParcalar: document.getElementById("degisenParcalar").value,
-    aciklama: document.getElementById("bakimAciklama").value
-        parcalar: JSON.stringify(secilenParcalar)
+    aciklama: document.getElementById("bakimAciklama").value,   // <-- Virgül
+
+    parcalar: JSON.stringify(secilenParcalar)
 };
 
     try {
