@@ -66,7 +66,7 @@ async function parcalariYukle(){
 // ==========================
 
 function parcaFiltrele(){
-console.log("Filtre çalıştı");
+
     const q = document
         .getElementById("partSearch")
         .value
@@ -75,23 +75,20 @@ console.log("Filtre çalıştı");
 
     const alan = document.getElementById("partsList");
 
-    let filtre = tumParcalar.filter(p=>{
+    const filtre = tumParcalar.filter(p =>
 
-        return (
+        (p.ad || "").toLowerCase().includes(q) ||
+        (p.kod || "").toLowerCase().includes(q) ||
+        (p.marka || "").toLowerCase().includes(q)
 
-            p.ad.toLowerCase().includes(q) ||
+    );
 
-            p.kod.toLowerCase().includes(q) ||
-
-            p.marka.toLowerCase().includes(q)
-
-        );
-
-    });
+    console.log("Aranan :", q);
+    console.log("Bulunan :", filtre.length);
 
     alan.innerHTML = "";
 
-    filtre.forEach(p=>{
+    filtre.forEach(p => {
 
         alan.innerHTML += parcaKarti(p);
 
