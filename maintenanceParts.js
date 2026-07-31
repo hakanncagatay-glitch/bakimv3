@@ -105,9 +105,9 @@ function parcaSec(kod,ad,fiyat){
 
     secilenParcalariGoster();
 
-    document.getElementById("partSearchInput").value = "";
-    document.getElementById("partSearchResult").innerHTML = "";
-    document.getElementById("partSearchInput").focus();
+    document.getElementById("maintenancePartSearch").value = "";
+document.getElementById("partSearchResult").innerHTML = "";
+document.getElementById("maintenancePartSearch").focus();
 
 }
 function secilenParcalariGoster(){
