@@ -3,7 +3,7 @@ let secilenParcalar = [];
 // PARÇA ARAMA
 // ======================================
 
-document.getElementById("partSearchInput")
+document.getElementById("maintenancePartSearch")
 ?.addEventListener("input", async function(){
 
     const q = this.value.trim();
