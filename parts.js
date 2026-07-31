@@ -61,6 +61,43 @@ async function parcalariYukle(){
     }
 
 }
+// ==========================
+// PARÇA FİLTRELE
+// ==========================
+
+function parcaFiltrele(){
+
+    const q = document
+        .getElementById("partSearch")
+        .value
+        .toLowerCase()
+        .trim();
+
+    const alan = document.getElementById("partsList");
+
+    let filtre = tumParcalar.filter(p=>{
+
+        return (
+
+            p.ad.toLowerCase().includes(q) ||
+
+            p.kod.toLowerCase().includes(q) ||
+
+            p.marka.toLowerCase().includes(q)
+
+        );
+
+    });
+
+    alan.innerHTML = "";
+
+    filtre.forEach(p=>{
+
+        alan.innerHTML += parcaKarti(p);
+
+    });
+
+}
 
 function parcaKarti(p){
 
