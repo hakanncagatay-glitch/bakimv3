@@ -5,7 +5,7 @@ let secilenParcalar = [];
 
 document.getElementById("partSearchInput")
 ?.addEventListener("input", async function(){
-
+console.log("INPUT ÇALIŞTI:", this.value);
     const q = this.value.trim();
 
     const sonucDiv =
