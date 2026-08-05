@@ -205,3 +205,8 @@ grid-template-columns:1fr;
 }
 
 }
+.form-group.full{
+
+    grid-column:1 / -1;
+
+}
