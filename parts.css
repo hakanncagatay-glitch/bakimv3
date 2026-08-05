@@ -210,3 +210,30 @@ grid-template-columns:1fr;
     grid-column:1 / -1;
 
 }
+#partForm .btn-primary,
+#partForm .btn-danger,
+#partForm .btn-secondary{
+
+    min-width:120px;
+    height:42px;
+    border-radius:10px;
+    font-weight:600;
+
+}
+#partForm{
+
+    margin-bottom:35px;
+
+}
+#partForm h3{
+
+    font-size:24px;
+    font-weight:700;
+    margin-bottom:30px;
+
+}
+#partNote{
+
+    min-height:140px;
+
+}
