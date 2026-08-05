@@ -208,10 +208,22 @@ function togglePartForm(){
 
     const form = document.getElementById("partForm");
 
-    form.style.display =
-        form.style.display=="none"
-        ? "block"
-        : "none";
+    if(form.style.display=="none"){
+
+        form.style.display="block";
+
+        form.scrollIntoView({
+
+            behavior:"smooth",
+            block:"start"
+
+        });
+
+    }else{
+
+        form.style.display="none";
+
+    }
 
 }
 // ==========================
