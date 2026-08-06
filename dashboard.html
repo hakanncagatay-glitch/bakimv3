@@ -987,6 +987,193 @@ onclick="arizaGonder()">
 
 </section>
     <section id="reportsPage" style="display:none;">
+        <div class="header">
+
+    <div>
+
+        <h1>📊 TPM Raporları</h1>
+
+        <p>Sürekli İyileştirme ve Bakım Performans Analizi</p>
+
+    </div>
+
+</div>
+
+<!-- ================= FILTER ================= -->
+
+<div class="report-toolbar">
+
+    <input type="date" id="reportStart">
+
+    <input type="date" id="reportEnd">
+
+    <select id="reportLocation">
+
+        <option value="">Tüm Bölümler</option>
+
+    </select>
+
+    <select id="reportMachine">
+
+        <option value="">Tüm Makineler</option>
+
+    </select>
+
+    <select id="reportPeriod">
+
+        <option value="month">Aylık</option>
+        <option value="year">Yıllık</option>
+        <option value="week">Haftalık</option>
+
+    </select>
+
+    <button
+    class="btn-primary"
+    onclick="raporlariYukle()">
+
+        📊 Rapor Oluştur
+
+    </button>
+
+</div>
+
+<!-- ================= KPI ================= -->
+
+<div class="report-kpi-grid">
+
+<div class="report-card">
+
+<h4>Toplam Bakım</h4>
+
+<h2 id="rToplamBakim">0</h2>
+
+</div>
+
+<div class="report-card">
+
+<h4>Planlı Bakım</h4>
+
+<h2 id="rPlanli">%0</h2>
+
+</div>
+
+<div class="report-card">
+
+<h4>Plansız Bakım</h4>
+
+<h2 id="rPlansiz">%0</h2>
+
+</div>
+
+<div class="report-card">
+
+<h4>MTTR</h4>
+
+<h2 id="rMttr">0 dk</h2>
+
+</div>
+
+<div class="report-card">
+
+<h4>MTBF</h4>
+
+<h2 id="rMtbf">0 saat</h2>
+
+</div>
+
+<div class="report-card">
+
+<h4>Duruş Süresi</h4>
+
+<h2 id="rDurus">0 saat</h2>
+
+</div>
+
+</div>
+
+<!-- ================= GRAFIK ================= -->
+
+<div class="report-row">
+
+<div class="panel">
+
+<h3>📈 Trend Analizi</h3>
+
+<canvas id="reportTrendChart"></canvas>
+
+</div>
+
+<div class="panel">
+
+<h3>📊 Dağılım</h3>
+
+<canvas id="reportPieChart"></canvas>
+
+</div>
+
+</div>
+
+<!-- ================= PARETO ================= -->
+
+<div class="report-row">
+
+<div class="panel">
+
+<h3>🔥 Pareto Analizi</h3>
+
+<div id="paretoList">
+
+Henüz veri yok.
+
+</div>
+
+</div>
+
+<div class="panel">
+
+<h3>📌 İyileştirme Alanları</h3>
+
+<div id="improvementList">
+
+Henüz veri yok.
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ================= OZET ================= -->
+
+<div class="panel">
+
+<h3>📝 Yönetici Özeti</h3>
+
+<div id="reportSummary">
+
+Henüz rapor oluşturulmadı.
+
+</div>
+
+</div>
+
+<!-- ================= EXPORT ================= -->
+
+<div class="report-export">
+
+<button class="btn-primary">
+
+📄 PDF Oluştur
+
+</button>
+
+<button class="btn-secondary">
+
+📊 Excel Oluştur
+
+</button>
+
+</div>
 
 </section>
     <div id="bakimDetay" class="drawer">
