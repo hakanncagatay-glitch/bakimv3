@@ -89,6 +89,14 @@ async function raporGrafigiDegistir(){
 
     }
 
+    if(tip === "planliPlansiz"){
+
+        await raporPlanliPlansizGrafigiCiz();
+
+        return;
+
+    }
+
     console.log("Henüz hazırlanmadı:", tip);
 
 }
@@ -326,6 +334,147 @@ async function raporArizaGrafigiCiz(){
     catch(err){
 
         console.error("Arıza grafik hatası:",err);
+
+    }
+
+}
+async function raporPlanliPlansizGrafigiCiz(){
+
+    try{
+
+        const baslangic =
+            document.getElementById("reportStart").value;
+
+        const bitis =
+            document.getElementById("reportEnd").value;
+
+        const url =
+            API +
+            "?action=raporPlanliPlansizGrafigi" +
+            "&baslangic=" +
+            encodeURIComponent(baslangic) +
+            "&bitis=" +
+            encodeURIComponent(bitis);
+
+        const response = await fetch(url);
+
+        const sonuc = await response.json();
+
+        console.log("Planlı/Plansız grafik verisi:", sonuc);
+
+        if(!sonuc.success){
+
+            console.error(
+                "Planlı/Plansız grafik verisi alınamadı."
+            );
+
+            return;
+
+        }
+
+        const liste = sonuc.data;
+
+        const etiketler =
+            liste.map(x => x.donem);
+
+        const planli =
+            liste.map(x => x.planli);
+
+        const plansiz =
+            liste.map(x => x.plansiz);
+
+        const canvas =
+            document.getElementById("reportMainChart");
+
+        if(!canvas) return;
+
+        if(raporGrafik){
+
+            raporGrafik.destroy();
+
+        }
+
+        raporGrafik = new Chart(canvas, {
+
+            type:"line",
+
+            data:{
+
+                labels:etiketler,
+
+                datasets:[
+
+                    {
+
+                        label:"Planlı Bakım",
+
+                        data:planli,
+
+                        tension:0.3,
+
+                        fill:false
+
+                    },
+
+                    {
+
+                        label:"Plansız Bakım",
+
+                        data:plansiz,
+
+                        tension:0.3,
+
+                        fill:false
+
+                    }
+
+                ]
+
+            },
+
+            options:{
+
+                responsive:true,
+
+                maintainAspectRatio:false,
+
+                plugins:{
+
+                    legend:{
+                        display:true
+                    }
+
+                },
+
+                scales:{
+
+                    y:{
+
+                        beginAtZero:true,
+
+                        ticks:{
+                            precision:0
+                        }
+
+                    }
+
+                }
+
+            }
+
+        });
+
+        document.getElementById("reportChartTitle").innerText =
+            "Aylık planlı ve plansız bakım karşılaştırması";
+
+    }
+
+    catch(err){
+
+        console.error(
+            "Planlı/Plansız grafik hatası:",
+            err
+        );
 
     }
 
