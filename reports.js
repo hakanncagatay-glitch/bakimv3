@@ -53,6 +53,7 @@ async function raporlariYukle(){
 
         document.getElementById("rDurus").innerText =
             r.durusSuresi + " saat";
+        await raporBakimGrafigiCiz();
 
     }
 
