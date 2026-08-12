@@ -103,6 +103,13 @@ async function raporGrafigiDegistir(){
     return;
 
 }
+    if(tip === "durus"){
+
+    await raporDurusGrafigiCiz();
+
+    return;
+
+}
 
     console.log("Henüz hazırlanmadı:", tip);
 
@@ -604,6 +611,128 @@ async function raporMttrGrafigiCiz(){
 
         console.error(
             "MTTR grafik hatası:",
+            err
+        );
+
+    }
+
+}
+async function raporDurusGrafigiCiz(){
+
+    try{
+
+        const baslangic =
+            document.getElementById("reportStart").value;
+
+        const bitis =
+            document.getElementById("reportEnd").value;
+
+        const url =
+            API +
+            "?action=raporDurusGrafigi" +
+            "&baslangic=" +
+            encodeURIComponent(baslangic) +
+            "&bitis=" +
+            encodeURIComponent(bitis);
+
+        const response = await fetch(url);
+
+        const sonuc = await response.json();
+
+        console.log("Duruş grafik verisi:", sonuc);
+
+        if(!sonuc.success){
+
+            console.error("Duruş verisi alınamadı.");
+
+            return;
+
+        }
+
+        const liste = sonuc.data;
+
+        const etiketler =
+            liste.map(x => x.donem);
+
+        const degerler =
+            liste.map(x => x.durusSaat);
+
+        const canvas =
+            document.getElementById("reportMainChart");
+
+        if(!canvas) return;
+
+        if(raporGrafik){
+
+            raporGrafik.destroy();
+
+        }
+
+        raporGrafik = new Chart(canvas, {
+
+            type:"bar",
+
+            data:{
+
+                labels:etiketler,
+
+                datasets:[{
+
+                    label:"Duruş Süresi (saat)",
+
+                    data:degerler,
+
+                    tension:0.3
+
+                }]
+
+            },
+
+            options:{
+
+                responsive:true,
+
+                maintainAspectRatio:false,
+
+                plugins:{
+
+                    legend:{
+                        display:true
+                    }
+
+                },
+
+                scales:{
+
+                    y:{
+
+                        beginAtZero:true,
+
+                        title:{
+
+                            display:true,
+
+                            text:"Saat"
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        });
+
+        document.getElementById("reportChartTitle").innerText =
+            "Aylık toplam arıza duruş süresi";
+
+    }
+
+    catch(err){
+
+        console.error(
+            "Duruş grafik hatası:",
             err
         );
 
