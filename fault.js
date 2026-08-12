@@ -348,7 +348,35 @@ function faultMudahale(id){
     if(!a) return;
 
     secilenAriza = a;
+    // Arızayı müdahale durumuna geçir
+    fetch(
+        API +
+        "?action=arizaDurumGuncelle" +
+        "&id=" + encodeURIComponent(a.id) +
+        "&durum=Müdahale Ediliyor" +
+        "&bakimci=" + encodeURIComponent("Hakan Çağatay")
+    )
+    .then(response => response.json())
+    .then(sonuc => {
 
+        if(!sonuc.success){
+
+            console.error(
+                "Arıza müdahale durumu güncellenemedi.",
+                sonuc
+            );
+
+        }
+
+    })
+    .catch(err => {
+
+        console.error(
+            "Arıza durum güncelleme hatası:",
+            err
+        );
+
+    });
     // Sayfaları gizle
     document.querySelectorAll("section").forEach(section=>{
         section.style.display="none";
