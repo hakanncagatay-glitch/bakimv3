@@ -1093,23 +1093,79 @@ onclick="arizaGonder()">
 
 <!-- ================= GRAFIK ================= -->
 
-<div class="report-row">
+<!-- ================= RAPOR GRAFİĞİ ================= -->
 
-<div class="panel">
+<div class="panel report-chart-panel">
 
-<h3>📈 Trend Analizi</h3>
+    <div class="report-chart-header">
 
-<canvas id="reportTrendChart"></canvas>
+        <div>
 
-</div>
+            <h3>📈 Grafik Analizi</h3>
 
-<div class="panel">
+            <p id="reportChartTitle">
+                Seçilen kriterlere göre analiz
+            </p>
 
-<h3>📊 Dağılım</h3>
+        </div>
 
-<canvas id="reportPieChart"></canvas>
+        <select
+            id="reportChartType"
+            onchange="raporGrafigiDegistir()">
 
-</div>
+            <option value="bakimSayisi">
+                Bakım Sayısı
+            </option>
+
+            <option value="arizaSayisi">
+                Arıza Sayısı
+            </option>
+
+            <option value="planliPlansiz">
+                Planlı / Plansız Bakım
+            </option>
+
+            <option value="mttr">
+                MTTR
+            </option>
+
+            <option value="mtbf">
+                MTBF
+            </option>
+
+            <option value="durus">
+                Duruş Süresi
+            </option>
+
+            <option value="arizaTipi">
+                Arıza Tiplerine Göre
+            </option>
+
+            <option value="hatAriza">
+                Hatlara Göre Arıza
+            </option>
+
+            <option value="makineTipi">
+                Makine Tipine Göre Arıza
+            </option>
+
+            <option value="marka">
+                Markaya Göre Arıza
+            </option>
+
+            <option value="parca">
+                Parça Kullanımı
+            </option>
+
+        </select>
+
+    </div>
+
+    <div class="report-chart-container">
+
+        <canvas id="reportMainChart"></canvas>
+
+    </div>
 
 </div>
 
