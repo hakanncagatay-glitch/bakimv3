@@ -83,3 +83,124 @@ async function raporGrafigiDegistir(){
     await raporBakimGrafigiCiz();
 
 }
+async function raporBakimGrafigiCiz(){
+
+    try{
+
+        const baslangic =
+            document.getElementById("reportStart").value;
+
+        const bitis =
+            document.getElementById("reportEnd").value;
+
+        const url =
+            API +
+            "?action=raporBakimGrafigi" +
+            "&baslangic=" +
+            encodeURIComponent(baslangic) +
+            "&bitis=" +
+            encodeURIComponent(bitis);
+
+        const response = await fetch(url);
+
+        const sonuc = await response.json();
+
+        console.log("Bakım grafik verisi:", sonuc);
+
+        if(!sonuc.success){
+
+            console.error("Grafik verisi alınamadı.");
+
+            return;
+
+        }
+
+        const liste = sonuc.data;
+
+        const etiketler =
+            liste.map(x => x.donem);
+
+        const degerler =
+            liste.map(x => x.adet);
+
+        const canvas =
+            document.getElementById("reportMainChart");
+
+        if(!canvas) return;
+
+        if(raporGrafik){
+
+            raporGrafik.destroy();
+
+        }
+
+        raporGrafik = new Chart(canvas, {
+
+            type:"line",
+
+            data:{
+
+                labels:etiketler,
+
+                datasets:[{
+
+                    label:"Bakım Sayısı",
+
+                    data:degerler,
+
+                    tension:0.3,
+
+                    fill:false
+
+                }]
+
+            },
+
+            options:{
+
+                responsive:true,
+
+                maintainAspectRatio:false,
+
+                plugins:{
+
+                    legend:{
+
+                        display:true
+
+                    }
+
+                },
+
+                scales:{
+
+                    y:{
+
+                        beginAtZero:true,
+
+                        ticks:{
+
+                            precision:0
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        });
+
+        document.getElementById("reportChartTitle").innerText =
+            "Aylara göre toplam bakım sayısı";
+
+    }
+
+    catch(err){
+
+        console.error("Bakım grafik hatası:",err);
+
+    }
+
+}
