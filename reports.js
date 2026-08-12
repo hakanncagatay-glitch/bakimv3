@@ -96,6 +96,13 @@ async function raporGrafigiDegistir(){
         return;
 
     }
+    if(tip === "mttr"){
+
+    await raporMttrGrafigiCiz();
+
+    return;
+
+}
 
     console.log("Henüz hazırlanmadı:", tip);
 
@@ -473,6 +480,130 @@ async function raporPlanliPlansizGrafigiCiz(){
 
         console.error(
             "Planlı/Plansız grafik hatası:",
+            err
+        );
+
+    }
+
+}
+async function raporMttrGrafigiCiz(){
+
+    try{
+
+        const baslangic =
+            document.getElementById("reportStart").value;
+
+        const bitis =
+            document.getElementById("reportEnd").value;
+
+        const url =
+            API +
+            "?action=raporMttrGrafigi" +
+            "&baslangic=" +
+            encodeURIComponent(baslangic) +
+            "&bitis=" +
+            encodeURIComponent(bitis);
+
+        const response = await fetch(url);
+
+        const sonuc = await response.json();
+
+        console.log("MTTR grafik verisi:", sonuc);
+
+        if(!sonuc.success){
+
+            console.error("MTTR verisi alınamadı.");
+
+            return;
+
+        }
+
+        const liste = sonuc.data;
+
+        const etiketler =
+            liste.map(x => x.donem);
+
+        const degerler =
+            liste.map(x => x.mttr);
+
+        const canvas =
+            document.getElementById("reportMainChart");
+
+        if(!canvas) return;
+
+        if(raporGrafik){
+
+            raporGrafik.destroy();
+
+        }
+
+        raporGrafik = new Chart(canvas, {
+
+            type:"line",
+
+            data:{
+
+                labels:etiketler,
+
+                datasets:[{
+
+                    label:"MTTR (dk)",
+
+                    data:degerler,
+
+                    tension:0.3,
+
+                    fill:false
+
+                }]
+
+            },
+
+            options:{
+
+                responsive:true,
+
+                maintainAspectRatio:false,
+
+                plugins:{
+
+                    legend:{
+                        display:true
+                    }
+
+                },
+
+                scales:{
+
+                    y:{
+
+                        beginAtZero:true,
+
+                        title:{
+
+                            display:true,
+
+                            text:"Dakika"
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        });
+
+        document.getElementById("reportChartTitle").innerText =
+            "Aylık ortalama tamir süresi (MTTR)";
+
+    }
+
+    catch(err){
+
+        console.error(
+            "MTTR grafik hatası:",
             err
         );
 
