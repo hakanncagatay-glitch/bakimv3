@@ -73,15 +73,23 @@ async function raporGrafigiDegistir(){
     const tip =
         document.getElementById("reportChartType").value;
 
-    if(tip !== "bakimSayisi"){
+    if(tip === "bakimSayisi"){
 
-        console.log("Henüz hazırlanmadı:", tip);
+        await raporBakimGrafigiCiz();
 
         return;
 
     }
 
-    await raporBakimGrafigiCiz();
+    if(tip === "arizaSayisi"){
+
+        await raporArizaGrafigiCiz();
+
+        return;
+
+    }
+
+    console.log("Henüz hazırlanmadı:", tip);
 
 }
 async function raporBakimGrafigiCiz(){
@@ -201,6 +209,123 @@ async function raporBakimGrafigiCiz(){
     catch(err){
 
         console.error("Bakım grafik hatası:",err);
+
+    }
+
+}
+async function raporArizaGrafigiCiz(){
+
+    try{
+
+        const baslangic =
+            document.getElementById("reportStart").value;
+
+        const bitis =
+            document.getElementById("reportEnd").value;
+
+        const url =
+            API +
+            "?action=raporArizaGrafigi" +
+            "&baslangic=" +
+            encodeURIComponent(baslangic) +
+            "&bitis=" +
+            encodeURIComponent(bitis);
+
+        const response = await fetch(url);
+
+        const sonuc = await response.json();
+
+        console.log("Arıza grafik verisi:", sonuc);
+
+        if(!sonuc.success){
+
+            console.error("Arıza grafik verisi alınamadı.");
+
+            return;
+
+        }
+
+        const liste = sonuc.data;
+
+        const etiketler =
+            liste.map(x => x.donem);
+
+        const degerler =
+            liste.map(x => x.adet);
+
+        const canvas =
+            document.getElementById("reportMainChart");
+
+        if(!canvas) return;
+
+        if(raporGrafik){
+
+            raporGrafik.destroy();
+
+        }
+
+        raporGrafik = new Chart(canvas, {
+
+            type:"line",
+
+            data:{
+
+                labels:etiketler,
+
+                datasets:[{
+
+                    label:"Arıza Sayısı",
+
+                    data:degerler,
+
+                    tension:0.3,
+
+                    fill:false
+
+                }]
+
+            },
+
+            options:{
+
+                responsive:true,
+
+                maintainAspectRatio:false,
+
+                plugins:{
+
+                    legend:{
+                        display:true
+                    }
+
+                },
+
+                scales:{
+
+                    y:{
+
+                        beginAtZero:true,
+
+                        ticks:{
+                            precision:0
+                        }
+
+                    }
+
+                }
+
+            }
+
+        });
+
+        document.getElementById("reportChartTitle").innerText =
+            "Aylara göre toplam arıza sayısı";
+
+    }
+
+    catch(err){
+
+        console.error("Arıza grafik hatası:",err);
 
     }
 
