@@ -65,11 +65,21 @@ async function raporlariYukle(){
     }
 
 }
-function raporGrafigiDegistir(){
+let raporGrafik = null;
+
+async function raporGrafigiDegistir(){
 
     const tip =
         document.getElementById("reportChartType").value;
 
-    console.log("Seçilen grafik:", tip);
+    if(tip !== "bakimSayisi"){
+
+        console.log("Henüz hazırlanmadı:", tip);
+
+        return;
+
+    }
+
+    await raporBakimGrafigiCiz();
 
 }
