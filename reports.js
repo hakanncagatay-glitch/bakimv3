@@ -110,6 +110,13 @@ async function raporGrafigiDegistir(){
     return;
 
 }
+   if(tip === "mtbf"){
+
+    await raporMtbfGrafigiCiz();
+
+    return;
+
+}
 
     console.log("Henüz hazırlanmadı:", tip);
 
@@ -733,6 +740,130 @@ async function raporDurusGrafigiCiz(){
 
         console.error(
             "Duruş grafik hatası:",
+            err
+        );
+
+    }
+
+}
+async function raporMtbfGrafigiCiz(){
+
+    try{
+
+        const baslangic =
+            document.getElementById("reportStart").value;
+
+        const bitis =
+            document.getElementById("reportEnd").value;
+
+        const url =
+            API +
+            "?action=raporMtbfGrafigi" +
+            "&baslangic=" +
+            encodeURIComponent(baslangic) +
+            "&bitis=" +
+            encodeURIComponent(bitis);
+
+        const response = await fetch(url);
+
+        const sonuc = await response.json();
+
+        console.log("MTBF grafik verisi:", sonuc);
+
+        if(!sonuc.success){
+
+            console.error("MTBF verisi alınamadı.");
+
+            return;
+
+        }
+
+        const liste = sonuc.data;
+
+        const etiketler =
+            liste.map(x => x.donem);
+
+        const degerler =
+            liste.map(x => x.mtbf);
+
+        const canvas =
+            document.getElementById("reportMainChart");
+
+        if(!canvas) return;
+
+        if(raporGrafik){
+
+            raporGrafik.destroy();
+
+        }
+
+        raporGrafik = new Chart(canvas, {
+
+            type:"line",
+
+            data:{
+
+                labels:etiketler,
+
+                datasets:[{
+
+                    label:"MTBF (saat)",
+
+                    data:degerler,
+
+                    tension:0.3,
+
+                    fill:false
+
+                }]
+
+            },
+
+            options:{
+
+                responsive:true,
+
+                maintainAspectRatio:false,
+
+                plugins:{
+
+                    legend:{
+                        display:true
+                    }
+
+                },
+
+                scales:{
+
+                    y:{
+
+                        beginAtZero:true,
+
+                        title:{
+
+                            display:true,
+
+                            text:"Saat"
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        });
+
+        document.getElementById("reportChartTitle").innerText =
+            "En az 2 arızası bulunan makinelerin aylık MTBF değeri";
+
+    }
+
+    catch(err){
+
+        console.error(
+            "MTBF grafik hatası:",
             err
         );
 
