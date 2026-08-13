@@ -870,6 +870,7 @@ async function raporMtbfGrafigiCiz(){
         );
 
     }
+}
 async function raporArizaTipiParetoCiz(){
 
     try{
@@ -1034,4 +1035,4 @@ async function raporArizaTipiParetoCiz(){
     }
 
 }
-}
+
