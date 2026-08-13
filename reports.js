@@ -67,6 +67,7 @@ async function raporlariYukle(){
 
 }
 let raporGrafik = null;
+let paretoGrafik = null;
 
 async function raporGrafigiDegistir(){
 
