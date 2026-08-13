@@ -520,7 +520,7 @@ async function arizaKapatKaydet(id){
     }
 
 }
-function faultMudahale(id){
+async function faultMudahale(id){
 
     detayKapat();
 
@@ -528,62 +528,119 @@ function faultMudahale(id){
 
     if(!a) return;
 
+    // Aktif arızayı sakla
     secilenAriza = a;
-    // Arızayı müdahale durumuna geçir
-    fetch(
-        API +
-        "?action=arizaDurumGuncelle" +
-        "&id=" + encodeURIComponent(a.id) +
-        "&durum=Müdahale Ediliyor" +
-        "&bakimci=" + encodeURIComponent("Hakan Çağatay")
-    )
-    .then(response => response.json())
-    .then(sonuc => {
+    window.secilenAriza = a;
 
+    console.log("MÜDAHALE EDİLECEK ARIZA:", a);
+
+    try{
+
+        // ===============================
+        // ARIZAYI MÜDAHALE DURUMUNA AL
+        // ===============================
+
+        const url =
+            API +
+            "?action=arizaDurumGuncelle" +
+            "&id=" + encodeURIComponent(a.id) +
+            "&durum=" + encodeURIComponent("Müdahale Ediliyor") +
+            "&bakimci=" + encodeURIComponent("Hakan Çağatay");
+
+        console.log("MÜDAHALE API:", url);
+
+        const response = await fetch(url);
+
+        const sonuc = await response.json();
+
+        console.log(
+            "MÜDAHALE SONUCU:",
+            sonuc
+        );
+
+        // API başarısızsa bakım ekranına geçme
         if(!sonuc.success){
 
-            console.error(
-                "Arıza müdahale durumu güncellenemedi.",
-                sonuc
+            alert(
+                sonuc.message ||
+                "Arıza müdahale durumuna geçirilemedi."
             );
+
+            return;
 
         }
 
-    })
-    .catch(err => {
+        // ===============================
+        // SAYFALARI GİZLE
+        // ===============================
+
+        document
+            .querySelectorAll("section")
+            .forEach(section => {
+
+                section.style.display = "none";
+
+            });
+
+        // ===============================
+        // YENİ BAKIM SAYFASINI AÇ
+        // ===============================
+
+        document
+            .getElementById("newMaintenancePage")
+            .style.display = "block";
+
+        // ===============================
+        // MENÜ
+        // ===============================
+
+        document
+            .querySelectorAll(".sidebar li")
+            .forEach(li => {
+
+                li.classList.remove("active");
+
+            });
+
+        document
+            .getElementById("menuNewMaintenance")
+            .classList.add("active");
+
+        // ===============================
+        // ENVANTERİ OTOMATİK YAZ
+        // ===============================
+
+        document
+            .getElementById("bakimMakineAra")
+            .value = a.envanter;
+
+        // ===============================
+        // MAKİNEYİ YÜKLE
+        // ===============================
+
+        setTimeout(async () => {
+
+            await bakimMakineBul();
+
+            document
+                .getElementById("bakimTipi")
+                .value = "Arıza Bakımı";
+
+        }, 100);
+
+    }
+    catch(err){
 
         console.error(
-            "Arıza durum güncelleme hatası:",
+            "Müdahale işlemi hatası:",
             err
         );
 
-    });
-    // Sayfaları gizle
-    document.querySelectorAll("section").forEach(section=>{
-        section.style.display="none";
-    });
+        alert(
+            "Arıza müdahale durumu güncellenemedi."
+        );
 
-    // Yeni Bakım sayfasını aç
-    document.getElementById("newMaintenancePage").style.display="block";
-
-    // Menü
-    document.querySelectorAll(".sidebar li")
-        .forEach(li=>li.classList.remove("active"));
-
-    document.getElementById("menuNewMaintenance")
-        .classList.add("active");
-
-  // Envanteri otomatik yaz
-document.getElementById("bakimMakineAra").value = a.envanter;
-
-// Sayfa açıldıktan sonra bilgileri yükle
-setTimeout(async () => {
-
-    await bakimMakineBul();
-
-    document.getElementById("bakimTipi").value = "Arıza Bakımı";
-
-}, 100);
+    }
 
 }
 async function arizaGonder(){
