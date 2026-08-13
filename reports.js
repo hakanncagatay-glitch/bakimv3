@@ -73,99 +73,98 @@ let paretoGrafik = null;
 async function raporGrafigiDegistir(){
 
     const tip =
-        document.getElementById(
-            "reportChartType"
-        ).value;
+        document.getElementById("reportChartType").value;
 
 
     if(tip === "bakimSayisi"){
-
         await raporBakimGrafigiCiz();
-
         return;
-
     }
 
 
     if(tip === "arizaSayisi"){
-
         await raporArizaGrafigiCiz();
-
         return;
-
     }
 
 
     if(tip === "planliPlansiz"){
-
         await raporPlanliPlansizGrafigiCiz();
-
         return;
-
     }
 
 
     if(tip === "mttr"){
-
         await raporMttrGrafigiCiz();
-
         return;
-
-    }
-
-
-    if(tip === "durus"){
-
-        await raporDurusGrafigiCiz();
-
-        return;
-
     }
 
 
     if(tip === "mtbf"){
-
         await raporMtbfGrafigiCiz();
-
         return;
-
     }
-if(tip === "arizaTipi"){
-    await raporArizaTipiGrafigiCiz();
-    return;
-}
+
+
+    if(tip === "durus"){
+        await raporDurusGrafigiCiz();
+        return;
+    }
+
+
+    // ==========================
+    // ARIZA TİPİ PARETO
+    // ==========================
+
+    if(tip === "arizaTipi"){
+        await raporArizaTipiParetoCiz();
+        return;
+    }
+
+
+    // ==========================
+    // HAT
+    // ==========================
 
     if(tip === "hatAriza"){
-
         await raporHatArizaGrafigiCiz();
-
         return;
-
     }
 
 
-    if(tip === "marka"){
-
-        await raporMarkaArizaGrafigiCiz();
-
-        return;
-
-    }
-
+    // ==========================
+    // MAKİNE MODELİ
+    // ==========================
 
     if(tip === "makineTipi"){
-
         await raporModelArizaGrafigiCiz();
+        return;
+    }
+
+
+    // ==========================
+    // MARKA
+    // ==========================
+
+    if(tip === "marka"){
+        await raporMarkaArizaGrafigiCiz();
+        return;
+    }
+
+
+    // ==========================
+    // PARÇA
+    // ==========================
+
+    if(tip === "parca"){
+
+        console.log(
+            "Parça Kullanımı henüz hazırlanmadı."
+        );
 
         return;
 
     }
-
-
-    console.log(
-        "Henüz hazırlanmadı:",
-        tip
-    );
 
 }
 async function raporBakimGrafigiCiz(){
