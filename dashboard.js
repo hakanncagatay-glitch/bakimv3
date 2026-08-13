@@ -665,95 +665,337 @@ async function bakimKaydet() {
 
     const bilgi = document.getElementById("bakimMakineBilgi");
 
-    if (bilgi.innerHTML.includes("Henüz")) {
+    if (!bilgi || bilgi.innerHTML.includes("Henüz")) {
         alert("Önce makine seçiniz.");
         return;
     }
 
-    const envanter =
-        bilgi.querySelector("h3").innerText;
+    const envanterElement = bilgi.querySelector("h3");
+
+    if (!envanterElement) {
+        alert("Makine bilgisi alınamadı.");
+        return;
+    }
+
+    const envanter = envanterElement.innerText.trim();
+
+    const bakimTuru =
+        document.getElementById("bakimTipi").value;
+
+    const bakimiYapan = "Hakan Çağatay";
+
+    const arizaNedeni =
+        document.getElementById("arizaNedeni").value.trim();
+
+    const degisenParcalar =
+        document.getElementById("degisenParcalar").value.trim();
+
+    const aciklama =
+        document.getElementById("bakimAciklama").value.trim();
+
+
+    // ==========================================
+    // AKTİF ARIZA
+    // ==========================================
+
+    const aktifAriza =
+        window.secilenAriza ||
+        secilenAriza ||
+        null;
+
+
+    console.log(
+        "BAKIM KAYDI - AKTİF ARIZA:",
+        aktifAriza
+    );
+
+
+    // ==========================================
+    // BAKIM VERİSİ
+    // ==========================================
 
     const veri = {
-    action: "bakimKaydet",
-    envanterKodu: envanter,
-    bakimTuru: document.getElementById("bakimTipi").value,
-    bakimiYapan: "Hakan Çağatay",
-    arizaNedeni: document.getElementById("arizaNedeni").value,
-    degisenParcalar: document.getElementById("degisenParcalar").value,
-    aciklama: document.getElementById("bakimAciklama").value,   // <-- Virgül
 
-    parcalar: JSON.stringify(secilenParcalar)
-};
+        action: "bakimKaydet",
+
+        envanterKodu: envanter,
+
+        bakimTuru: bakimTuru,
+
+        bakimiYapan: bakimiYapan,
+
+        arizaNedeni: arizaNedeni,
+
+        degisenParcalar: degisenParcalar,
+
+        // Bakım ekranındaki gerçek yapılan iş / çözüm
+        aciklama: aciklama,
+
+        // ARIZALAR → Çözüm sütununa gidecek
+        cozum: aciklama,
+
+        parcalar: JSON.stringify(
+            secilenParcalar || []
+        )
+
+    };
+
 
     try {
 
-       let url =
-    API +
-    "?action=bakimKaydet" +
-    "&envanterKodu=" + encodeURIComponent(veri.envanterKodu) +
-    "&bakimTuru=" + encodeURIComponent(veri.bakimTuru) +
-    "&bakimiYapan=" + encodeURIComponent(veri.bakimiYapan) +
-    "&arizaNedeni=" + encodeURIComponent(veri.arizaNedeni) +
-    "&degisenParcalar=" + encodeURIComponent(veri.degisenParcalar) +
-    "&aciklama=" +
-encodeURIComponent(veri.aciklama) +
+        // ==========================================
+        // API URL
+        // ==========================================
 
-"&parcalar=" +
-encodeURIComponent(veri.parcalar);
-        if (secilenAriza) {
+        let url =
+            API +
+            "?action=bakimKaydet" +
 
-    url +=
-        "&arizaId=" +
-        encodeURIComponent(secilenAriza.id);
+            "&envanterKodu=" +
+            encodeURIComponent(
+                veri.envanterKodu
+            ) +
 
-}
+            "&bakimTuru=" +
+            encodeURIComponent(
+                veri.bakimTuru
+            ) +
 
-const response = await fetch(url);
+            "&bakimiYapan=" +
+            encodeURIComponent(
+                veri.bakimiYapan
+            ) +
 
-        const sonuc = await response.json();
+            "&arizaNedeni=" +
+            encodeURIComponent(
+                veri.arizaNedeni
+            ) +
 
-        if (sonuc.success) {
+            "&degisenParcalar=" +
+            encodeURIComponent(
+                veri.degisenParcalar
+            ) +
 
-    alert("Bakım başarıyla kaydedildi.");
+            "&aciklama=" +
+            encodeURIComponent(
+                veri.aciklama
+            ) +
 
-    document.getElementById("bakimAciklama").value = "";
-    document.getElementById("degisenParcalar").value = "";
-    document.getElementById("arizaNedeni").value = "";
-    document.getElementById("bakimTipi").selectedIndex = 0;
+            "&cozum=" +
+            encodeURIComponent(
+                veri.cozum
+            ) +
 
-    if (planliBakimdanGelindi) {
+            "&parcalar=" +
+            encodeURIComponent(
+                veri.parcalar
+            );
 
-        planliBakimdanGelindi = false;
 
-        document.querySelectorAll("section").forEach(s=>{
-            s.style.display="none";
-        });
+        // ==========================================
+        // ARIZADAN GELDİYSE ARIZA ID'SİNİ GÖNDER
+        // ==========================================
 
-        document.getElementById("plannedPage").style.display="block";
+        if (
+            aktifAriza &&
+            aktifAriza.id
+        ) {
 
-        document.querySelectorAll(".sidebar li")
-            .forEach(li=>li.classList.remove("active"));
-
-        document.querySelector('[data-page="plannedPage"]')
-            ?.classList.add("active");
-
-        await planliBakimlariYukle();
-
-    }
-
-} else {
-
-            alert(sonuc.message);
+            url +=
+                "&arizaId=" +
+                encodeURIComponent(
+                    aktifAriza.id
+                );
 
         }
 
-    } catch (err) {
 
-    console.error("HATA:", err);
+        console.log(
+            "BAKIM KAYIT URL:",
+            url
+        );
 
-    alert(err.message);
 
-}
+        // ==========================================
+        // API ÇAĞRISI
+        // ==========================================
+
+        const response =
+            await fetch(url);
+
+
+        const sonuc =
+            await response.json();
+
+
+        console.log(
+            "BAKIM KAYIT SONUCU:",
+            sonuc
+        );
+
+
+        // ==========================================
+        // HATA KONTROLÜ
+        // ==========================================
+
+        if (!sonuc.success) {
+
+            alert(
+                sonuc.message ||
+                "Bakım kaydedilemedi."
+            );
+
+            return;
+
+        }
+
+
+        // ==========================================
+        // BAŞARILI
+        // ==========================================
+
+        alert(
+            "✅ Bakım başarıyla kaydedildi."
+        );
+
+
+        // ==========================================
+        // FORMU TEMİZLE
+        // ==========================================
+
+        document
+            .getElementById("bakimAciklama")
+            .value = "";
+
+        document
+            .getElementById("degisenParcalar")
+            .value = "";
+
+        document
+            .getElementById("arizaNedeni")
+            .value = "";
+
+        document
+            .getElementById("bakimTipi")
+            .selectedIndex = 0;
+
+
+        // ==========================================
+        // AKTİF ARIZA BİLGİSİNİ TEMİZLE
+        // ==========================================
+
+        secilenAriza = null;
+        window.secilenAriza = null;
+
+
+        // ==========================================
+        // PLANLI BAKIMDAN GELDİYSE
+        // ==========================================
+
+        if (planliBakimdanGelindi) {
+
+            planliBakimdanGelindi = false;
+
+
+            document
+                .querySelectorAll("section")
+                .forEach(s => {
+
+                    s.style.display = "none";
+
+                });
+
+
+            document
+                .getElementById("plannedPage")
+                .style.display = "block";
+
+
+            document
+                .querySelectorAll(".sidebar li")
+                .forEach(li => {
+
+                    li.classList.remove("active");
+
+                });
+
+
+            document
+                .querySelector(
+                    '[data-page="plannedPage"]'
+                )
+                ?.classList.add("active");
+
+
+            return;
+
+        }
+
+
+        // ==========================================
+        // ARIZA BAKIMINDAN GELDİYSE
+        // ARIZALAR SAYFASINA GERİ DÖN
+        // ==========================================
+
+        if (
+            bakimTuru === "Arıza Bakımı" ||
+            aktifAriza
+        ) {
+
+            document
+                .querySelectorAll("section")
+                .forEach(s => {
+
+                    s.style.display = "none";
+
+                });
+
+
+            document
+                .getElementById("faultPage")
+                .style.display = "block";
+
+
+            document
+                .querySelectorAll(".sidebar li")
+                .forEach(li => {
+
+                    li.classList.remove("active");
+
+                });
+
+
+            document
+                .getElementById("menuFault")
+                ?.classList.add("active");
+
+
+            // Arıza listesini yenile
+            if (
+                typeof arizalariYukle === "function"
+            ) {
+
+                await arizalariYukle();
+
+            }
+
+        }
+
+    }
+
+    catch (err) {
+
+        console.error(
+            "Bakım kaydetme hatası:",
+            err
+        );
+
+
+        alert(
+            "Bakım kaydedilirken bağlantı hatası oluştu."
+        );
+
+    }
 
 }
 function qrBaslat(){
