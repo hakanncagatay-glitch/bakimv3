@@ -73,7 +73,10 @@ let paretoGrafik = null;
 async function raporGrafigiDegistir(){
 
     const tip =
-        document.getElementById("reportChartType").value;
+        document.getElementById(
+            "reportChartType"
+        ).value;
+
 
     if(tip === "bakimSayisi"){
 
@@ -83,6 +86,7 @@ async function raporGrafigiDegistir(){
 
     }
 
+
     if(tip === "arizaSayisi"){
 
         await raporArizaGrafigiCiz();
@@ -91,6 +95,7 @@ async function raporGrafigiDegistir(){
 
     }
 
+
     if(tip === "planliPlansiz"){
 
         await raporPlanliPlansizGrafigiCiz();
@@ -98,29 +103,66 @@ async function raporGrafigiDegistir(){
         return;
 
     }
+
+
     if(tip === "mttr"){
 
-    await raporMttrGrafigiCiz();
+        await raporMttrGrafigiCiz();
 
-    return;
+        return;
 
-}
+    }
+
+
     if(tip === "durus"){
 
-    await raporDurusGrafigiCiz();
+        await raporDurusGrafigiCiz();
 
-    return;
+        return;
 
-}
-   if(tip === "mtbf"){
+    }
 
-    await raporMtbfGrafigiCiz();
 
-    return;
+    if(tip === "mtbf"){
 
-}
+        await raporMtbfGrafigiCiz();
 
-    console.log("Henüz hazırlanmadı:", tip);
+        return;
+
+    }
+
+
+    if(tip === "hatAriza"){
+
+        await raporHatArizaGrafigiCiz();
+
+        return;
+
+    }
+
+
+    if(tip === "markaAriza"){
+
+        await raporMarkaArizaGrafigiCiz();
+
+        return;
+
+    }
+
+
+    if(tip === "makineModeli"){
+
+        await raporModelArizaGrafigiCiz();
+
+        return;
+
+    }
+
+
+    console.log(
+        "Henüz hazırlanmadı:",
+        tip
+    );
 
 }
 async function raporBakimGrafigiCiz(){
@@ -1035,4 +1077,483 @@ async function raporArizaTipiParetoCiz(){
     }
 
 }
+async function raporHatArizaGrafigiCiz(){
 
+    try{
+
+        const baslangic =
+            document.getElementById(
+                "reportStart"
+            ).value;
+
+        const bitis =
+            document.getElementById(
+                "reportEnd"
+            ).value;
+
+
+        const url =
+            API +
+            "?action=raporHatAriza" +
+            "&baslangic=" +
+            encodeURIComponent(baslangic) +
+            "&bitis=" +
+            encodeURIComponent(bitis);
+
+
+        const response =
+            await fetch(url);
+
+
+        const sonuc =
+            await response.json();
+
+
+        console.log(
+            "Hat arıza verisi:",
+            sonuc
+        );
+
+
+        if(!sonuc.success){
+
+            console.error(
+                "Hat arıza verisi alınamadı."
+            );
+
+            return;
+
+        }
+
+
+        const liste =
+            sonuc.data;
+
+
+        const etiketler =
+            liste.map(
+                x => x.kategori
+            );
+
+
+        const degerler =
+            liste.map(
+                x => x.adet
+            );
+
+
+        const canvas =
+            document.getElementById(
+                "reportMainChart"
+            );
+
+
+        if(!canvas) return;
+
+
+        if(raporGrafik){
+
+            raporGrafik.destroy();
+
+        }
+
+
+        raporGrafik =
+            new Chart(
+                canvas,
+                {
+
+                    type:"bar",
+
+                    data:{
+
+                        labels:
+                            etiketler,
+
+                        datasets:[{
+
+                            label:
+                                "Arıza Sayısı",
+
+                            data:
+                                degerler,
+
+                            borderWidth:1
+
+                        }]
+
+                    },
+
+                    options:{
+
+                        responsive:true,
+
+                        maintainAspectRatio:false,
+
+                        plugins:{
+
+                            legend:{
+                                display:true
+                            }
+
+                        },
+
+                        scales:{
+
+                            y:{
+
+                                beginAtZero:true,
+
+                                ticks:{
+                                    precision:0
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+                }
+            );
+
+
+        document
+            .getElementById(
+                "reportChartTitle"
+            )
+            .innerText =
+                "Hatlara göre arıza sayısı";
+
+
+    }
+    catch(err){
+
+        console.error(
+            "Hat arıza grafik hatası:",
+            err
+        );
+
+    }
+
+}
+async function raporMarkaArizaGrafigiCiz(){
+
+    try{
+
+        const baslangic =
+            document.getElementById(
+                "reportStart"
+            ).value;
+
+        const bitis =
+            document.getElementById(
+                "reportEnd"
+            ).value;
+
+
+        const url =
+            API +
+            "?action=raporMarkaAriza" +
+            "&baslangic=" +
+            encodeURIComponent(baslangic) +
+            "&bitis=" +
+            encodeURIComponent(bitis);
+
+
+        const response =
+            await fetch(url);
+
+
+        const sonuc =
+            await response.json();
+
+
+        console.log(
+            "Marka arıza verisi:",
+            sonuc
+        );
+
+
+        if(!sonuc.success){
+
+            console.error(
+                "Marka arıza verisi alınamadı."
+            );
+
+            return;
+
+        }
+
+
+        const liste =
+            sonuc.data;
+
+
+        const etiketler =
+            liste.map(
+                x => x.kategori
+            );
+
+
+        const degerler =
+            liste.map(
+                x => x.adet
+            );
+
+
+        const canvas =
+            document.getElementById(
+                "reportMainChart"
+            );
+
+
+        if(!canvas) return;
+
+
+        if(raporGrafik){
+
+            raporGrafik.destroy();
+
+        }
+
+
+        raporGrafik =
+            new Chart(
+                canvas,
+                {
+
+                    type:"bar",
+
+                    data:{
+
+                        labels:
+                            etiketler,
+
+                        datasets:[{
+
+                            label:
+                                "Arıza Sayısı",
+
+                            data:
+                                degerler,
+
+                            borderWidth:1
+
+                        }]
+
+                    },
+
+                    options:{
+
+                        responsive:true,
+
+                        maintainAspectRatio:false,
+
+                        plugins:{
+
+                            legend:{
+                                display:true
+                            }
+
+                        },
+
+                        scales:{
+
+                            y:{
+
+                                beginAtZero:true,
+
+                                ticks:{
+                                    precision:0
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+                }
+            );
+
+
+        document
+            .getElementById(
+                "reportChartTitle"
+            )
+            .innerText =
+                "Markalara göre arıza sayısı";
+
+
+    }
+    catch(err){
+
+        console.error(
+            "Marka arıza grafik hatası:",
+            err
+        );
+
+    }
+
+}
+async function raporModelArizaGrafigiCiz(){
+
+    try{
+
+        const baslangic =
+            document.getElementById(
+                "reportStart"
+            ).value;
+
+        const bitis =
+            document.getElementById(
+                "reportEnd"
+            ).value;
+
+
+        const url =
+            API +
+            "?action=raporModelAriza" +
+            "&baslangic=" +
+            encodeURIComponent(baslangic) +
+            "&bitis=" +
+            encodeURIComponent(bitis);
+
+
+        const response =
+            await fetch(url);
+
+
+        const sonuc =
+            await response.json();
+
+
+        console.log(
+            "Model arıza verisi:",
+            sonuc
+        );
+
+
+        if(!sonuc.success){
+
+            console.error(
+                "Model arıza verisi alınamadı."
+            );
+
+            return;
+
+        }
+
+
+        const liste =
+            sonuc.data;
+
+
+        const etiketler =
+            liste.map(
+                x => x.kategori
+            );
+
+
+        const degerler =
+            liste.map(
+                x => x.adet
+            );
+
+
+        const canvas =
+            document.getElementById(
+                "reportMainChart"
+            );
+
+
+        if(!canvas) return;
+
+
+        if(raporGrafik){
+
+            raporGrafik.destroy();
+
+        }
+
+
+        raporGrafik =
+            new Chart(
+                canvas,
+                {
+
+                    type:"bar",
+
+                    data:{
+
+                        labels:
+                            etiketler,
+
+                        datasets:[{
+
+                            label:
+                                "Arıza Sayısı",
+
+                            data:
+                                degerler,
+
+                            borderWidth:1
+
+                        }]
+
+                    },
+
+                    options:{
+
+                        responsive:true,
+
+                        maintainAspectRatio:false,
+
+                        plugins:{
+
+                            legend:{
+                                display:true
+                            }
+
+                        },
+
+                        scales:{
+
+                            y:{
+
+                                beginAtZero:true,
+
+                                ticks:{
+                                    precision:0
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+                }
+            );
+
+
+        document
+            .getElementById(
+                "reportChartTitle"
+            )
+            .innerText =
+                "Makine modellerine göre arıza sayısı";
+
+
+    }
+    catch(err){
+
+        console.error(
+            "Model arıza grafik hatası:",
+            err
+        );
+
+    }
+
+}
