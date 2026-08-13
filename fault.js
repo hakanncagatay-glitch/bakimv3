@@ -246,11 +246,104 @@ function faultKonumlariniDoldur(){
 
 }
 function arizaDetay(id){
-    
-console.log("DETAY ÇALIŞTI", id);
+
+    console.log("DETAY ÇALIŞTI", id);
+
     const a = tumArizalar.find(x => x.id == id);
 
     if(!a) return;
+
+    let kapatmaAlani = "";
+
+    // Arıza henüz kapanmadıysa kapatma alanını göster
+    if(a.durum !== "Tamamlandı"){
+
+        kapatmaAlani = `
+
+            <hr>
+
+            <h4>🔧 Arıza Çözümü</h4>
+
+            <textarea
+                id="arizaCozum"
+                placeholder="Yapılan işlemi ve çözümü yazınız..."
+                style="
+                    width:100%;
+                    min-height:100px;
+                    padding:10px;
+                    border:1px solid #d1d5db;
+                    border-radius:8px;
+                    box-sizing:border-box;
+                    margin-top:8px;
+                "
+            >${a.cozum || ""}</textarea>
+
+            <h4 style="margin-top:18px;">
+                🏷️ Arıza Tipi
+            </h4>
+
+            <select
+                id="arizaTipi"
+                style="
+                    width:100%;
+                    padding:10px;
+                    border:1px solid #d1d5db;
+                    border-radius:8px;
+                    margin-top:8px;
+                "
+            >
+
+                <option value="">Arıza tipi seçiniz</option>
+
+                <option value="Mekanik"
+                    ${a.arizaTipi === "Mekanik" ? "selected" : ""}>
+                    Mekanik
+                </option>
+
+                <option value="Elektrik"
+                    ${a.arizaTipi === "Elektrik" ? "selected" : ""}>
+                    Elektrik
+                </option>
+
+                <option value="Elektronik"
+                    ${a.arizaTipi === "Elektronik" ? "selected" : ""}>
+                    Elektronik
+                </option>
+
+                <option value="Pnömatik"
+                    ${a.arizaTipi === "Pnömatik" ? "selected" : ""}>
+                    Pnömatik
+                </option>
+
+                <option value="Hidrolik"
+                    ${a.arizaTipi === "Hidrolik" ? "selected" : ""}>
+                    Hidrolik
+                </option>
+
+                <option value="Yazılım"
+                    ${a.arizaTipi === "Yazılım" ? "selected" : ""}>
+                    Yazılım
+                </option>
+
+                <option value="Diğer"
+                    ${a.arizaTipi === "Diğer" ? "selected" : ""}>
+                    Diğer
+                </option>
+
+            </select>
+
+            <button
+                class="btn-primary"
+                style="margin-top:20px;"
+                onclick="arizaKapatKaydet('${a.id}')">
+
+                ✅ Arızayı Kapat
+
+            </button>
+
+        `;
+
+    }
 
     document.getElementById("bakimDetayIcerik").innerHTML = `
 
@@ -310,6 +403,16 @@ console.log("DETAY ÇALIŞTI", id);
                 <strong>${a.bakimci || "-"}</strong>
             </div>
 
+            <div class="detail-item">
+                <label>Başlama</label>
+                <strong>${a.baslama || "-"}</strong>
+            </div>
+
+            <div class="detail-item">
+                <label>Bitiş</label>
+                <strong>${a.bitis || "-"}</strong>
+            </div>
+
         </div>
 
         <hr>
@@ -324,19 +427,97 @@ console.log("DETAY ÇALIŞTI", id);
 
         <p>${a.cozum || "-"}</p>
 
-        <br>
-
-        <button
-            class="btn-primary"
-            onclick="faultMudahale('${a.id}')">
-
-            🛠 Müdahale Et
-
-        </button>
+        ${kapatmaAlani}
 
     `;
 
-   document.getElementById("bakimDetay").classList.add("active");
+    document
+        .getElementById("bakimDetay")
+        .classList.add("active");
+
+}
+async function arizaKapatKaydet(id){
+
+    const cozum =
+        document.getElementById("arizaCozum")
+        .value
+        .trim();
+
+    const arizaTipi =
+        document.getElementById("arizaTipi")
+        .value
+        .trim();
+
+    if(arizaTipi === ""){
+
+        alert("Lütfen arıza tipini seçiniz.");
+
+        return;
+
+    }
+
+    if(cozum === ""){
+
+        alert("Lütfen yapılan işlemi / çözümü giriniz.");
+
+        return;
+
+    }
+
+    try{
+
+        const url =
+            API +
+            "?action=arizaKapat" +
+            "&id=" +
+            encodeURIComponent(id) +
+            "&cozum=" +
+            encodeURIComponent(cozum) +
+            "&arizaTipi=" +
+            encodeURIComponent(arizaTipi);
+
+        const response =
+            await fetch(url);
+
+        const sonuc =
+            await response.json();
+
+        console.log(
+            "Arıza kapatma sonucu:",
+            sonuc
+        );
+
+        if(!sonuc.success){
+
+            alert(
+                sonuc.message ||
+                "Arıza kapatılamadı."
+            );
+
+            return;
+
+        }
+
+        alert("✅ Arıza başarıyla kapatıldı.");
+
+        detayKapat();
+
+        await arizalariYukle();
+
+    }
+
+    catch(err){
+
+        console.error(
+            "Arıza kapatma hatası:",
+            err
+        );
+
+        alert(
+            "Arıza kapatılırken bağlantı hatası oluştu."
+        );
+
+    }
 
 }
 function faultMudahale(id){
