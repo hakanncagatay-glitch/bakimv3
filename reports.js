@@ -869,5 +869,168 @@ async function raporMtbfGrafigiCiz(){
         );
 
     }
+async function raporArizaTipiParetoCiz(){
 
+    try{
+
+        const baslangic =
+            document.getElementById("reportStart").value;
+
+        const bitis =
+            document.getElementById("reportEnd").value;
+
+        const url =
+            API +
+            "?action=raporArizaTipiPareto" +
+            "&baslangic=" +
+            encodeURIComponent(baslangic) +
+            "&bitis=" +
+            encodeURIComponent(bitis);
+
+        const response = await fetch(url);
+
+        const sonuc = await response.json();
+
+        console.log("Arıza tipi Pareto:", sonuc);
+
+        if(!sonuc.success){
+
+            console.error("Pareto verisi alınamadı.");
+
+            return;
+
+        }
+
+        const liste = sonuc.data;
+
+        const etiketler =
+            liste.map(x => x.tip);
+
+        const adetler =
+            liste.map(x => x.adet);
+
+        const kumulatif =
+            liste.map(x => x.kumulatif);
+
+        const canvas =
+            document.getElementById("paretoChart");
+
+        if(!canvas) return;
+
+        if(paretoGrafik){
+
+            paretoGrafik.destroy();
+
+        }
+
+        paretoGrafik = new Chart(canvas, {
+
+            data:{
+
+                labels:etiketler,
+
+                datasets:[
+
+                    {
+
+                        type:"bar",
+
+                        label:"Arıza Sayısı",
+
+                        data:adetler,
+
+                        yAxisID:"y"
+
+                    },
+
+                    {
+
+                        type:"line",
+
+                        label:"Kümülatif %",
+
+                        data:kumulatif,
+
+                        yAxisID:"y1",
+
+                        tension:0.3
+
+                    }
+
+                ]
+
+            },
+
+            options:{
+
+                responsive:true,
+
+                maintainAspectRatio:false,
+
+                interaction:{
+
+                    mode:"index",
+
+                    intersect:false
+
+                },
+
+                scales:{
+
+                    y:{
+
+                        beginAtZero:true,
+
+                        title:{
+
+                            display:true,
+
+                            text:"Arıza Sayısı"
+
+                        }
+
+                    },
+
+                    y1:{
+
+                        position:"right",
+
+                        min:0,
+
+                        max:100,
+
+                        title:{
+
+                            display:true,
+
+                            text:"Kümülatif %"
+
+                        },
+
+                        grid:{
+
+                            drawOnChartArea:false
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        });
+
+    }
+
+    catch(err){
+
+        console.error(
+            "Pareto grafik hatası:",
+            err
+        );
+
+    }
+
+}
 }
