@@ -61,119 +61,255 @@ async function arizalariYukle(){
     }
 
 }
+function arizaSatiri(a) {
+
+    let renk = "#ef4444";
+    let durum = "Açık";
 
 
-function arizaSatiri(a){
+    // ==========================================
+    // DURUMU NORMALLEŞTİR
+    // ==========================================
 
-    let renk="#ef4444";
-    let durum="Açık";
+    const durumDegeri =
+        String(a.durum || "")
+            .trim()
+            .toLowerCase();
 
-    if(a.durum=="mudahale"){
 
-        renk="#f59e0b";
-        durum="Müdahale Ediliyor";
+    // ==========================================
+    // MÜDAHALE EDİLİYOR
+    // ==========================================
+
+    if (
+        durumDegeri === "müdahale ediliyor" ||
+        durumDegeri === "mudahale ediliyor" ||
+        durumDegeri === "mudahale"
+    ) {
+
+        renk = "#f59e0b";
+
+        durum = "Müdahale Ediliyor";
 
     }
 
-    if(a.durum=="kapali"){
 
-        renk="#22c55e";
-        durum="Tamamlandı";
+    // ==========================================
+    // TAMAMLANDI
+    // ==========================================
+
+    if (
+        durumDegeri === "tamamlandı" ||
+        durumDegeri === "tamamlandi" ||
+        durumDegeri === "kapalı" ||
+        durumDegeri === "kapali"
+    ) {
+
+        renk = "#22c55e";
+
+        durum = "Tamamlandı";
 
     }
+
+
+    // ==========================================
+    // TARİH
+    // ==========================================
+
+    let tarihMetni = "";
+
+    if (a.tarih) {
+
+        tarihMetni = a.tarih;
+
+    }
+
+
+    // ==========================================
+    // YAŞ
+    // ==========================================
+
+    let yas = "";
+
+    if (
+        durum !== "Tamamlandı" &&
+        a.tarih
+    ) {
+
+        const tarih =
+            new Date(a.tarih);
+
+        if (!isNaN(tarih.getTime())) {
+
+            const fark =
+                Date.now() -
+                tarih.getTime();
+
+            const gun =
+                Math.floor(
+                    fark /
+                    (1000 * 60 * 60 * 24)
+                );
+
+            if (gun > 0) {
+
+                yas =
+                    `<div style="
+                        font-size:12px;
+                        color:#64748b;
+                        margin-top:4px;
+                    ">
+                        ⏱ ${gun} gün
+                    </div>`;
+
+            }
+
+        }
+
+    }
+
+
+    // ==========================================
+    // BUTON
+    // ==========================================
+
+    let buton = "";
+
+
+    if (durum === "Açık") {
+
+        buton = `
+            <button
+                class="btn-primary"
+                onclick="faultMudahale('${a.id}')">
+                Müdahale Et
+            </button>
+        `;
+
+    }
+
+
+    if (durum === "Müdahale Ediliyor") {
+
+        buton = `
+            <button
+                class="btn-primary"
+                onclick="faultMudahale('${a.id}')">
+                Bakıma Devam Et
+            </button>
+        `;
+
+    }
+
+
+    // ==========================================
+    // KART
+    // ==========================================
 
     return `
 
-<div class="fault-item"
-     style="
-background:#fff;
-border-left:7px solid ${renk};
-border-radius:14px;
-padding:20px;
-box-shadow:0 4px 14px rgba(0,0,0,.08);
-display:flex;
-justify-content:space-between;
-align-items:center;
-">
+        <div
+            class="fault-card"
+            style="
+                border-left:5px solid ${renk};
+                background:#fff;
+                padding:18px;
+                margin-bottom:14px;
+                border-radius:14px;
+                box-shadow:0 4px 12px rgba(0,0,0,.06);
+            "
+        >
 
-<div>
+            <div
+                style="
+                    display:flex;
+                    justify-content:space-between;
+                    align-items:flex-start;
+                    gap:15px;
+                "
+            >
 
-<h3>${a.envanter} - ${a.marka} ${a.model}</h3>
+                <div>
 
-<p>📍 ${a.konum}</p>
+                    <div
+                        style="
+                            font-size:17px;
+                            font-weight:700;
+                            margin-bottom:5px;
+                        "
+                    >
+                        ${a.envanter || "-"}
+                        -
+                        ${a.marka || ""}
+                        ${a.model || ""}
+                    </div>
 
-<p>${a.aciklama}</p>
 
-<small>
+                    <div
+                        style="
+                            color:#475569;
+                            margin-bottom:5px;
+                        "
+                    >
+                        📍 ${a.hat || a.konum || "-"}
+                    </div>
 
-Bildiren : ${a.bildiren}
 
-</small>
+                    <div
+                        style="
+                            margin-bottom:5px;
+                        "
+                    >
+                        ${a.aciklama || ""}
+                    </div>
 
-</div>
 
-<div style="text-align:right;">
+                    <div
+                        style="
+                            font-size:12px;
+                            color:#64748b;
+                        "
+                    >
+                        Bildiren:
+                        ${a.bildiren || "-"}
+                    </div>
 
-<div
-style="
-font-weight:bold;
-color:${renk};
-margin-bottom:10px;
-">
+                    ${yas}
 
-${durum}
+                </div>
 
-</div>
 
-<div style="
-font-size:13px;
-color:#6b7280;
-margin-top:8px;
-">
+                <div
+                    style="
+                        text-align:right;
+                        min-width:130px;
+                    "
+                >
 
-🕒 ${beklemeHesapla(a.tarih,a.saat)}
+                    <div
+                        style="
+                            color:${renk};
+                            font-weight:700;
+                            margin-bottom:10px;
+                        "
+                    >
+                        ${durum}
+                    </div>
 
-</div>
 
-<div
-style="
-margin-top:15px;
-display:flex;
-gap:10px;
-justify-content:flex-end;
-">
+                    ${buton}
 
-<button
-    class="btn-secondary"
-    onclick="arizaDetay('${a.id}')">
+                </div>
 
-    Detay
+            </div>
 
-</button>
+        </div>
 
-<button
-    class="btn-primary"
-   onclick="faultMudahale('${a.id}')">
-
-    Müdahale Et
-
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-`;
+    `;
 
 }
 
-document.addEventListener("DOMContentLoaded",()=>{
 
-    arizalariYukle();
-
-});
 function arizaFiltrele(){
 
     const ara = document
@@ -520,46 +656,68 @@ async function arizaKapatKaydet(id){
     }
 
 }
-async function faultMudahale(id){
+async function faultMudahale(id) {
 
     detayKapat();
 
     const a = tumArizalar.find(x => x.id == id);
 
-    if(!a) return;
+    if (!a) {
+        alert("Arıza bulunamadı.");
+        return;
+    }
 
-    // Aktif arızayı sakla
+    // ==========================================
+    // AKTİF ARIZAYI SAKLA
+    // ==========================================
+
     secilenAriza = a;
     window.secilenAriza = a;
 
-    console.log("MÜDAHALE EDİLECEK ARIZA:", a);
+    console.log(
+        "MÜDAHALE EDİLECEK ARIZA:",
+        a
+    );
 
-    try{
 
-        // ===============================
+    try {
+
+        // ==========================================
         // ARIZAYI MÜDAHALE DURUMUNA AL
-        // ===============================
+        // ==========================================
 
         const url =
             API +
             "?action=arizaDurumGuncelle" +
-            "&id=" + encodeURIComponent(a.id) +
-            "&durum=" + encodeURIComponent("Müdahale Ediliyor") +
-            "&bakimci=" + encodeURIComponent("Hakan Çağatay");
+            "&id=" +
+            encodeURIComponent(a.id) +
+            "&durum=" +
+            encodeURIComponent("Müdahale Ediliyor") +
+            "&bakimci=" +
+            encodeURIComponent("Hakan Çağatay");
 
-        console.log("MÜDAHALE API:", url);
 
-        const response = await fetch(url);
+        console.log(
+            "MÜDAHALE API:",
+            url
+        );
 
-        const sonuc = await response.json();
+
+        const response =
+            await fetch(url);
+
+
+        const sonuc =
+            await response.json();
+
 
         console.log(
             "MÜDAHALE SONUCU:",
             sonuc
         );
 
-        // API başarısızsa bakım ekranına geçme
-        if(!sonuc.success){
+
+        if (!sonuc.success) {
 
             alert(
                 sonuc.message ||
@@ -567,12 +725,12 @@ async function faultMudahale(id){
             );
 
             return;
-
         }
 
-        // ===============================
+
+        // ==========================================
         // SAYFALARI GİZLE
-        // ===============================
+        // ==========================================
 
         document
             .querySelectorAll("section")
@@ -582,17 +740,27 @@ async function faultMudahale(id){
 
             });
 
-        // ===============================
+
+        // ==========================================
         // YENİ BAKIM SAYFASINI AÇ
-        // ===============================
+        // ==========================================
 
-        document
-            .getElementById("newMaintenancePage")
-            .style.display = "block";
+        const maintenancePage =
+            document.getElementById(
+                "newMaintenancePage"
+            );
 
-        // ===============================
+
+        if (maintenancePage) {
+
+            maintenancePage.style.display = "block";
+
+        }
+
+
+        // ==========================================
         // MENÜ
-        // ===============================
+        // ==========================================
 
         document
             .querySelectorAll(".sidebar li")
@@ -602,34 +770,68 @@ async function faultMudahale(id){
 
             });
 
+
         document
             .getElementById("menuNewMaintenance")
-            .classList.add("active");
+            ?.classList.add("active");
 
-        // ===============================
+
+        // ==========================================
         // ENVANTERİ OTOMATİK YAZ
-        // ===============================
+        // ==========================================
 
-        document
-            .getElementById("bakimMakineAra")
-            .value = a.envanter;
+        const makineInput =
+            document.getElementById(
+                "bakimMakineAra"
+            );
 
-        // ===============================
-        // MAKİNEYİ YÜKLE
-        // ===============================
+
+        if (makineInput) {
+
+            makineInput.value =
+                a.envanter || "";
+
+        }
+
+
+        // ==========================================
+        // MAKİNEYİ BUL
+        // ==========================================
 
         setTimeout(async () => {
 
-            await bakimMakineBul();
+            try {
 
-            document
-                .getElementById("bakimTipi")
-                .value = "Arıza Bakımı";
+                await bakimMakineBul();
+
+
+                const bakimTipi =
+                    document.getElementById(
+                        "bakimTipi"
+                    );
+
+
+                if (bakimTipi) {
+
+                    bakimTipi.value =
+                        "Arıza Bakımı";
+
+                }
+
+            }
+            catch (err) {
+
+                console.error(
+                    "Bakım makinesi yükleme hatası:",
+                    err
+                );
+
+            }
 
         }, 100);
 
     }
-    catch(err){
+    catch (err) {
 
         console.error(
             "Müdahale işlemi hatası:",
