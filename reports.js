@@ -130,7 +130,10 @@ async function raporGrafigiDegistir(){
         return;
 
     }
-
+if(tip === "arizaTipi"){
+    await raporArizaTipiGrafigiCiz();
+    return;
+}
 
     if(tip === "hatAriza"){
 
