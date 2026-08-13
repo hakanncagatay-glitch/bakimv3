@@ -141,7 +141,7 @@ async function raporGrafigiDegistir(){
     }
 
 
-    if(tip === "markaAriza"){
+    if(tip === "marka"){
 
         await raporMarkaArizaGrafigiCiz();
 
@@ -150,7 +150,7 @@ async function raporGrafigiDegistir(){
     }
 
 
-    if(tip === "makineModeli"){
+    if(tip === "makineTipi"){
 
         await raporModelArizaGrafigiCiz();
 
