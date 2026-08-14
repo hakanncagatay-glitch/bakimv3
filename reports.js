@@ -1747,3 +1747,179 @@ async function raporParcaKullanimiGrafigiCiz(){
     }
 
 }
+// =====================================================
+// İYİLEŞTİRME ALANLARINI YÜKLE
+// =====================================================
+async function raporIyilestirmeAlanlariYukle(){
+
+    try{
+
+        const baslangic =
+            document.getElementById(
+                "reportStart"
+            ).value;
+
+
+        const bitis =
+            document.getElementById(
+                "reportEnd"
+            ).value;
+
+
+        const url =
+            API +
+            "?action=raporIyilestirmeAlanlari" +
+            "&baslangic=" +
+            encodeURIComponent(
+                baslangic
+            ) +
+            "&bitis=" +
+            encodeURIComponent(
+                bitis
+            );
+
+
+        const response =
+            await fetch(url);
+
+
+        const sonuc =
+            await response.json();
+
+
+        console.log(
+            "İyileştirme alanları:",
+            sonuc
+        );
+
+
+        if(!sonuc.success){
+
+            console.error(
+                "İyileştirme alanları alınamadı."
+            );
+
+            return;
+
+        }
+
+
+        const liste =
+            sonuc.data || [];
+
+
+        const container =
+            document.getElementById(
+                "improvementList"
+            );
+
+
+        if(!container) return;
+
+
+        if(liste.length === 0){
+
+            container.innerHTML = `
+                <div class="report-empty">
+                    Bu tarih aralığında
+                    iyileştirme gerektiren
+                    veri bulunamadı.
+                </div>
+            `;
+
+            return;
+
+        }
+
+
+        container.innerHTML =
+            liste.map(item => {
+
+                const renk =
+                    item.oncelik === "Yüksek"
+                    ? "#ef4444"
+                    : "#f59e0b";
+
+
+                return `
+
+                    <div
+                        style="
+                            display:flex;
+                            gap:14px;
+                            align-items:flex-start;
+                            padding:14px;
+                            margin-bottom:10px;
+                            border-left:5px solid ${renk};
+                            background:#f8fafc;
+                            border-radius:10px;
+                        "
+                    >
+
+                        <div
+                            style="
+                                font-size:22px;
+                            "
+                        >
+                            ${
+                                item.oncelik === "Yüksek"
+                                ? "🔴"
+                                : "🟠"
+                            }
+                        </div>
+
+
+                        <div>
+
+                            <div
+                                style="
+                                    font-weight:700;
+                                    margin-bottom:4px;
+                                "
+                            >
+                                ${item.kategori}:
+                                ${item.alan}
+                            </div>
+
+
+                            <div
+                                style="
+                                    color:#475569;
+                                    font-size:14px;
+                                "
+                            >
+                                ${item.mesaj}
+                            </div>
+
+
+                            <div
+                                style="
+                                    margin-top:5px;
+                                    font-size:12px;
+                                    color:#64748b;
+                                "
+                            >
+                                Öncelik:
+                                ${item.oncelik}
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            }).join("");
+
+
+    }
+    catch(err){
+
+        console.error(
+            "İyileştirme alanları hatası:",
+            err
+        );
+
+    }
+
+}
