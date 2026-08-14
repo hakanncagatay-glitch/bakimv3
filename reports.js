@@ -56,6 +56,7 @@ async function raporlariYukle(){
         await raporBakimGrafigiCiz();
         await raporArizaTipiParetoCiz();
         await raporIyilestirmeAlanlariYukle();
+        await raporYoneticiOzetiYukle(r);
 
     }
 
