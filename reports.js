@@ -55,6 +55,7 @@ async function raporlariYukle(){
             r.durusSuresi + " saat";
         await raporBakimGrafigiCiz();
         await raporArizaTipiParetoCiz();
+        await raporIyilestirmeAlanlariYukle();
 
     }
 
