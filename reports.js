@@ -1924,3 +1924,277 @@ async function raporIyilestirmeAlanlariYukle(){
     }
 
 }
+// =====================================================
+// YÖNETİCİ ÖZETİ
+// =====================================================
+async function raporYoneticiOzetiYukle(rapor) {
+
+    try {
+
+        const baslangic =
+            document.getElementById("reportStart").value;
+
+        const bitis =
+            document.getElementById("reportEnd").value;
+
+
+        // ==========================================
+        // İYİLEŞTİRME ALANLARINI AL
+        // ==========================================
+
+        const url =
+            API +
+            "?action=raporIyilestirmeAlanlari" +
+            "&baslangic=" +
+            encodeURIComponent(baslangic) +
+            "&bitis=" +
+            encodeURIComponent(bitis);
+
+
+        const response =
+            await fetch(url);
+
+
+        const sonuc =
+            await response.json();
+
+
+        let iyilestirmeler = [];
+
+
+        if (sonuc.success) {
+
+            iyilestirmeler =
+                sonuc.data || [];
+
+        }
+
+
+        // ==========================================
+        // TARİH
+        // ==========================================
+
+        let tarihMetni = "";
+
+        if (baslangic && bitis) {
+
+            const bas =
+                new Date(baslangic)
+                    .toLocaleDateString("tr-TR");
+
+            const son =
+                new Date(bitis)
+                    .toLocaleDateString("tr-TR");
+
+            tarihMetni =
+                `${bas} - ${son}`;
+
+        }
+
+
+        // ==========================================
+        // ANA KPI'LAR
+        // ==========================================
+
+        const toplamBakim =
+            Number(rapor.toplamBakim || 0);
+
+        const planli =
+            Number(rapor.planliOran || 0);
+
+        const plansiz =
+            Number(rapor.plansizOran || 0);
+
+        const mttr =
+            Number(rapor.mttr || 0);
+
+        const mtbf =
+            Number(rapor.mtbf || 0);
+
+        const durus =
+            Number(rapor.durusSuresi || 0);
+
+
+        // ==========================================
+        // ÖZET METNİ
+        // ==========================================
+
+        let metin = `
+            <div style="
+                line-height:1.7;
+                color:#334155;
+            ">
+
+                <div style="
+                    font-weight:700;
+                    font-size:17px;
+                    margin-bottom:8px;
+                    color:#0f172a;
+                ">
+                    ${tarihMetni}
+                </div>
+
+
+                <p>
+                    Seçilen dönemde toplam
+                    <strong>${toplamBakim}</strong>
+                    bakım gerçekleştirilmiştir.
+                    Bakımların
+                    <strong>%${planli}</strong>'i
+                    planlı,
+                    <strong>%${plansiz}</strong>'i
+                    plansız bakımdır.
+                </p>
+
+
+                <p>
+                    Ortalama tamir süresi
+                    <strong>${mttr} dakika</strong>,
+                    MTBF değeri
+                    <strong>${mtbf} saat</strong>
+                    ve toplam arıza duruş süresi
+                    <strong>${durus} saat</strong>
+                    olarak gerçekleşmiştir.
+                </p>
+        `;
+
+
+        // ==========================================
+        // ÖNCELİKLİ ALANLAR
+        // ==========================================
+
+        if (iyilestirmeler.length > 0) {
+
+            metin += `
+                <p style="
+                    margin-bottom:6px;
+                    font-weight:700;
+                    color:#0f172a;
+                ">
+                    Öncelikli iyileştirme alanları:
+                </p>
+
+                <ul style="
+                    margin-top:5px;
+                    padding-left:22px;
+                ">
+            `;
+
+
+            iyilestirmeler
+                .slice(0, 4)
+                .forEach(item => {
+
+                    const ikon =
+                        item.oncelik === "Yüksek"
+                        ? "🔴"
+                        : "🟠";
+
+
+                    metin += `
+                        <li style="
+                            margin-bottom:5px;
+                        ">
+                            ${ikon}
+                            <strong>
+                                ${item.kategori}:
+                                ${item.alan}
+                            </strong>
+                            —
+                            ${item.mesaj}
+                        </li>
+                    `;
+
+                });
+
+
+            metin += `
+                    </ul>
+            `;
+
+
+            // ======================================
+            // SONUÇ
+            // ======================================
+
+            const yuksek =
+                iyilestirmeler.filter(
+                    x => x.oncelik === "Yüksek"
+                );
+
+
+            if (yuksek.length > 0) {
+
+                metin += `
+                    <div style="
+                        margin-top:12px;
+                        padding:12px 14px;
+                        background:#fff7ed;
+                        border-left:4px solid #f97316;
+                        border-radius:8px;
+                    ">
+                        <strong>Yönetici değerlendirmesi:</strong>
+                        Öncelikli aksiyonlar
+                        ${
+                            yuksek
+                                .map(x => x.alan)
+                                .join(", ")
+                        }
+                        üzerinde yoğunlaştırılmalıdır.
+                    </div>
+                `;
+
+            }
+
+        }
+        else {
+
+            metin += `
+                <div style="
+                    margin-top:12px;
+                    padding:12px 14px;
+                    background:#f0fdf4;
+                    border-left:4px solid #22c55e;
+                    border-radius:8px;
+                ">
+                    Seçilen dönem için belirgin bir
+                    iyileştirme alanı tespit edilmemiştir.
+                </div>
+            `;
+
+        }
+
+
+        metin += `
+            </div>
+        `;
+
+
+        // ==========================================
+        // EKRANA YAZ
+        // ==========================================
+
+        const alan =
+            document.getElementById(
+                "reportSummary"
+            );
+
+
+        if (alan) {
+
+            alan.innerHTML = metin;
+
+        }
+
+
+    }
+    catch (err) {
+
+        console.error(
+            "Yönetici özeti hatası:",
+            err
+        );
+
+    }
+
+}
