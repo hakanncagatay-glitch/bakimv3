@@ -158,13 +158,11 @@ async function raporGrafigiDegistir(){
 
     if(tip === "parca"){
 
-        console.log(
-            "Parça Kullanımı henüz hazırlanmadı."
-        );
+    await raporParcaKullanimiGrafigiCiz();
 
-        return;
+    return;
 
-    }
+}
 
 }
 async function raporBakimGrafigiCiz(){
@@ -1553,6 +1551,196 @@ async function raporModelArizaGrafigiCiz(){
 
         console.error(
             "Model arıza grafik hatası:",
+            err
+        );
+
+    }
+
+}
+// =====================================================
+// PARÇA KULLANIM GRAFİĞİ
+// =====================================================
+async function raporParcaKullanimiGrafigiCiz(){
+
+    try{
+
+        const baslangic =
+            document.getElementById(
+                "reportStart"
+            ).value;
+
+
+        const bitis =
+            document.getElementById(
+                "reportEnd"
+            ).value;
+
+
+        const url =
+            API +
+            "?action=raporParcaKullanimi" +
+            "&baslangic=" +
+            encodeURIComponent(
+                baslangic
+            ) +
+            "&bitis=" +
+            encodeURIComponent(
+                bitis
+            );
+
+
+        console.log(
+            "Parça kullanım API:",
+            url
+        );
+
+
+        const response =
+            await fetch(url);
+
+
+        const sonuc =
+            await response.json();
+
+
+        console.log(
+            "Parça kullanım verisi:",
+            sonuc
+        );
+
+
+        if(!sonuc.success){
+
+            console.error(
+                "Parça kullanım verisi alınamadı."
+            );
+
+            return;
+
+        }
+
+
+        const liste =
+            sonuc.data || [];
+
+
+        const etiketler =
+            liste.map(
+                x => x.kategori
+            );
+
+
+        const degerler =
+            liste.map(
+                x => x.adet
+            );
+
+
+        const canvas =
+            document.getElementById(
+                "reportMainChart"
+            );
+
+
+        if(!canvas) return;
+
+
+        if(raporGrafik){
+
+            raporGrafik.destroy();
+
+        }
+
+
+        raporGrafik =
+            new Chart(
+                canvas,
+                {
+
+                    type:"bar",
+
+                    data:{
+
+                        labels:
+                            etiketler,
+
+                        datasets:[{
+
+                            label:
+                                "Kullanılan Adet",
+
+                            data:
+                                degerler,
+
+                            borderWidth:1
+
+                        }]
+
+                    },
+
+
+                    options:{
+
+                        responsive:true,
+
+                        maintainAspectRatio:false,
+
+
+                        plugins:{
+
+                            legend:{
+
+                                display:true
+
+                            }
+
+                        },
+
+
+                        scales:{
+
+                            y:{
+
+                                beginAtZero:true,
+
+                                ticks:{
+
+                                    precision:0
+
+                                },
+
+                                title:{
+
+                                    display:true,
+
+                                    text:"Adet"
+
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            );
+
+
+        document
+            .getElementById(
+                "reportChartTitle"
+            )
+            .innerText =
+                "Yedek parça kullanım miktarları";
+
+
+    }
+    catch(err){
+
+        console.error(
+            "Parça kullanım grafik hatası:",
             err
         );
 
