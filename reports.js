@@ -2522,3 +2522,325 @@ function raporExcelOlustur(){
     }
 
 }
+// =====================================================
+// PDF RAPORU OLUŞTUR
+// =====================================================
+async function raporPDFOlustur(){
+
+    try{
+
+        const raporAlani =
+            document.querySelector(".reports-page") ||
+            document.querySelector("#reportsPage") ||
+            document.querySelector("section");
+
+        if(!raporAlani){
+
+            alert("Rapor alanı bulunamadı.");
+
+            return;
+
+        }
+
+
+        // ==========================================
+        // PDF OLUŞTURULUYOR
+        // ==========================================
+
+        const btn =
+            document.querySelector(
+                ".report-export .btn-primary"
+            );
+
+        const eskiYazi =
+            btn ? btn.innerText : "";
+
+
+        if(btn){
+
+            btn.innerText =
+                "⏳ PDF hazırlanıyor...";
+
+            btn.disabled = true;
+
+        }
+
+
+        // ==========================================
+        // RAPORUN GÖRÜNÜR OLMASINI SAĞLA
+        // ==========================================
+
+        const eskiScroll =
+            window.scrollY;
+
+
+        // PDF alınırken butonları göstermeyelim
+        const exportAlani =
+            document.querySelector(
+                ".report-export"
+            );
+
+
+        let eskiExportDisplay = "";
+
+
+        if(exportAlani){
+
+            eskiExportDisplay =
+                exportAlani.style.display;
+
+            exportAlani.style.display =
+                "none";
+
+        }
+
+
+        // ==========================================
+        // TÜM GRAFİKLERİN RENDER OLMASINI BEKLE
+        // ==========================================
+
+        await new Promise(resolve =>
+            setTimeout(resolve, 800)
+        );
+
+
+        // ==========================================
+        // HTML2CANVAS
+        // ==========================================
+
+        const canvas =
+            await html2canvas(
+                raporAlani,
+                {
+
+                    scale:2,
+
+                    useCORS:true,
+
+                    allowTaint:false,
+
+                    backgroundColor:"#ffffff",
+
+                    logging:false,
+
+                    scrollX:0,
+
+                    scrollY:-window.scrollY,
+
+                    windowWidth:
+                        document.documentElement
+                            .scrollWidth,
+
+                    windowHeight:
+                        raporAlani.scrollHeight
+
+                }
+            );
+
+
+        // ==========================================
+        // ESKİ HALİ GERİ GETİR
+        // ==========================================
+
+        if(exportAlani){
+
+            exportAlani.style.display =
+                eskiExportDisplay;
+
+        }
+
+
+        window.scrollTo(
+            0,
+            eskiScroll
+        );
+
+
+        // ==========================================
+        // JSPDF
+        // ==========================================
+
+        const {
+            jsPDF
+        } = window.jspdf;
+
+
+        const pdf =
+            new jsPDF({
+
+                orientation:"portrait",
+
+                unit:"mm",
+
+                format:"a4",
+
+                compress:true
+
+            });
+
+
+        const sayfaGenislik = 210;
+
+        const sayfaYukseklik = 297;
+
+        const kenar = 10;
+
+        const kullanilabilirGenislik =
+            sayfaGenislik -
+            (kenar * 2);
+
+
+        const imgWidth =
+            kullanilabilirGenislik;
+
+
+        const imgHeight =
+            canvas.height *
+            imgWidth /
+            canvas.width;
+
+
+        let kalanYukseklik =
+            imgHeight;
+
+
+        let pozisyonY =
+            10;
+
+
+        const imgData =
+            canvas.toDataURL(
+                "image/jpeg",
+                0.92
+            );
+
+
+        // ==========================================
+        // ÇOK SAYFALI PDF
+        // ==========================================
+
+        pdf.addImage(
+            imgData,
+            "JPEG",
+            kenar,
+            pozisyonY,
+            imgWidth,
+            imgHeight
+        );
+
+
+        kalanYukseklik -=
+            (sayfaYukseklik - 20);
+
+
+        while(kalanYukseklik > 0){
+
+            pozisyonY =
+                kalanYukseklik -
+                imgHeight;
+
+            pdf.addPage();
+
+            pdf.addImage(
+                imgData,
+                "JPEG",
+                kenar,
+                pozisyonY,
+                imgWidth,
+                imgHeight
+            );
+
+            kalanYukseklik -=
+                (sayfaYukseklik - 20);
+
+        }
+
+
+        // ==========================================
+        // DOSYA ADI
+        // ==========================================
+
+        const tarih =
+            new Date()
+                .toISOString()
+                .slice(0,10);
+
+
+        const dosyaAdi =
+            "BakimPro_TPM_Rapor_" +
+            tarih +
+            ".pdf";
+
+
+        // ==========================================
+        // PDF İNDİR
+        // ==========================================
+
+        pdf.save(
+            dosyaAdi
+        );
+
+
+        if(btn){
+
+            btn.innerText =
+                eskiYazi || "📄 PDF Oluştur";
+
+            btn.disabled = false;
+
+        }
+
+
+        console.log(
+            "PDF başarıyla oluşturuldu:",
+            dosyaAdi
+        );
+
+
+    }
+    catch(err){
+
+        console.error(
+            "PDF oluşturma hatası:",
+            err
+        );
+
+
+        const exportAlani =
+            document.querySelector(
+                ".report-export"
+            );
+
+
+        if(exportAlani){
+
+            exportAlani.style.display =
+                "";
+
+        }
+
+
+        const btn =
+            document.querySelector(
+                ".report-export .btn-primary"
+            );
+
+
+        if(btn){
+
+            btn.innerText =
+                "📄 PDF Oluştur";
+
+            btn.disabled = false;
+
+        }
+
+
+        alert(
+            "PDF oluşturulurken hata oluştu: " +
+            err.message
+        );
+
+    }
+
+}
