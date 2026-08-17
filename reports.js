@@ -2199,3 +2199,326 @@ async function raporYoneticiOzetiYukle(rapor) {
     }
 
 }
+// =====================================================
+// EXCEL RAPORU OLUŞTUR
+// =====================================================
+function raporExcelOlustur(){
+
+    try{
+
+        // ==========================================
+        // TARİH BİLGİLERİ
+        // ==========================================
+
+        const baslangic =
+            document.getElementById("reportStart").value;
+
+        const bitis =
+            document.getElementById("reportEnd").value;
+
+
+        // ==========================================
+        // KPI DEĞERLERİ
+        // ==========================================
+
+        const toplamBakim =
+            document.getElementById("rToplamBakim")?.innerText || "0";
+
+        const planli =
+            document.getElementById("rPlanli")?.innerText || "0";
+
+        const plansiz =
+            document.getElementById("rPlansiz")?.innerText || "0";
+
+        const mttr =
+            document.getElementById("rMttr")?.innerText || "0";
+
+        const mtbf =
+            document.getElementById("rMtbf")?.innerText || "0";
+
+        const durus =
+            document.getElementById("rDurus")?.innerText || "0";
+
+
+        // ==========================================
+        // YÖNETİCİ ÖZETİ
+        // ==========================================
+
+        const yoneticiOzeti =
+            document.getElementById(
+                "reportSummary"
+            )?.innerText || "";
+
+
+        // ==========================================
+        // İYİLEŞTİRME ALANLARI
+        // ==========================================
+
+        const improvement =
+            document.getElementById(
+                "improvementList"
+            );
+
+
+        const iyilestirmeSatirlari = [];
+
+
+        if(improvement){
+
+            const alanlar =
+                improvement.children;
+
+
+            for(let i = 0; i < alanlar.length; i++){
+
+                const metin =
+                    alanlar[i].innerText
+                        .replace(/\n+/g, " | ")
+                        .trim();
+
+
+                if(metin){
+
+                    iyilestirmeSatirlari.push([
+                        i + 1,
+                        metin
+                    ]);
+
+                }
+
+            }
+
+        }
+
+
+        // ==========================================
+        // ÖZET SAYFASI
+        // ==========================================
+
+        const ozetData = [
+
+            ["BAKIM PRO - TPM RAPORU"],
+
+            [],
+
+            ["Rapor Dönemi",
+             `${baslangic} - ${bitis}`],
+
+            [],
+
+            ["KPI", "Değer"],
+
+            ["Toplam Bakım",
+             toplamBakim],
+
+            ["Planlı Bakım",
+             planli],
+
+            ["Plansız Bakım",
+             plansiz],
+
+            ["MTTR",
+             mttr],
+
+            ["MTBF",
+             mtbf],
+
+            ["Duruş Süresi",
+             durus]
+
+        ];
+
+
+        // ==========================================
+        // İYİLEŞTİRME SAYFASI
+        // ==========================================
+
+        const iyilestirmeData = [
+
+            ["İYİLEŞTİRME ALANLARI"],
+
+            [],
+
+            ["No", "Alan"]
+
+        ];
+
+
+        if(iyilestirmeSatirlari.length > 0){
+
+            iyilestirmeSatirlari.forEach(
+                satir => {
+
+                    iyilestirmeData.push(
+                        satir
+                    );
+
+                }
+            );
+
+        }
+        else{
+
+            iyilestirmeData.push([
+                "",
+                "Bu dönem için iyileştirme alanı bulunamadı."
+            ]);
+
+        }
+
+
+        // ==========================================
+        // YÖNETİCİ ÖZETİ SAYFASI
+        // ==========================================
+
+        const yoneticiData = [
+
+            ["YÖNETİCİ ÖZETİ"],
+
+            [],
+
+            ["Rapor Dönemi",
+             `${baslangic} - ${bitis}`],
+
+            [],
+
+            ["Değerlendirme"],
+
+            [yoneticiOzeti]
+
+        ];
+
+
+        // ==========================================
+        // WORKBOOK OLUŞTUR
+        // ==========================================
+
+        const wb =
+            XLSX.utils.book_new();
+
+
+        // ==========================================
+        // SHEET 1 - ÖZET
+        // ==========================================
+
+        const wsOzet =
+            XLSX.utils.aoa_to_sheet(
+                ozetData
+            );
+
+
+        wsOzet["!cols"] = [
+
+            { wch: 28 },
+
+            { wch: 25 }
+
+        ];
+
+
+        XLSX.utils.book_append_sheet(
+            wb,
+            wsOzet,
+            "Özet"
+        );
+
+
+        // ==========================================
+        // SHEET 2 - İYİLEŞTİRME
+        // ==========================================
+
+        const wsIyilestirme =
+            XLSX.utils.aoa_to_sheet(
+                iyilestirmeData
+            );
+
+
+        wsIyilestirme["!cols"] = [
+
+            { wch: 8 },
+
+            { wch: 80 }
+
+        ];
+
+
+        XLSX.utils.book_append_sheet(
+            wb,
+            wsIyilestirme,
+            "İyileştirme"
+        );
+
+
+        // ==========================================
+        // SHEET 3 - YÖNETİCİ ÖZETİ
+        // ==========================================
+
+        const wsYonetici =
+            XLSX.utils.aoa_to_sheet(
+                yoneticiData
+            );
+
+
+        wsYonetici["!cols"] = [
+
+            { wch: 25 },
+
+            { wch: 100 }
+
+        ];
+
+
+        XLSX.utils.book_append_sheet(
+            wb,
+            wsYonetici,
+            "Yönetici Özeti"
+        );
+
+
+        // ==========================================
+        // DOSYA ADI
+        // ==========================================
+
+        const tarih =
+            new Date()
+                .toISOString()
+                .slice(0,10);
+
+
+        const dosyaAdi =
+            "BakimPro_TPM_Rapor_" +
+            tarih +
+            ".xlsx";
+
+
+        // ==========================================
+        // EXCEL İNDİR
+        // ==========================================
+
+        XLSX.writeFile(
+            wb,
+            dosyaAdi
+        );
+
+
+        console.log(
+            "Excel raporu oluşturuldu:",
+            dosyaAdi
+        );
+
+    }
+    catch(err){
+
+        console.error(
+            "Excel oluşturma hatası:",
+            err
+        );
+
+        alert(
+            "Excel oluşturulurken hata oluştu. " +
+            err.message
+        );
+
+    }
+
+}
