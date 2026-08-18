@@ -49,6 +49,11 @@ function ayarlarSekmeAc(sekmeId, buton) {
     bakimPeriyotlariYukle();
 
 }
+    if (sekmeId === "partsCategorySettings") {
+
+    parcaKategorileriYukle();
+
+}
 }
 
 
