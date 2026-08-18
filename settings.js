@@ -747,10 +747,31 @@ function konumKaydet() {
         new URLSearchParams();
 
 
-    params.append(
-        "action",
-        "konumEkle"
-    );
+    // Düzenleme
+    if (duzenlenenKonumId) {
+
+        params.append(
+            "action",
+            "konumGuncelle"
+        );
+
+        params.append(
+            "id",
+            duzenlenenKonumId
+        );
+
+    }
+
+    // Yeni konum
+    else {
+
+        params.append(
+            "action",
+            "konumEkle"
+        );
+
+    }
+
 
     params.append(
         "konum",
@@ -771,7 +792,7 @@ function konumKaydet() {
     .then(function(result) {
 
         console.log(
-            "Konum kayıt sonucu:",
+            "Konum işlem sonucu:",
             result
         );
 
@@ -780,7 +801,7 @@ function konumKaydet() {
 
             alert(
                 result.message ||
-                "Konum kaydedilemedi."
+                "İşlem gerçekleştirilemedi."
             );
 
             return;
@@ -789,8 +810,12 @@ function konumKaydet() {
 
 
         alert(
-            "Konum başarıyla eklendi."
+            result.message ||
+            "İşlem başarılı."
         );
+
+
+        duzenlenenKonumId = null;
 
 
         konumFormKapat();
@@ -802,7 +827,7 @@ function konumKaydet() {
     .catch(function(error) {
 
         console.error(
-            "Konum kayıt hatası:",
+            "Konum işlem hatası:",
             error
         );
 
