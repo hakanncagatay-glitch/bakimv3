@@ -524,3 +524,287 @@ function kullaniciDuzenle(id) {
     }
 
 }
+// =====================================================
+// KONUM YÖNETİMİ
+// =====================================================
+
+let ayarKonumlar = [];
+
+
+// =====================================================
+// KONUM FORMU AÇ
+// =====================================================
+
+function konumFormAc() {
+
+    const form =
+        document.getElementById("konumForm");
+
+    if (form) {
+
+        form.style.display = "block";
+
+    }
+
+    const input =
+        document.getElementById("konumAdi");
+
+    if (input) {
+
+        input.value = "";
+
+        input.focus();
+
+    }
+
+}
+
+
+// =====================================================
+// KONUM FORMU KAPAT
+// =====================================================
+
+function konumFormKapat() {
+
+    const form =
+        document.getElementById("konumForm");
+
+    if (form) {
+
+        form.style.display = "none";
+
+    }
+
+}
+
+
+// =====================================================
+// KONUM LİSTELE
+// =====================================================
+
+function konumlariYukle() {
+
+    const liste =
+        document.getElementById("konumListe");
+
+    if (!liste) {
+
+        return;
+
+    }
+
+
+    liste.innerHTML = `
+        <tr>
+            <td colspan="3"
+                style="text-align:center;padding:25px;">
+                Konumlar yükleniyor...
+            </td>
+        </tr>
+    `;
+
+
+    fetch(
+        API + "?action=konumlariListele"
+    )
+
+    .then(function(response) {
+
+        return response.json();
+
+    })
+
+    .then(function(result) {
+
+        console.log(
+            "Konum listesi:",
+            result
+        );
+
+
+        if (!result.success) {
+
+            liste.innerHTML = `
+                <tr>
+                    <td colspan="3"
+                        style="text-align:center;padding:25px;">
+                        ${result.message || "Konumlar yüklenemedi."}
+                    </td>
+                </tr>
+            `;
+
+            return;
+
+        }
+
+
+        ayarKonumlar =
+            result.data || [];
+
+
+        if (ayarKonumlar.length === 0) {
+
+            liste.innerHTML = `
+                <tr>
+                    <td colspan="3"
+                        style="text-align:center;padding:25px;">
+                        Henüz konum bulunmuyor.
+                    </td>
+                </tr>
+            `;
+
+            return;
+
+        }
+
+
+        liste.innerHTML = "";
+
+
+        ayarKonumlar.forEach(function(konum) {
+
+            liste.innerHTML += `
+
+                <tr>
+
+                    <td>
+                        ${konum.konum || ""}
+                    </td>
+
+                    <td>
+                        ${konum.durum || ""}
+                    </td>
+
+                    <td>
+
+                        <button
+                            class="btn-secondary"
+                            type="button">
+
+                            Düzenle
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+            `;
+
+        });
+
+    })
+
+    .catch(function(error) {
+
+        console.error(
+            "Konum listeleme hatası:",
+            error
+        );
+
+        liste.innerHTML = `
+            <tr>
+                <td colspan="3"
+                    style="text-align:center;padding:25px;">
+                    Konumlar yüklenemedi.
+                </td>
+            </tr>
+        `;
+
+    });
+
+}
+
+
+// =====================================================
+// KONUM KAYDET
+// =====================================================
+
+function konumKaydet() {
+
+    const konum =
+        document
+            .getElementById("konumAdi")
+            .value
+            .trim();
+
+
+    if (!konum) {
+
+        alert("Konum adı giriniz.");
+
+        return;
+
+    }
+
+
+    const params =
+        new URLSearchParams();
+
+
+    params.append(
+        "action",
+        "konumEkle"
+    );
+
+    params.append(
+        "konum",
+        konum
+    );
+
+
+    fetch(
+        API + "?" + params.toString()
+    )
+
+    .then(function(response) {
+
+        return response.json();
+
+    })
+
+    .then(function(result) {
+
+        console.log(
+            "Konum kayıt sonucu:",
+            result
+        );
+
+
+        if (!result.success) {
+
+            alert(
+                result.message ||
+                "Konum kaydedilemedi."
+            );
+
+            return;
+
+        }
+
+
+        alert(
+            "Konum başarıyla eklendi."
+        );
+
+
+        konumFormKapat();
+
+        konumlariYukle();
+
+    })
+
+    .catch(function(error) {
+
+        console.error(
+            "Konum kayıt hatası:",
+            error
+        );
+
+        alert(
+            "Sunucu bağlantısında hata oluştu."
+        );
+
+    });
+
+}
