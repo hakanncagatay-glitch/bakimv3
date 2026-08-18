@@ -44,6 +44,11 @@ function ayarlarSekmeAc(sekmeId, buton) {
         konumlariYukle();
 
     }
+    if (sekmeId === "maintenanceSettings") {
+
+    bakimPeriyotlariYukle();
+
+}
 }
 
 
