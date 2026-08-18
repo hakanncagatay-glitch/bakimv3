@@ -2135,3 +2135,592 @@ function parcaKategorisiDurumDegistir(
     });
 
 }
+// =====================================================
+// E-POSTA BİLDİRİMLERİ
+// =====================================================
+
+let ayarEmailBildirimleri = [];
+let duzenlenenEmailBildirimId = null;
+
+
+// =====================================================
+// FORM AÇ
+// =====================================================
+
+function emailBildirimiFormAc() {
+
+    const form =
+        document.getElementById("emailBildirimiForm");
+
+    if (form) {
+
+        form.style.display = "block";
+
+    }
+
+    const input =
+        document.getElementById("emailBildirimAdresi");
+
+    if (input) {
+
+        input.focus();
+
+    }
+
+}
+
+
+// =====================================================
+// FORM KAPAT
+// =====================================================
+
+function emailBildirimiFormKapat() {
+
+    const form =
+        document.getElementById("emailBildirimiForm");
+
+    if (form) {
+
+        form.style.display = "none";
+
+    }
+
+    duzenlenenEmailBildirimId = null;
+
+
+    const email =
+        document.getElementById(
+            "emailBildirimAdresi"
+        );
+
+    const periyot =
+        document.getElementById(
+            "emailBildirimPeriyodu"
+        );
+
+    if (email) {
+
+        email.value = "";
+
+    }
+
+    if (periyot) {
+
+        periyot.value = "";
+
+    }
+
+
+    const baslik =
+        document.querySelector(
+            "#emailBildirimiForm h3"
+        );
+
+    if (baslik) {
+
+        baslik.innerText =
+            "Yeni E-posta Bildirimi";
+
+    }
+
+
+    const buton =
+        document.querySelector(
+            '#emailBildirimiForm button[onclick="emailBildirimiKaydet()"]'
+        );
+
+    if (buton) {
+
+        buton.innerHTML =
+            '<i class="fa-solid fa-save"></i> Kaydet';
+
+    }
+
+}
+
+
+// =====================================================
+// LİSTELE
+// =====================================================
+
+function emailBildirimleriYukle() {
+
+    const liste =
+        document.getElementById(
+            "emailBildirimListe"
+        );
+
+    if (!liste) {
+
+        return;
+
+    }
+
+
+    liste.innerHTML = `
+        <tr>
+            <td colspan="5"
+                style="text-align:center;padding:25px;">
+                E-posta bildirimleri yükleniyor...
+            </td>
+        </tr>
+    `;
+
+
+    fetch(
+        API + "?action=emailBildirimleriListele"
+    )
+
+    .then(function(response) {
+
+        return response.json();
+
+    })
+
+    .then(function(result) {
+
+        console.log(
+            "E-posta bildirimleri:",
+            result
+        );
+
+
+        if (!result.success) {
+
+            liste.innerHTML = `
+                <tr>
+                    <td colspan="5"
+                        style="text-align:center;padding:25px;">
+                        ${result.message || "E-postalar yüklenemedi."}
+                    </td>
+                </tr>
+            `;
+
+            return;
+
+        }
+
+
+        ayarEmailBildirimleri =
+            result.data || [];
+
+
+        if (
+            ayarEmailBildirimleri.length === 0
+        ) {
+
+            liste.innerHTML = `
+                <tr>
+                    <td colspan="5"
+                        style="text-align:center;padding:25px;">
+                        Henüz e-posta adresi bulunmuyor.
+                    </td>
+                </tr>
+            `;
+
+            return;
+
+        }
+
+
+        liste.innerHTML = "";
+
+
+        ayarEmailBildirimleri.forEach(
+            function(item) {
+
+                liste.innerHTML += `
+
+                    <tr>
+
+                        <td>
+                            ${item.email || ""}
+                        </td>
+
+                        <td>
+                            ${item.periyot || ""}
+                        </td>
+
+                        <td>
+                            ${item.durum || ""}
+                        </td>
+
+                        <td>
+                            ${item.sonGonderim || "-"}
+                        </td>
+
+                        <td>
+
+                            <div style="
+                                display:flex;
+                                gap:6px;">
+
+                                <button
+                                    class="btn-secondary"
+                                    type="button"
+                                    onclick="emailBildirimiDuzenle('${item.id}')">
+
+                                    Düzenle
+
+                                </button>
+
+                                <button
+                                    class="${item.durum === 'Aktif' ? 'btn-danger' : 'btn-primary'}"
+                                    type="button"
+                                    onclick="emailBildirimiDurumDegistir('${item.id}', '${item.durum}')">
+
+                                    ${item.durum === 'Aktif'
+                                        ? 'Pasifleştir'
+                                        : 'Aktifleştir'}
+
+                                </button>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+            }
+        );
+
+    })
+
+    .catch(function(error) {
+
+        console.error(
+            "E-posta listeleme hatası:",
+            error
+        );
+
+        liste.innerHTML = `
+            <tr>
+                <td colspan="5"
+                    style="text-align:center;padding:25px;">
+                    E-posta bildirimleri yüklenemedi.
+                </td>
+            </tr>
+        `;
+
+    });
+
+}
+
+
+// =====================================================
+// KAYDET / GÜNCELLE
+// =====================================================
+
+function emailBildirimiKaydet() {
+
+    const email =
+        document
+            .getElementById(
+                "emailBildirimAdresi"
+            )
+            .value
+            .trim();
+
+    const periyot =
+        document
+            .getElementById(
+                "emailBildirimPeriyodu"
+            )
+            .value;
+
+
+    if (!email) {
+
+        alert(
+            "E-posta adresi giriniz."
+        );
+
+        return;
+
+    }
+
+
+    if (!periyot) {
+
+        alert(
+            "Gönderim periyodu seçiniz."
+        );
+
+        return;
+
+    }
+
+
+    const params =
+        new URLSearchParams();
+
+
+    if (duzenlenenEmailBildirimId) {
+
+        params.append(
+            "action",
+            "emailBildirimiGuncelle"
+        );
+
+        params.append(
+            "id",
+            duzenlenenEmailBildirimId
+        );
+
+    }
+    else {
+
+        params.append(
+            "action",
+            "emailBildirimiEkle"
+        );
+
+    }
+
+
+    params.append(
+        "email",
+        email
+    );
+
+    params.append(
+        "periyot",
+        periyot
+    );
+
+
+    fetch(
+        API + "?" + params.toString()
+    )
+
+    .then(function(response) {
+
+        return response.json();
+
+    })
+
+    .then(function(result) {
+
+        console.log(
+            "E-posta işlem sonucu:",
+            result
+        );
+
+
+        if (!result.success) {
+
+            alert(
+                result.message ||
+                "İşlem gerçekleştirilemedi."
+            );
+
+            return;
+
+        }
+
+
+        alert(
+            result.message ||
+            "İşlem başarılı."
+        );
+
+
+        emailBildirimiFormKapat();
+
+        emailBildirimleriYukle();
+
+    })
+
+    .catch(function(error) {
+
+        console.error(
+            "E-posta işlem hatası:",
+            error
+        );
+
+        alert(
+            "Sunucu bağlantısında hata oluştu."
+        );
+
+    });
+
+}
+
+
+// =====================================================
+// DÜZENLE
+// =====================================================
+
+function emailBildirimiDuzenle(id) {
+
+    const item =
+        ayarEmailBildirimleri.find(
+            function(kayit) {
+
+                return String(kayit.id) ===
+                       String(id);
+
+            }
+        );
+
+
+    if (!item) {
+
+        alert(
+            "E-posta bildirimi bulunamadı."
+        );
+
+        return;
+
+    }
+
+
+    duzenlenenEmailBildirimId =
+        item.id;
+
+
+    document
+        .getElementById(
+            "emailBildirimAdresi"
+        )
+        .value =
+        item.email || "";
+
+
+    document
+        .getElementById(
+            "emailBildirimPeriyodu"
+        )
+        .value =
+        item.periyot || "";
+
+
+    emailBildirimiFormAc();
+
+
+    const baslik =
+        document.querySelector(
+            "#emailBildirimiForm h3"
+        );
+
+    if (baslik) {
+
+        baslik.innerText =
+            "E-posta Bildirimi Düzenle";
+
+    }
+
+
+    const buton =
+        document.querySelector(
+            '#emailBildirimiForm button[onclick="emailBildirimiKaydet()"]'
+        );
+
+    if (buton) {
+
+        buton.innerHTML =
+            '<i class="fa-solid fa-save"></i> Güncelle';
+
+    }
+
+}
+
+
+// =====================================================
+// AKTİF / PASİF
+// =====================================================
+
+function emailBildirimiDurumDegistir(
+    id,
+    mevcutDurum
+) {
+
+    const yeniDurum =
+        mevcutDurum === "Aktif"
+            ? "Pasif"
+            : "Aktif";
+
+
+    const mesaj =
+        yeniDurum === "Pasif"
+            ? "Bu e-posta bildirimini pasifleştirmek istediğinize emin misiniz?"
+            : "Bu e-posta bildirimini aktifleştirmek istediğinize emin misiniz?";
+
+
+    if (!confirm(mesaj)) {
+
+        return;
+
+    }
+
+
+    const params =
+        new URLSearchParams();
+
+
+    params.append(
+        "action",
+        "emailBildirimiDurumGuncelle"
+    );
+
+    params.append(
+        "id",
+        id
+    );
+
+    params.append(
+        "durum",
+        yeniDurum
+    );
+
+
+    fetch(
+        API + "?" + params.toString()
+    )
+
+    .then(function(response) {
+
+        return response.json();
+
+    })
+
+    .then(function(result) {
+
+        console.log(
+            "E-posta durum sonucu:",
+            result
+        );
+
+
+        if (!result.success) {
+
+            alert(
+                result.message ||
+                "Durum değiştirilemedi."
+            );
+
+            return;
+
+        }
+
+
+        emailBildirimleriYukle();
+
+    })
+
+    .catch(function(error) {
+
+        console.error(
+            "E-posta durum hatası:",
+            error
+        );
+
+        alert(
+            "Sunucu bağlantısında hata oluştu."
+        );
+
+    });
+
+}
