@@ -681,13 +681,14 @@ function konumlariYukle() {
 
                     <td>
 
-                        <button
-                            class="btn-secondary"
-                            type="button">
+                       <button
+    class="btn-secondary"
+    type="button"
+    onclick="konumDuzenle('${konum.id}')">
 
-                            Düzenle
+    Düzenle
 
-                        </button>
+</button>
 
                     </td>
 
