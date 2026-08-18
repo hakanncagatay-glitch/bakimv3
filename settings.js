@@ -25,7 +25,8 @@ function ayarlarSekmeAc(sekmeId, buton) {
     });
 
 
-    var aktifTab = document.getElementById(sekmeId);
+    var aktifTab =
+        document.getElementById(sekmeId);
 
     if (aktifTab) {
 
@@ -39,23 +40,40 @@ function ayarlarSekmeAc(sekmeId, buton) {
         buton.classList.add("active");
 
     }
+
+
+    // =================================================
+    // SEKMEYE GÖRE VERİLERİ YÜKLE
+    // =================================================
+
+    if (sekmeId === "usersSettings") {
+
+        kullanicilariYukle();
+
+    }
+
+
     if (sekmeId === "locationsSettings") {
 
         konumlariYukle();
 
     }
+
+
     if (sekmeId === "maintenanceSettings") {
 
-    bakimPeriyotlariYukle();
+        bakimPeriyotlariYukle();
+
+    }
+
+
+    if (sekmeId === "partsSettings") {
+
+        parcaKategorileriYukle();
+
+    }
 
 }
-    if (sekmeId === "partsCategorySettings") {
-
-    parcaKategorileriYukle();
-
-}
-}
-
 
 // =====================================================
 // KULLANICI FORMU
