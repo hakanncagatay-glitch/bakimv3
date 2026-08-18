@@ -1991,15 +1991,147 @@ Henüz rapor oluşturulmadı.
 </div>
 
 </div>
-            <div id="notificationSettings"
-                 class="settings-tab"
-                 style="display:none;">
 
-                <h2>📧 E-posta Bildirimleri</h2>
+<div id="notificationSettings"
+     class="settings-tab"
+     style="display:none;">
 
-                <p>Bu bölüm sonraki aşamada yapılacak.</p>
+    <div class="settings-section-header">
 
-            </div>
+        <div>
+
+            <h2>📧 E-posta Bildirimleri</h2>
+
+        <p>Otomatik bildirim gönderilecek e-posta adreslerini yönetin.</p>
+
+    </div>
+
+    <button
+        class="btn-primary"
+        onclick="emailBildirimiFormAc()">
+
+        <i class="fa-solid fa-plus"></i>
+        Yeni E-posta
+
+    </button>
+
+</div>
+
+
+<!-- E-POSTA FORMU -->
+
+<div id="emailBildirimiForm"
+     class="panel"
+     style="display:none;">
+
+    <h3>Yeni E-posta Bildirimi</h3>
+
+    <div class="form-grid">
+
+        <div class="form-group">
+
+            <label>E-posta Adresi *</label>
+
+            <input
+                type="email"
+                id="emailBildirimAdresi"
+                placeholder="ornek@firma.com">
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>Gönderim Periyodu *</label>
+
+            <select id="emailBildirimPeriyodu">
+
+                <option value="">Seçiniz</option>
+
+                <option value="Günlük">
+                    Günlük
+                </option>
+
+                <option value="Haftalık">
+                    Haftalık
+                </option>
+
+                <option value="Aylık">
+                    Aylık
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+
+    <div style="
+        display:flex;
+        justify-content:flex-end;
+        gap:10px;
+        margin-top:20px;">
+
+        <button
+            class="btn-secondary"
+            onclick="emailBildirimiFormKapat()">
+
+            İptal
+
+        </button>
+
+        <button
+            class="btn-primary"
+            onclick="emailBildirimiKaydet()">
+
+            <i class="fa-solid fa-save"></i>
+            Kaydet
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- E-POSTA LİSTESİ -->
+
+<div class="panel">
+
+    <div class="panel-header">
+
+        <h3>E-posta Listesi</h3>
+
+    </div>
+
+    <div class="settings-table-wrapper">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>E-posta</th>
+                    <th>Periyot</th>
+                    <th>Durum</th>
+                    <th>Son Gönderim</th>
+                    <th>İşlem</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="emailBildirimListe">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
 
         </div>
 
