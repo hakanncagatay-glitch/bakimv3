@@ -1023,3 +1023,457 @@ table td{
     color:#2563eb;
 
 }
+/* =====================================================
+   MOBİL GÖRÜNÜM - BAKIM PRO V3
+   ===================================================== */
+
+@media (max-width: 768px) {
+
+    /* GENEL */
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        overflow-x: hidden;
+    }
+
+
+    /* =================================================
+       SIDEBAR
+       ================================================= */
+
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -270px;
+
+        width: 250px;
+        height: 100vh;
+
+        z-index: 9999;
+
+        transition: left 0.25s ease;
+
+        box-shadow: 4px 0 15px rgba(0,0,0,0.15);
+    }
+
+
+    .sidebar.mobile-open {
+        left: 0;
+    }
+
+
+    /* =================================================
+       ANA ALAN
+       ================================================= */
+
+    .main {
+        margin-left: 0 !important;
+        width: 100%;
+        min-width: 0;
+        padding: 12px;
+    }
+
+
+    /* =================================================
+       HEADER
+       ================================================= */
+
+    .header {
+        padding: 15px;
+        margin-bottom: 15px;
+
+        flex-direction: column;
+        align-items: flex-start;
+
+        gap: 15px;
+    }
+
+
+    .header h1 {
+        font-size: 24px;
+    }
+
+
+    .header p {
+        font-size: 13px;
+    }
+
+
+    .header-right {
+        width: 100%;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        gap: 10px;
+    }
+
+
+    .date {
+        font-size: 13px;
+    }
+
+
+    .profile {
+        max-width: 150px;
+    }
+
+
+    .profile div {
+        display: none;
+    }
+
+
+    /* =================================================
+       KPI KARTLARI
+       ================================================= */
+
+    .cards {
+        grid-template-columns: repeat(2, 1fr) !important;
+
+        gap: 10px;
+
+        margin-bottom: 15px;
+    }
+
+
+    .card {
+        padding: 15px;
+        min-width: 0;
+    }
+
+
+    .card h3 {
+        font-size: 12px;
+    }
+
+
+    .card h1 {
+        font-size: 25px;
+    }
+
+
+    /* =================================================
+       DASHBOARD GRID
+       ================================================= */
+
+    .dashboard-grid,
+    .dashboard-grid.alt {
+        grid-template-columns: 1fr !important;
+
+        gap: 12px;
+    }
+
+
+    .panel,
+    .panel.large {
+        width: 100%;
+        min-width: 0;
+    }
+
+
+    .panel {
+        padding: 15px;
+    }
+
+
+    .panel-header {
+        gap: 10px;
+    }
+
+
+    .panel-header h2 {
+        font-size: 17px;
+    }
+
+
+    /* =================================================
+       GRAFİKLER
+       ================================================= */
+
+    .panel canvas {
+        width: 100% !important;
+        max-width: 100%;
+    }
+
+
+    /* =================================================
+       TABLOLAR
+       ================================================= */
+
+    .panel table {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+
+    table {
+        min-width: 600px;
+    }
+
+
+    /* =================================================
+       TOOLBAR
+       ================================================= */
+
+    .toolbar {
+        width: 100%;
+
+        display: flex;
+        flex-direction: column;
+
+        gap: 10px;
+
+        margin-bottom: 15px;
+    }
+
+
+    .toolbar input,
+    .toolbar select,
+    .toolbar button {
+        width: 100%;
+        min-height: 45px;
+    }
+
+
+    /* =================================================
+       MAKİNE KARTLARI
+       ================================================= */
+
+    .machine-grid {
+        grid-template-columns: 1fr !important;
+
+        gap: 12px;
+    }
+
+
+    /* =================================================
+       FORM GRID
+       ================================================= */
+
+    .form-grid {
+        grid-template-columns: 1fr !important;
+        gap: 12px;
+    }
+
+
+    .form-group {
+        width: 100%;
+    }
+
+
+    input,
+    select,
+    textarea {
+        width: 100%;
+        max-width: 100%;
+
+        min-height: 44px;
+
+        font-size: 16px;
+    }
+
+
+    textarea {
+        min-height: 100px;
+    }
+
+
+    /* =================================================
+       BUTONLAR
+       ================================================= */
+
+    button {
+        min-height: 44px;
+    }
+
+
+    /* =================================================
+       MODAL
+       ================================================= */
+
+    .modal {
+        padding: 10px;
+    }
+
+
+    .modal-content {
+        width: 100% !important;
+        max-width: 100% !important;
+
+        max-height: 92vh;
+
+        overflow-y: auto;
+    }
+
+
+    .modal-header {
+        padding: 15px;
+    }
+
+
+    .modal-body {
+        padding: 15px;
+    }
+
+
+    .modal-footer {
+        padding: 15px;
+
+        display: flex;
+        flex-direction: column;
+
+        gap: 8px;
+    }
+
+
+    .modal-footer button {
+        width: 100%;
+    }
+
+
+    /* =================================================
+       DRAWER
+       ================================================= */
+
+    .drawer {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+
+    /* =================================================
+       AYARLAR
+       ================================================= */
+
+    .settings-layout {
+        flex-direction: column;
+    }
+
+
+    .settings-menu {
+        width: 100% !important;
+
+        display: flex;
+        overflow-x: auto;
+
+        gap: 8px;
+
+        padding-bottom: 5px;
+    }
+
+
+    .settings-menu-item {
+        flex: 0 0 auto;
+
+        white-space: nowrap;
+    }
+
+
+    .settings-content {
+        width: 100%;
+    }
+
+
+    .settings-section-header {
+        flex-direction: column;
+        align-items: stretch;
+
+        gap: 15px;
+    }
+
+
+    .settings-section-header button {
+        width: 100%;
+    }
+
+
+    /* =================================================
+       QR OKUYUCU
+       ================================================= */
+
+    #qrReader {
+        width: 100% !important;
+        max-width: 100%;
+    }
+
+
+    /* =================================================
+       RAPORLAR
+       ================================================= */
+
+    .report-grid,
+    .reports-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+
+    /* =================================================
+       GENEL KÜÇÜK EKRAN DÜZENİ
+       ================================================= */
+
+    h1 {
+        font-size: 24px;
+    }
+
+
+    h2 {
+        font-size: 19px;
+    }
+
+
+    h3 {
+        font-size: 16px;
+    }
+
+}
+
+
+/* =====================================================
+   ÇOK KÜÇÜK TELEFONLAR
+   ===================================================== */
+
+@media (max-width: 420px) {
+
+    .main {
+        padding: 8px;
+    }
+
+
+    .cards {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 8px;
+    }
+
+
+    .card {
+        padding: 12px 8px;
+    }
+
+
+    .card h3 {
+        font-size: 11px;
+    }
+
+
+    .card h1 {
+        font-size: 22px;
+    }
+
+
+    .header {
+        padding: 12px;
+    }
+
+
+    .panel {
+        padding: 12px;
+    }
+
+}
