@@ -7,7 +7,8 @@
 // =====================================================
 // AYARLAR SEKME DEĞİŞTİRME
 // =====================================================
-
+let duzenlenenKullaniciId = null;
+let ayarKullanicilar = [];
 function ayarlarSekmeAc(sekmeId, buton) {
 
     document.querySelectorAll(".settings-tab").forEach(function (tab) {
