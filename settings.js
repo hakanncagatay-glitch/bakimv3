@@ -152,72 +152,159 @@ function kullaniciKaydet() {
 
 
     if (!adSoyad) {
+
         alert("Ad Soyad giriniz.");
+
         return;
+
     }
+
 
     if (!kullaniciAdi) {
+
         alert("Kullanıcı adı giriniz.");
+
         return;
+
     }
 
-    if (!sifre) {
+
+    // Yeni kullanıcıda şifre zorunlu
+    // Düzenlemede boş bırakılabilir
+    if (!duzenlenenKullaniciId && !sifre) {
+
         alert("Şifre giriniz.");
+
         return;
+
     }
 
 
     var params = new URLSearchParams();
 
-    params.append("action", "kullaniciEkle");
-    params.append("adSoyad", adSoyad);
-    params.append("kullaniciAdi", kullaniciAdi);
-    params.append("sifre", sifre);
-    params.append("rol", rol);
-    params.append("departman", departman);
-    params.append("durum", durum);
+
+    // =================================================
+    // DÜZENLEME
+    // =================================================
+
+    if (duzenlenenKullaniciId) {
+
+        params.append(
+            "action",
+            "kullaniciGuncelle"
+        );
+
+        params.append(
+            "id",
+            duzenlenenKullaniciId
+        );
+
+    }
+
+    // =================================================
+    // YENİ KULLANICI
+    // =================================================
+
+    else {
+
+        params.append(
+            "action",
+            "kullaniciEkle"
+        );
+
+    }
 
 
-    fetch(API + "?" + params.toString())
+    params.append(
+        "adSoyad",
+        adSoyad
+    );
 
-        .then(function(response) {
+    params.append(
+        "kullaniciAdi",
+        kullaniciAdi
+    );
 
-            return response.json();
+    params.append(
+        "sifre",
+        sifre
+    );
 
-        })
+    params.append(
+        "rol",
+        rol
+    );
 
-        .then(function(result) {
+    params.append(
+        "departman",
+        departman
+    );
 
-            console.log("Kullanıcı kayıt sonucu:", result);
-
-
-            if (!result.success) {
-
-                alert(result.message || "Kullanıcı kaydedilemedi.");
-
-                return;
-
-            }
+    params.append(
+        "durum",
+        durum
+    );
 
 
-            alert("Kullanıcı başarıyla kaydedildi.");
+    fetch(
+        API + "?" + params.toString()
+    )
 
-            kullaniciFormKapat();
+    .then(function(response) {
 
-            kullanicilariYukle();
+        return response.json();
 
-        })
+    })
 
-        .catch(function(error) {
+    .then(function(result) {
 
-            console.error("Kullanıcı kayıt hatası:", error);
+        console.log(
+            "Kullanıcı kayıt sonucu:",
+            result
+        );
 
-            alert("Sunucu bağlantısında hata oluştu.");
 
-        });
+        if (!result.success) {
+
+            alert(
+                result.message ||
+                "İşlem gerçekleştirilemedi."
+            );
+
+            return;
+
+        }
+
+
+        alert(
+            result.message ||
+            "İşlem başarılı."
+        );
+
+
+        duzenlenenKullaniciId = null;
+
+
+        kullaniciFormKapat();
+
+        kullanicilariYukle();
+
+    })
+
+    .catch(function(error) {
+
+        console.error(
+            "Kullanıcı işlem hatası:",
+            error
+        );
+
+        alert(
+            "Sunucu bağlantısında hata oluştu."
+        );
+
+    });
 
 }
-
 // =====================================================
 // KULLANICI LİSTESİ
 // =====================================================
@@ -243,7 +330,7 @@ function kullanicilariYukle() {
         .then(function(result) {
 
             console.log("Kullanıcı listesi:", result);
-
+ayarKullanicilar = result.data || [];
 
             if (!result.success) {
 
@@ -350,5 +437,89 @@ function kullanicilariYukle() {
 function ayarlarYukle() {
 
     kullanicilariYukle();
+
+}
+// =====================================================
+// KULLANICI DÜZENLE
+// =====================================================
+
+function kullaniciDuzenle(id) {
+
+    const user = ayarKullanicilar.find(function(item) {
+
+        return String(item.id) === String(id);
+
+    });
+
+    if (!user) {
+
+        alert("Kullanıcı bulunamadı.");
+
+        return;
+
+    }
+
+
+    duzenlenenKullaniciId = user.id;
+
+
+    document.getElementById("userFullName").value =
+        user.adSoyad || "";
+
+    document.getElementById("userUsername").value =
+        user.kullaniciAdi || "";
+
+    document.getElementById("userPassword").value = "";
+
+    document.getElementById("userRole").value =
+        user.rol || "operator";
+
+    document.getElementById("userDepartment").value =
+        user.departman || "";
+
+    document.getElementById("userStatus").value =
+        user.durum || "Aktif";
+
+
+    // Formu aç
+    document.getElementById("kullaniciForm").style.display =
+        "block";
+
+
+    // Başlığı değiştir
+    const baslik =
+        document.querySelector("#kullaniciForm h3");
+
+    if (baslik) {
+
+        baslik.innerText = "Kullanıcı Düzenle";
+
+    }
+
+
+    // Şifre zorunlu değil
+    const sifreLabel =
+        document.querySelector('label[for="userPassword"]');
+
+    if (sifreLabel) {
+
+        sifreLabel.innerText =
+            "Şifre (değiştirmek için)";
+
+    }
+
+
+    // Kaydet butonunu Güncelle yap
+    const buton =
+        document.querySelector(
+            '#kullaniciForm button[onclick="kullaniciKaydet()"]'
+        );
+
+    if (buton) {
+
+        buton.innerHTML =
+            '<i class="fa-solid fa-save"></i> Güncelle';
+
+    }
 
 }
