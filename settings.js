@@ -813,3 +813,70 @@ function konumKaydet() {
     });
 
 }
+// =====================================================
+// KONUM DÜZENLE
+// =====================================================
+
+let duzenlenenKonumId = null;
+
+
+function konumDuzenle(id) {
+
+    const konum =
+        ayarKonumlar.find(function(item) {
+
+            return String(item.id) === String(id);
+
+        });
+
+
+    if (!konum) {
+
+        alert("Konum bulunamadı.");
+
+        return;
+
+    }
+
+
+    duzenlenenKonumId = konum.id;
+
+
+    const input =
+        document.getElementById("konumAdi");
+
+    if (input) {
+
+        input.value =
+            konum.konum || "";
+
+    }
+
+
+    konumFormAc();
+
+
+    const baslik =
+        document.querySelector("#konumForm h3");
+
+    if (baslik) {
+
+        baslik.innerText =
+            "Konum Düzenle";
+
+    }
+
+
+    const buton =
+        document.querySelector(
+            '#konumForm button[onclick="konumKaydet()"]'
+        );
+
+    if (buton) {
+
+        buton.innerHTML =
+            '<i class="fa-solid fa-save"></i> Güncelle';
+
+    }
+
+}
