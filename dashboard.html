@@ -1631,14 +1631,120 @@ Henüz rapor oluşturulmadı.
             <!-- DİĞER SEKME YERLERİ -->
 
             <div id="locationsSettings"
-                 class="settings-tab"
-                 style="display:none;">
+     class="settings-tab"
+     style="display:none;">
 
-                <h2>📍 Konumlar</h2>
+    <div class="settings-section-header">
 
-                <p>Bu bölüm sonraki aşamada yapılacak.</p>
+        <div>
+
+            <h2>📍 Konumlar</h2>
+
+            <p>Sistemde kullanılacak konumları yönetin.</p>
+
+        </div>
+
+        <button
+            class="btn-primary"
+            onclick="konumFormAc()">
+
+            <i class="fa-solid fa-plus"></i>
+            Yeni Konum
+
+        </button>
+
+    </div>
+
+
+    <!-- YENİ KONUM FORMU -->
+
+    <div id="konumForm"
+         class="panel"
+         style="display:none;">
+
+        <h3>Yeni Konum</h3>
+
+        <div class="form-grid">
+
+            <div class="form-group">
+
+                <label>Konum Adı *</label>
+
+                <input
+                    type="text"
+                    id="konumAdi"
+                    placeholder="Örn: HAT-1">
 
             </div>
+
+        </div>
+
+
+        <div style="
+            display:flex;
+            justify-content:flex-end;
+            gap:10px;
+            margin-top:20px;">
+
+            <button
+                class="btn-secondary"
+                onclick="konumFormKapat()">
+
+                İptal
+
+            </button>
+
+            <button
+                class="btn-primary"
+                onclick="konumKaydet()">
+
+                <i class="fa-solid fa-save"></i>
+                Kaydet
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- KONUM LİSTESİ -->
+
+    <div class="panel">
+
+        <div class="panel-header">
+
+            <h3>Konum Listesi</h3>
+
+        </div>
+
+        <div class="settings-table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Konum</th>
+                        <th>Durum</th>
+                        <th>İşlem</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="konumListe">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
 
 
             <div id="maintenanceSettings"
