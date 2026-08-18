@@ -1878,15 +1878,115 @@ Henüz rapor oluşturulmadı.
 </div>
 
 
-            <div id="partsSettings"
-                 class="settings-tab"
-                 style="display:none;">
+           <div class="settings-section-header">
 
-                <h2>📦 Parça Kategorileri</h2>
+    <div>
 
-                <p>Bu bölüm sonraki aşamada yapılacak.</p>
+        <h2>📦 Parça Kategorileri</h2>
 
-            </div>
+        <p>Sistemde kullanılacak yedek parça kategorilerini yönetin.</p>
+
+    </div>
+
+    <button
+        class="btn-primary"
+        onclick="parcaKategorisiFormAc()">
+
+        <i class="fa-solid fa-plus"></i>
+        Yeni Kategori
+
+    </button>
+
+</div>
+
+
+<!-- KATEGORİ FORMU -->
+
+<div id="parcaKategorisiForm"
+     class="panel"
+     style="display:none;">
+
+    <h3>Yeni Parça Kategorisi</h3>
+
+    <div class="form-grid">
+
+        <div class="form-group">
+
+            <label>Kategori Adı *</label>
+
+            <input
+                type="text"
+                id="parcaKategoriAdi"
+                placeholder="Örn: Mekanik">
+
+        </div>
+
+    </div>
+
+
+    <div style="
+        display:flex;
+        justify-content:flex-end;
+        gap:10px;
+        margin-top:20px;">
+
+        <button
+            class="btn-secondary"
+            onclick="parcaKategorisiFormKapat()">
+
+            İptal
+
+        </button>
+
+        <button
+            class="btn-primary"
+            onclick="parcaKategorisiKaydet()">
+
+            <i class="fa-solid fa-save"></i>
+            Kaydet
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- KATEGORİ LİSTESİ -->
+
+<div class="panel">
+
+    <div class="panel-header">
+
+        <h3>Parça Kategorileri</h3>
+
+    </div>
+
+    <div class="settings-table-wrapper">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Kategori</th>
+                    <th>Durum</th>
+                    <th>İşlem</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="parcaKategoriListe">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
 
 
             <div id="notificationSettings"
