@@ -39,7 +39,11 @@ function ayarlarSekmeAc(sekmeId, buton) {
         buton.classList.add("active");
 
     }
+    if (sekmeId === "locationsSettings") {
 
+        konumlariYukle();
+
+    }
 }
 
 
