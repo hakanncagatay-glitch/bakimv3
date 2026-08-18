@@ -151,50 +151,71 @@ function kullaniciKaydet() {
 
 
     if (!adSoyad) {
-
         alert("Ad Soyad giriniz.");
-
         return;
-
     }
-
 
     if (!kullaniciAdi) {
-
         alert("Kullanıcı adı giriniz.");
-
         return;
-
     }
-
 
     if (!sifre) {
-
         alert("Şifre giriniz.");
-
         return;
-
     }
 
 
-    console.log("Yeni kullanıcı:", {
+    var params = new URLSearchParams();
 
-        adSoyad: adSoyad,
-        kullaniciAdi: kullaniciAdi,
-        sifre: sifre,
-        rol: rol,
-        departman: departman,
-        durum: durum
+    params.append("action", "kullaniciEkle");
+    params.append("adSoyad", adSoyad);
+    params.append("kullaniciAdi", kullaniciAdi);
+    params.append("sifre", sifre);
+    params.append("rol", rol);
+    params.append("departman", departman);
+    params.append("durum", durum);
 
-    });
+
+    fetch(API_URL + "?" + params.toString())
+
+        .then(function(response) {
+
+            return response.json();
+
+        })
+
+        .then(function(result) {
+
+            console.log("Kullanıcı kayıt sonucu:", result);
 
 
-    // GS bağlantısı burada yapılacak.
+            if (!result.success) {
 
-    alert("Kullanıcı kayıt bağlantısı bir sonraki aşamada eklenecek.");
+                alert(result.message || "Kullanıcı kaydedilemedi.");
+
+                return;
+
+            }
+
+
+            alert("Kullanıcı başarıyla kaydedildi.");
+
+            kullaniciFormKapat();
+
+            kullanicilariYukle();
+
+        })
+
+        .catch(function(error) {
+
+            console.error("Kullanıcı kayıt hatası:", error);
+
+            alert("Sunucu bağlantısında hata oluştu.");
+
+        });
 
 }
-
 
 // =====================================================
 // KULLANICI LİSTESİ
