@@ -396,12 +396,13 @@ ayarKullanicilar = result.data || [];
                         <td>
 
                             <button
-                                class="btn-secondary"
-                                type="button">
+    class="btn-secondary"
+    type="button"
+    onclick="kullaniciDuzenle('${user.id}')">
 
-                                Düzenle
+    Düzenle
 
-                            </button>
+</button>
 
                         </td>
 
