@@ -1236,6 +1236,333 @@ Henüz rapor oluşturulmadı.
 </div>
 
 </section>
+    <section id="settingsPage" style="display:none;">
+
+    <div class="header">
+
+        <div>
+
+            <h1>⚙️ Ayarlar</h1>
+
+            <p>Kullanıcılar ve sistem yetkilerini yönetin</p>
+
+        </div>
+
+    </div>
+
+    <div class="settings-layout">
+
+        <!-- AYARLAR MENÜSÜ -->
+        <div class="settings-menu">
+
+            <button class="settings-menu-item active"
+                    onclick="ayarlarSekmeAc('usersSettings', this)">
+
+                <i class="fa-solid fa-users"></i>
+
+                Kullanıcılar ve Yetkiler
+
+            </button>
+
+            <button class="settings-menu-item"
+                    onclick="ayarlarSekmeAc('locationsSettings', this)">
+
+                <i class="fa-solid fa-location-dot"></i>
+
+                Konumlar
+
+            </button>
+
+            <button class="settings-menu-item"
+                    onclick="ayarlarSekmeAc('maintenanceSettings', this)">
+
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+
+                Bakım Periyotları
+
+            </button>
+
+            <button class="settings-menu-item"
+                    onclick="ayarlarSekmeAc('partsSettings', this)">
+
+                <i class="fa-solid fa-boxes-stacked"></i>
+
+                Parça Kategorileri
+
+            </button>
+
+            <button class="settings-menu-item"
+                    onclick="ayarlarSekmeAc('notificationSettings', this)">
+
+                <i class="fa-solid fa-envelope"></i>
+
+                E-posta Bildirimleri
+
+            </button>
+
+        </div>
+
+
+        <!-- AYAR İÇERİĞİ -->
+        <div class="settings-content">
+
+            <!-- KULLANICILAR -->
+            <div id="usersSettings" class="settings-tab">
+
+                <div class="settings-section-header">
+
+                    <div>
+
+                        <h2>👥 Kullanıcılar ve Yetkiler</h2>
+
+                        <p>Sisteme erişebilecek kullanıcıları ve rollerini yönetin.</p>
+
+                    </div>
+
+                    <button class="btn-primary"
+                            onclick="kullaniciFormAc()">
+
+                        <i class="fa-solid fa-plus"></i>
+
+                        Yeni Kullanıcı
+
+                    </button>
+
+                </div>
+
+
+                <!-- YENİ KULLANICI FORMU -->
+
+                <div id="kullaniciForm"
+                     class="panel"
+                     style="display:none;">
+
+                    <h3>Yeni Kullanıcı</h3>
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+
+                            <label>Ad Soyad *</label>
+
+                            <input
+                                type="text"
+                                id="userFullName"
+                                placeholder="Örn: Ahmet Yılmaz">
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label>Kullanıcı Adı *</label>
+
+                            <input
+                                type="text"
+                                id="userUsername"
+                                placeholder="Örn: ahmet.yilmaz">
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+
+                            <label>Şifre *</label>
+
+                            <input
+                                type="password"
+                                id="userPassword"
+                                placeholder="Şifre">
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label>Rol *</label>
+
+                            <select id="userRole">
+
+                                <option value="operator">
+                                    Operatör
+                                </option>
+
+                                <option value="technician">
+                                    Bakımcı
+                                </option>
+
+                                <option value="supervisor">
+                                    Bakım Sorumlusu
+                                </option>
+
+                                <option value="admin">
+                                    Yönetici
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+
+                            <label>Departman</label>
+
+                            <input
+                                type="text"
+                                id="userDepartment"
+                                placeholder="Örn: Teknik">
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label>Durum</label>
+
+                            <select id="userStatus">
+
+                                <option value="Aktif">
+                                    Aktif
+                                </option>
+
+                                <option value="Pasif">
+                                    Pasif
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+                    <div style="
+                        display:flex;
+                        justify-content:flex-end;
+                        gap:10px;
+                        margin-top:20px;">
+
+                        <button
+                            class="btn-secondary"
+                            onclick="kullaniciFormKapat()">
+
+                            İptal
+
+                        </button>
+
+                        <button
+                            class="btn-primary"
+                            onclick="kullaniciKaydet()">
+
+                            <i class="fa-solid fa-save"></i>
+
+                            Kaydet
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- KULLANICI TABLOSU -->
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <h3>Kullanıcı Listesi</h3>
+
+                    </div>
+
+                    <div class="settings-table-wrapper">
+
+                        <table id="kullaniciTablo">
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>Ad Soyad</th>
+                                    <th>Kullanıcı Adı</th>
+                                    <th>Rol</th>
+                                    <th>Departman</th>
+                                    <th>Durum</th>
+                                    <th>İşlem</th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="kullaniciListe">
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- DİĞER SEKME YERLERİ -->
+
+            <div id="locationsSettings"
+                 class="settings-tab"
+                 style="display:none;">
+
+                <h2>📍 Konumlar</h2>
+
+                <p>Bu bölüm sonraki aşamada yapılacak.</p>
+
+            </div>
+
+
+            <div id="maintenanceSettings"
+                 class="settings-tab"
+                 style="display:none;">
+
+                <h2>🛠 Bakım Periyotları</h2>
+
+                <p>Bu bölüm sonraki aşamada yapılacak.</p>
+
+            </div>
+
+
+            <div id="partsSettings"
+                 class="settings-tab"
+                 style="display:none;">
+
+                <h2>📦 Parça Kategorileri</h2>
+
+                <p>Bu bölüm sonraki aşamada yapılacak.</p>
+
+            </div>
+
+
+            <div id="notificationSettings"
+                 class="settings-tab"
+                 style="display:none;">
+
+                <h2>📧 E-posta Bildirimleri</h2>
+
+                <p>Bu bölüm sonraki aşamada yapılacak.</p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
     <div id="bakimDetay" class="drawer">
         
 
