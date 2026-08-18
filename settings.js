@@ -72,6 +72,11 @@ function ayarlarSekmeAc(sekmeId, buton) {
         parcaKategorileriYukle();
 
     }
+   if (sekmeId === "notificationSettings") {
+
+    emailBildirimleriYukle();
+
+} 
 
 }
 
