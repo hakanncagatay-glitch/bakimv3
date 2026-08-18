@@ -20,7 +20,104 @@
 </head>
 
 <body>
+<!-- ==========================
+     GİRİŞ EKRANI
+========================== -->
 
+<div id="loginPage" style="
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#f1f5f9;
+">
+
+    <div class="panel" style="
+        width:400px;
+        max-width:90%;
+        padding:35px;
+        text-align:center;
+    ">
+
+        <div style="
+            font-size:45px;
+            margin-bottom:10px;
+        ">
+            🛠️
+        </div>
+
+        <h1>Bakım Pro</h1>
+
+        <p style="color:#64748b;margin-bottom:30px;">
+            Bakım Yönetim Sistemi
+        </p>
+
+
+        <div class="form-group" style="text-align:left;">
+
+            <label>Kullanıcı Adı</label>
+
+            <input
+                type="text"
+                id="loginUsername"
+                placeholder="Kullanıcı adınız"
+                autocomplete="username">
+
+        </div>
+
+
+        <div class="form-group"
+             style="text-align:left;margin-top:15px;">
+
+            <label>Şifre</label>
+
+            <input
+                type="password"
+                id="loginPassword"
+                placeholder="Şifreniz"
+                autocomplete="current-password">
+
+        </div>
+
+
+        <button
+            class="btn-primary"
+            style="
+                width:100%;
+                margin-top:20px;
+            "
+            onclick="girisYap()">
+
+            🔐 Giriş Yap
+
+        </button>
+
+
+        <button
+            class="btn-danger"
+            style="
+                width:100%;
+                margin-top:10px;
+            "
+            onclick="misafirArizaBildir()">
+
+            🚨 Giriş Yapmadan Arıza Bildir
+
+        </button>
+
+
+        <div
+            id="loginMessage"
+            style="
+                margin-top:15px;
+                color:#dc2626;
+                min-height:20px;
+            ">
+        </div>
+
+    </div>
+
+</div>
 <div class="sidebar">
 
     <div class="logo">
