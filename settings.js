@@ -226,25 +226,121 @@ function kullanicilariYukle() {
     var liste =
         document.getElementById("kullaniciListe");
 
-
     if (!liste) {
-
         return;
-
     }
 
 
-    liste.innerHTML = `
-        <tr>
-            <td colspan="6"
-                style="text-align:center;padding:30px;">
-                Henüz kullanıcı verisi yüklenmedi.
-            </td>
-        </tr>
-    `;
+    fetch(API_URL + "?action=kullanicilariListele")
+
+        .then(function(response) {
+
+            return response.json();
+
+        })
+
+        .then(function(result) {
+
+            console.log("Kullanıcı listesi:", result);
+
+
+            if (!result.success) {
+
+                liste.innerHTML = `
+                    <tr>
+                        <td colspan="6"
+                            style="text-align:center;padding:30px;">
+                            ${result.message || "Kullanıcılar yüklenemedi."}
+                        </td>
+                    </tr>
+                `;
+
+                return;
+
+            }
+
+
+            if (!result.data || result.data.length === 0) {
+
+                liste.innerHTML = `
+                    <tr>
+                        <td colspan="6"
+                            style="text-align:center;padding:30px;">
+                            Henüz kullanıcı bulunmuyor.
+                        </td>
+                    </tr>
+                `;
+
+                return;
+
+            }
+
+
+            liste.innerHTML = "";
+
+
+            result.data.forEach(function(user) {
+
+                var rolAdi = {
+
+                    operator: "Operatör",
+                    technician: "Bakımcı",
+                    supervisor: "Bakım Sorumlusu",
+                    admin: "Yönetici"
+
+                }[user.rol] || user.rol;
+
+
+                liste.innerHTML += `
+
+                    <tr>
+
+                        <td>${user.adSoyad || ""}</td>
+
+                        <td>${user.kullaniciAdi || ""}</td>
+
+                        <td>${rolAdi}</td>
+
+                        <td>${user.departman || "-"}</td>
+
+                        <td>${user.durum || ""}</td>
+
+                        <td>
+
+                            <button
+                                class="btn-secondary"
+                                type="button">
+
+                                Düzenle
+
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+            });
+
+        })
+
+        .catch(function(error) {
+
+            console.error("Kullanıcı listeleme hatası:", error);
+
+            liste.innerHTML = `
+                <tr>
+                    <td colspan="6"
+                        style="text-align:center;padding:30px;">
+                        Kullanıcılar yüklenemedi.
+                    </td>
+                </tr>
+            `;
+
+        });
 
 }
-
 
 // =====================================================
 // AYARLAR SAYFASI AÇILDIĞINDA
