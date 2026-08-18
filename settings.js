@@ -918,3 +918,96 @@ function konumDuzenle(id) {
     }
 
 }
+// =====================================================
+// KONUM DURUM DEĞİŞTİR
+// =====================================================
+
+function konumDurumDegistir(id, mevcutDurum) {
+
+    const yeniDurum =
+        mevcutDurum === "Aktif"
+            ? "Pasif"
+            : "Aktif";
+
+
+    const mesaj =
+        yeniDurum === "Pasif"
+            ? "Bu konumu pasifleştirmek istediğinize emin misiniz?"
+            : "Bu konumu tekrar aktifleştirmek istediğinize emin misiniz?";
+
+
+    if (!confirm(mesaj)) {
+
+        return;
+
+    }
+
+
+    const params =
+        new URLSearchParams();
+
+
+    params.append(
+        "action",
+        "konumDurumGuncelle"
+    );
+
+    params.append(
+        "id",
+        id
+    );
+
+    params.append(
+        "durum",
+        yeniDurum
+    );
+
+
+    fetch(
+        API + "?" + params.toString()
+    )
+
+    .then(function(response) {
+
+        return response.json();
+
+    })
+
+    .then(function(result) {
+
+        console.log(
+            "Konum durum sonucu:",
+            result
+        );
+
+
+        if (!result.success) {
+
+            alert(
+                result.message ||
+                "Konum durumu değiştirilemedi."
+            );
+
+            return;
+
+        }
+
+
+        konumlariYukle();
+
+    })
+
+    .catch(function(error) {
+
+        console.error(
+            "Konum durum hatası:",
+            error
+        );
+
+        alert(
+            "Sunucu bağlantısında hata oluştu."
+        );
+
+    });
+
+}
