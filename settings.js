@@ -681,14 +681,27 @@ function konumlariYukle() {
 
                     <td>
 
-                       <button
-    class="btn-secondary"
-    type="button"
-    onclick="konumDuzenle('${konum.id}')">
+                      <div style="display:flex;gap:6px;">
 
-    Düzenle
+    <button
+        class="btn-secondary"
+        type="button"
+        onclick="konumDuzenle('${konum.id}')">
 
-</button>
+        Düzenle
+
+    </button>
+
+    <button
+        class="${konum.durum === 'Aktif' ? 'btn-danger' : 'btn-primary'}"
+        type="button"
+        onclick="konumDurumDegistir('${konum.id}', '${konum.durum}')">
+
+        ${konum.durum === 'Aktif' ? 'Pasifleştir' : 'Aktifleştir'}
+
+    </button>
+
+</div>
 
                     </td>
 
