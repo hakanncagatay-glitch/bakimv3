@@ -1747,15 +1747,135 @@ Henüz rapor oluşturulmadı.
 </div>
 
 
-            <div id="maintenanceSettings"
-                 class="settings-tab"
-                 style="display:none;">
+           <div id="maintenanceSettings"
+     class="settings-tab"
+     style="display:none;">
 
-                <h2>🛠 Bakım Periyotları</h2>
+    <div class="settings-section-header">
 
-                <p>Bu bölüm sonraki aşamada yapılacak.</p>
+        <div>
+
+            <h2>🛠 Bakım Periyotları</h2>
+
+            <p>Sistemde kullanılacak bakım periyotlarını yönetin.</p>
+
+        </div>
+
+        <button
+            class="btn-primary"
+            onclick="bakimPeriyoduFormAc()">
+
+            <i class="fa-solid fa-plus"></i>
+            Yeni Periyot
+
+        </button>
+
+    </div>
+
+
+    <!-- YENİ PERİYOT FORMU -->
+
+    <div id="bakimPeriyoduForm"
+         class="panel"
+         style="display:none;">
+
+        <h3>Yeni Bakım Periyodu</h3>
+
+        <div class="form-grid">
+
+            <div class="form-group">
+
+                <label>Periyot Adı *</label>
+
+                <input
+                    type="text"
+                    id="bakimPeriyoduAdi"
+                    placeholder="Örn: 6 Aylık">
 
             </div>
+
+
+            <div class="form-group">
+
+                <label>Gün *</label>
+
+                <input
+                    type="number"
+                    id="bakimPeriyoduGun"
+                    min="1"
+                    placeholder="Örn: 180">
+
+            </div>
+
+        </div>
+
+
+        <div style="
+            display:flex;
+            justify-content:flex-end;
+            gap:10px;
+            margin-top:20px;">
+
+            <button
+                class="btn-secondary"
+                onclick="bakimPeriyoduFormKapat()">
+
+                İptal
+
+            </button>
+
+            <button
+                class="btn-primary"
+                onclick="bakimPeriyoduKaydet()">
+
+                <i class="fa-solid fa-save"></i>
+                Kaydet
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- PERİYOT LİSTESİ -->
+
+    <div class="panel">
+
+        <div class="panel-header">
+
+            <h3>Bakım Periyotları</h3>
+
+        </div>
+
+        <div class="settings-table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Periyot</th>
+                        <th>Gün</th>
+                        <th>Durum</th>
+                        <th>İşlem</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="bakimPeriyoduListe">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
 
 
             <div id="partsSettings"
