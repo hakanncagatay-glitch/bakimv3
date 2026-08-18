@@ -1011,3 +1011,563 @@ function konumDurumDegistir(id, mevcutDurum) {
     });
 
 }
+// =====================================================
+// BAKIM PERİYOTLARI
+// =====================================================
+
+let ayarBakimPeriyotlari = [];
+let duzenlenenBakimPeriyoduId = null;
+
+
+// =====================================================
+// FORM AÇ
+// =====================================================
+
+function bakimPeriyoduFormAc() {
+
+    const form =
+        document.getElementById("bakimPeriyoduForm");
+
+    if (form) {
+
+        form.style.display = "block";
+
+    }
+
+    const ad =
+        document.getElementById("bakimPeriyoduAdi");
+
+    const gun =
+        document.getElementById("bakimPeriyoduGun");
+
+    if (ad) ad.focus();
+
+}
+
+
+// =====================================================
+// FORM KAPAT
+// =====================================================
+
+function bakimPeriyoduFormKapat() {
+
+    const form =
+        document.getElementById("bakimPeriyoduForm");
+
+    if (form) {
+
+        form.style.display = "none";
+
+    }
+
+    duzenlenenBakimPeriyoduId = null;
+
+
+    const ad =
+        document.getElementById("bakimPeriyoduAdi");
+
+    const gun =
+        document.getElementById("bakimPeriyoduGun");
+
+    if (ad) ad.value = "";
+
+    if (gun) gun.value = "";
+
+
+    const baslik =
+        document.querySelector(
+            "#bakimPeriyoduForm h3"
+        );
+
+    if (baslik) {
+
+        baslik.innerText =
+            "Yeni Bakım Periyodu";
+
+    }
+
+
+    const buton =
+        document.querySelector(
+            '#bakimPeriyoduForm button[onclick="bakimPeriyoduKaydet()"]'
+        );
+
+    if (buton) {
+
+        buton.innerHTML =
+            '<i class="fa-solid fa-save"></i> Kaydet';
+
+    }
+
+}
+
+
+// =====================================================
+// LİSTELE
+// =====================================================
+
+function bakimPeriyotlariYukle() {
+
+    const liste =
+        document.getElementById(
+            "bakimPeriyoduListe"
+        );
+
+    if (!liste) {
+
+        return;
+
+    }
+
+
+    liste.innerHTML = `
+        <tr>
+            <td colspan="4"
+                style="text-align:center;padding:25px;">
+                Bakım periyotları yükleniyor...
+            </td>
+        </tr>
+    `;
+
+
+    fetch(
+        API + "?action=bakimPeriyotlariListele"
+    )
+
+    .then(function(response) {
+
+        return response.json();
+
+    })
+
+    .then(function(result) {
+
+        console.log(
+            "Bakım periyotları:",
+            result
+        );
+
+
+        if (!result.success) {
+
+            liste.innerHTML = `
+                <tr>
+                    <td colspan="4"
+                        style="text-align:center;padding:25px;">
+                        ${result.message || "Periyotlar yüklenemedi."}
+                    </td>
+                </tr>
+            `;
+
+            return;
+
+        }
+
+
+        ayarBakimPeriyotlari =
+            result.data || [];
+
+
+        if (
+            ayarBakimPeriyotlari.length === 0
+        ) {
+
+            liste.innerHTML = `
+                <tr>
+                    <td colspan="4"
+                        style="text-align:center;padding:25px;">
+                        Henüz bakım periyodu bulunmuyor.
+                    </td>
+                </tr>
+            `;
+
+            return;
+
+        }
+
+
+        liste.innerHTML = "";
+
+
+        ayarBakimPeriyotlari.forEach(
+            function(periyot) {
+
+                liste.innerHTML += `
+
+                    <tr>
+
+                        <td>
+                            ${periyot.periyotAdi || ""}
+                        </td>
+
+                        <td>
+                            ${periyot.gun || ""}
+                        </td>
+
+                        <td>
+                            ${periyot.durum || ""}
+                        </td>
+
+                        <td>
+
+                            <div style="
+                                display:flex;
+                                gap:6px;">
+
+                                <button
+                                    class="btn-secondary"
+                                    type="button"
+                                    onclick="bakimPeriyoduDuzenle('${periyot.id}')">
+
+                                    Düzenle
+
+                                </button>
+
+                                <button
+                                    class="${periyot.durum === 'Aktif' ? 'btn-danger' : 'btn-primary'}"
+                                    type="button"
+                                    onclick="bakimPeriyoduDurumDegistir('${periyot.id}', '${periyot.durum}')">
+
+                                    ${periyot.durum === 'Aktif'
+                                        ? 'Pasifleştir'
+                                        : 'Aktifleştir'}
+
+                                </button>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+            }
+        );
+
+    })
+
+    .catch(function(error) {
+
+        console.error(
+            "Bakım periyodu listeleme hatası:",
+            error
+        );
+
+        liste.innerHTML = `
+            <tr>
+                <td colspan="4"
+                    style="text-align:center;padding:25px;">
+                    Bakım periyotları yüklenemedi.
+                </td>
+            </tr>
+        `;
+
+    });
+
+}
+
+
+// =====================================================
+// KAYDET / GÜNCELLE
+// =====================================================
+
+function bakimPeriyoduKaydet() {
+
+    const periyotAdi =
+        document
+            .getElementById("bakimPeriyoduAdi")
+            .value
+            .trim();
+
+    const gun =
+        document
+            .getElementById("bakimPeriyoduGun")
+            .value;
+
+
+    if (!periyotAdi) {
+
+        alert("Periyot adı giriniz.");
+
+        return;
+
+    }
+
+
+    if (!gun || Number(gun) <= 0) {
+
+        alert(
+            "Gün değeri 0'dan büyük olmalıdır."
+        );
+
+        return;
+
+    }
+
+
+    const params =
+        new URLSearchParams();
+
+
+    if (duzenlenenBakimPeriyoduId) {
+
+        params.append(
+            "action",
+            "bakimPeriyoduGuncelle"
+        );
+
+        params.append(
+            "id",
+            duzenlenenBakimPeriyoduId
+        );
+
+    }
+    else {
+
+        params.append(
+            "action",
+            "bakimPeriyoduEkle"
+        );
+
+    }
+
+
+    params.append(
+        "periyotAdi",
+        periyotAdi
+    );
+
+    params.append(
+        "gun",
+        gun
+    );
+
+
+    fetch(
+        API + "?" + params.toString()
+    )
+
+    .then(function(response) {
+
+        return response.json();
+
+    })
+
+    .then(function(result) {
+
+        console.log(
+            "Bakım periyodu işlem sonucu:",
+            result
+        );
+
+
+        if (!result.success) {
+
+            alert(
+                result.message ||
+                "İşlem gerçekleştirilemedi."
+            );
+
+            return;
+
+        }
+
+
+        alert(
+            result.message ||
+            "İşlem başarılı."
+        );
+
+
+        bakimPeriyoduFormKapat();
+
+        bakimPeriyotlariYukle();
+
+    })
+
+    .catch(function(error) {
+
+        console.error(
+            "Bakım periyodu işlem hatası:",
+            error
+        );
+
+        alert(
+            "Sunucu bağlantısında hata oluştu."
+        );
+
+    });
+
+}
+
+
+// =====================================================
+// DÜZENLE
+// =====================================================
+
+function bakimPeriyoduDuzenle(id) {
+
+    const periyot =
+        ayarBakimPeriyotlari.find(
+            function(item) {
+
+                return String(item.id) ===
+                       String(id);
+
+            }
+        );
+
+
+    if (!periyot) {
+
+        alert("Bakım periyodu bulunamadı.");
+
+        return;
+
+    }
+
+
+    duzenlenenBakimPeriyoduId =
+        periyot.id;
+
+
+    document
+        .getElementById("bakimPeriyoduAdi")
+        .value =
+        periyot.periyotAdi || "";
+
+
+    document
+        .getElementById("bakimPeriyoduGun")
+        .value =
+        periyot.gun || "";
+
+
+    bakimPeriyoduFormAc();
+
+
+    const baslik =
+        document.querySelector(
+            "#bakimPeriyoduForm h3"
+        );
+
+    if (baslik) {
+
+        baslik.innerText =
+            "Bakım Periyodu Düzenle";
+
+    }
+
+
+    const buton =
+        document.querySelector(
+            '#bakimPeriyoduForm button[onclick="bakimPeriyoduKaydet()"]'
+        );
+
+    if (buton) {
+
+        buton.innerHTML =
+            '<i class="fa-solid fa-save"></i> Güncelle';
+
+    }
+
+}
+
+
+// =====================================================
+// AKTİF / PASİF
+// =====================================================
+
+function bakimPeriyoduDurumDegistir(
+    id,
+    mevcutDurum
+) {
+
+    const yeniDurum =
+        mevcutDurum === "Aktif"
+            ? "Pasif"
+            : "Aktif";
+
+
+    const mesaj =
+        yeniDurum === "Pasif"
+            ? "Bu bakım periyodunu pasifleştirmek istediğinize emin misiniz?"
+            : "Bu bakım periyodunu aktifleştirmek istediğinize emin misiniz?";
+
+
+    if (!confirm(mesaj)) {
+
+        return;
+
+    }
+
+
+    const params =
+        new URLSearchParams();
+
+
+    params.append(
+        "action",
+        "bakimPeriyoduDurumGuncelle"
+    );
+
+    params.append(
+        "id",
+        id
+    );
+
+    params.append(
+        "durum",
+        yeniDurum
+    );
+
+
+    fetch(
+        API + "?" + params.toString()
+    )
+
+    .then(function(response) {
+
+        return response.json();
+
+    })
+
+    .then(function(result) {
+
+        console.log(
+            "Periyot durum sonucu:",
+            result
+        );
+
+
+        if (!result.success) {
+
+            alert(
+                result.message ||
+                "Durum değiştirilemedi."
+            );
+
+            return;
+
+        }
+
+
+        bakimPeriyotlariYukle();
+
+    })
+
+    .catch(function(error) {
+
+        console.error(
+            "Periyot durum hatası:",
+            error
+        );
+
+        alert(
+            "Sunucu bağlantısında hata oluştu."
+        );
+
+    });
+
+}
