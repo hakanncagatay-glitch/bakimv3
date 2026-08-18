@@ -214,29 +214,21 @@ async function girisYap() {
 
     try {
 
-        const response =
-            await fetch(API, {
+        const params = new URLSearchParams();
 
-                method: "POST",
+params.append("action", "login");
+params.append("kullaniciAdi", kullaniciAdi);
+params.append("sifre", sifre);
 
-                headers: {
-                    "Content-Type":
-                        "application/json"
-                },
 
-                body: JSON.stringify({
+const response =
+    await fetch(API, {
 
-                    action: "login",
+        method: "POST",
 
-                    kullaniciAdi:
-                        kullaniciAdi,
+        body: params
 
-                    sifre:
-                        sifre
-
-                })
-
-            });
+    });
 
 
         const sonuc =
