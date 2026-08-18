@@ -578,7 +578,7 @@ function konumFormKapat() {
         form.style.display = "none";
 
     }
-
+duzenlenenKonumId = null;
 }
 
 
