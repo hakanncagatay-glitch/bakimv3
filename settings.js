@@ -1576,3 +1576,539 @@ function bakimPeriyoduDurumDegistir(
     });
 
 }
+// =====================================================
+// PARÇA KATEGORİLERİ
+// =====================================================
+
+let ayarParcaKategorileri = [];
+let duzenlenenParcaKategorisiId = null;
+
+
+// =====================================================
+// FORM AÇ
+// =====================================================
+
+function parcaKategorisiFormAc() {
+
+    const form =
+        document.getElementById("parcaKategorisiForm");
+
+    if (form) {
+
+        form.style.display = "block";
+
+    }
+
+    const input =
+        document.getElementById("parcaKategoriAdi");
+
+    if (input) {
+
+        input.focus();
+
+    }
+
+}
+
+
+// =====================================================
+// FORM KAPAT
+// =====================================================
+
+function parcaKategorisiFormKapat() {
+
+    const form =
+        document.getElementById("parcaKategorisiForm");
+
+    if (form) {
+
+        form.style.display = "none";
+
+    }
+
+    duzenlenenParcaKategorisiId = null;
+
+
+    const input =
+        document.getElementById("parcaKategoriAdi");
+
+    if (input) {
+
+        input.value = "";
+
+    }
+
+
+    const baslik =
+        document.querySelector(
+            "#parcaKategorisiForm h3"
+        );
+
+    if (baslik) {
+
+        baslik.innerText =
+            "Yeni Parça Kategorisi";
+
+    }
+
+
+    const buton =
+        document.querySelector(
+            '#parcaKategorisiForm button[onclick="parcaKategorisiKaydet()"]'
+        );
+
+    if (buton) {
+
+        buton.innerHTML =
+            '<i class="fa-solid fa-save"></i> Kaydet';
+
+    }
+
+}
+
+
+// =====================================================
+// KATEGORİLERİ YÜKLE
+// =====================================================
+
+function parcaKategorileriYukle() {
+
+    const liste =
+        document.getElementById(
+            "parcaKategoriListe"
+        );
+
+    if (!liste) {
+
+        return;
+
+    }
+
+
+    liste.innerHTML = `
+        <tr>
+            <td colspan="3"
+                style="text-align:center;padding:25px;">
+                Kategoriler yükleniyor...
+            </td>
+        </tr>
+    `;
+
+
+    fetch(
+        API + "?action=parcaKategorileriListele"
+    )
+
+    .then(function(response) {
+
+        return response.json();
+
+    })
+
+    .then(function(result) {
+
+        console.log(
+            "Parça kategorileri:",
+            result
+        );
+
+
+        if (!result.success) {
+
+            liste.innerHTML = `
+                <tr>
+                    <td colspan="3"
+                        style="text-align:center;padding:25px;">
+                        ${result.message || "Kategoriler yüklenemedi."}
+                    </td>
+                </tr>
+            `;
+
+            return;
+
+        }
+
+
+        ayarParcaKategorileri =
+            result.data || [];
+
+
+        if (
+            ayarParcaKategorileri.length === 0
+        ) {
+
+            liste.innerHTML = `
+                <tr>
+                    <td colspan="3"
+                        style="text-align:center;padding:25px;">
+                        Henüz parça kategorisi bulunmuyor.
+                    </td>
+                </tr>
+            `;
+
+            return;
+
+        }
+
+
+        liste.innerHTML = "";
+
+
+        ayarParcaKategorileri.forEach(
+            function(kategori) {
+
+                liste.innerHTML += `
+
+                    <tr>
+
+                        <td>
+                            ${kategori.kategoriAdi || ""}
+                        </td>
+
+                        <td>
+                            ${kategori.durum || ""}
+                        </td>
+
+                        <td>
+
+                            <div style="
+                                display:flex;
+                                gap:6px;">
+
+                                <button
+                                    class="btn-secondary"
+                                    type="button"
+                                    onclick="parcaKategorisiDuzenle('${kategori.id}')">
+
+                                    Düzenle
+
+                                </button>
+
+                                <button
+                                    class="${kategori.durum === 'Aktif' ? 'btn-danger' : 'btn-primary'}"
+                                    type="button"
+                                    onclick="parcaKategorisiDurumDegistir('${kategori.id}', '${kategori.durum}')">
+
+                                    ${kategori.durum === 'Aktif'
+                                        ? 'Pasifleştir'
+                                        : 'Aktifleştir'}
+
+                                </button>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+            }
+        );
+
+    })
+
+    .catch(function(error) {
+
+        console.error(
+            "Parça kategorisi listeleme hatası:",
+            error
+        );
+
+        liste.innerHTML = `
+            <tr>
+                <td colspan="3"
+                    style="text-align:center;padding:25px;">
+                Kategoriler yüklenemedi.
+                </td>
+            </tr>
+        `;
+
+    });
+
+}
+
+
+// =====================================================
+// KAYDET / GÜNCELLE
+// =====================================================
+
+function parcaKategorisiKaydet() {
+
+    const kategoriAdi =
+        document
+            .getElementById("parcaKategoriAdi")
+            .value
+            .trim();
+
+
+    if (!kategoriAdi) {
+
+        alert("Kategori adı giriniz.");
+
+        return;
+
+    }
+
+
+    const params =
+        new URLSearchParams();
+
+
+    if (duzenlenenParcaKategorisiId) {
+
+        params.append(
+            "action",
+            "parcaKategorisiGuncelle"
+        );
+
+        params.append(
+            "id",
+            duzenlenenParcaKategorisiId
+        );
+
+    }
+    else {
+
+        params.append(
+            "action",
+            "parcaKategorisiEkle"
+        );
+
+    }
+
+
+    params.append(
+        "kategoriAdi",
+        kategoriAdi
+    );
+
+
+    fetch(
+        API + "?" + params.toString()
+    )
+
+    .then(function(response) {
+
+        return response.json();
+
+    })
+
+    .then(function(result) {
+
+        console.log(
+            "Parça kategorisi işlem sonucu:",
+            result
+        );
+
+
+        if (!result.success) {
+
+            alert(
+                result.message ||
+                "İşlem gerçekleştirilemedi."
+            );
+
+            return;
+
+        }
+
+
+        alert(
+            result.message ||
+            "İşlem başarılı."
+        );
+
+
+        parcaKategorisiFormKapat();
+
+        parcaKategorileriYukle();
+
+    })
+
+    .catch(function(error) {
+
+        console.error(
+            "Parça kategorisi işlem hatası:",
+            error
+        );
+
+        alert(
+            "Sunucu bağlantısında hata oluştu."
+        );
+
+    });
+
+}
+
+
+// =====================================================
+// DÜZENLE
+// =====================================================
+
+function parcaKategorisiDuzenle(id) {
+
+    const kategori =
+        ayarParcaKategorileri.find(
+            function(item) {
+
+                return String(item.id) ===
+                       String(id);
+
+            }
+        );
+
+
+    if (!kategori) {
+
+        alert("Parça kategorisi bulunamadı.");
+
+        return;
+
+    }
+
+
+    duzenlenenParcaKategorisiId =
+        kategori.id;
+
+
+    const input =
+        document.getElementById(
+            "parcaKategoriAdi"
+        );
+
+    if (input) {
+
+        input.value =
+            kategori.kategoriAdi || "";
+
+    }
+
+
+    parcaKategorisiFormAc();
+
+
+    const baslik =
+        document.querySelector(
+            "#parcaKategorisiForm h3"
+        );
+
+    if (baslik) {
+
+        baslik.innerText =
+            "Parça Kategorisi Düzenle";
+
+    }
+
+
+    const buton =
+        document.querySelector(
+            '#parcaKategorisiForm button[onclick="parcaKategorisiKaydet()"]'
+        );
+
+    if (buton) {
+
+        buton.innerHTML =
+            '<i class="fa-solid fa-save"></i> Güncelle';
+
+    }
+
+}
+
+
+// =====================================================
+// AKTİF / PASİF
+// =====================================================
+
+function parcaKategorisiDurumDegistir(
+    id,
+    mevcutDurum
+) {
+
+    const yeniDurum =
+        mevcutDurum === "Aktif"
+            ? "Pasif"
+            : "Aktif";
+
+
+    const mesaj =
+        yeniDurum === "Pasif"
+            ? "Bu kategoriyi pasifleştirmek istediğinize emin misiniz?"
+            : "Bu kategoriyi aktifleştirmek istediğinize emin misiniz?";
+
+
+    if (!confirm(mesaj)) {
+
+        return;
+
+    }
+
+
+    const params =
+        new URLSearchParams();
+
+
+    params.append(
+        "action",
+        "parcaKategorisiDurumGuncelle"
+    );
+
+    params.append(
+        "id",
+        id
+    );
+
+    params.append(
+        "durum",
+        yeniDurum
+    );
+
+
+    fetch(
+        API + "?" + params.toString()
+    )
+
+    .then(function(response) {
+
+        return response.json();
+
+    })
+
+    .then(function(result) {
+
+        console.log(
+            "Parça kategori durum sonucu:",
+            result
+        );
+
+
+        if (!result.success) {
+
+            alert(
+                result.message ||
+                "Durum değiştirilemedi."
+            );
+
+            return;
+
+        }
+
+
+        parcaKategorileriYukle();
+
+    })
+
+    .catch(function(error) {
+
+        console.error(
+            "Parça kategori durum hatası:",
+            error
+        );
+
+        alert(
+            "Sunucu bağlantısında hata oluştu."
+        );
+
+    });
+
+}
