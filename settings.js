@@ -177,7 +177,7 @@ function kullaniciKaydet() {
     params.append("durum", durum);
 
 
-    fetch(API_URL + "?" + params.toString())
+    fetch(API + "?" + params.toString())
 
         .then(function(response) {
 
@@ -231,7 +231,7 @@ function kullanicilariYukle() {
     }
 
 
-    fetch(API_URL + "?action=kullanicilariListele")
+    fetch(API + "?action=kullanicilariListele")
 
         .then(function(response) {
 
