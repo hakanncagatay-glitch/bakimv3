@@ -448,6 +448,9 @@ document.querySelectorAll(".sidebar li").forEach(item => {
 case "partsPage":
     parcalariYukle();
     break;
+    case "settingsPage":
+    kullanicilariYukle();
+    break;        
 }
 
 }
