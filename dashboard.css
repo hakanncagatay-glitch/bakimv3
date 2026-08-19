@@ -1136,12 +1136,35 @@ body {
 
 
     .profile {
-        max-width: 150px;
-    }
+    max-width: none;
+    min-width: 0;
 
+    padding: 7px 10px;
+    gap: 7px;
 
-   .profile div {
+    display: flex;
+    align-items: center;
+}
+
+.profile div {
     display: block !important;
+    min-width: 0;
+}
+
+.profile img {
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+}
+
+.profile button {
+    display: block !important;
+    white-space: nowrap;
+
+    padding: 4px 8px !important;
+    font-size: 11px !important;
+
+    flex-shrink: 0;
 }
 
 
