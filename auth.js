@@ -113,7 +113,13 @@ function sistemiAc(user) {
 
     const main =
         document.querySelector(".main");
+    // Açık kalmış drawerları kapat
+    const bakimDetay =
+        document.getElementById("bakimDetay");
 
+    if (bakimDetay) {
+        bakimDetay.classList.remove("active");
+    }
 
     if (login) {
 
