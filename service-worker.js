@@ -1,4 +1,4 @@
-const CACHE_NAME = "bakim-pro-v3";
+const CACHE_NAME = "bakim-pro-v4";
 
 const APP_FILES = [
     "./",
