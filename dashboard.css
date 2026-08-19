@@ -1575,32 +1575,3 @@ body {
         padding: 30px 25px !important;
     }
 }
-.header {
-    flex-wrap: wrap;
-    gap: 15px;
-}
-
-.header-right {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.profile {
-    padding: 7px 10px;
-    gap: 7px;
-    min-width: 0;
-}
-
-.profile img {
-    width: 38px;
-    height: 38px;
-}
-
-.profile button {
-    display: block !important;
-    white-space: nowrap;
-    padding: 4px 8px !important;
-    font-size: 11px !important;
-}
