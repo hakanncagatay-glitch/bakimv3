@@ -2222,7 +2222,19 @@ Henüz rapor oluşturulmadı.
     <script src="reports.js"></script>
     <script src="settings.js"></script>
     <script src="auth.js"></script>
-
+<script>
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./service-worker.js")
+            .then(registration => {
+                console.log("PWA Service Worker aktif:", registration.scope);
+            })
+            .catch(error => {
+                console.error("Service Worker hatası:", error);
+            });
+    });
+}
+</script>
 
 <!-- ==========================
 PARÇA DETAY MODAL
