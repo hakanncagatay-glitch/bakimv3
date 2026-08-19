@@ -48,7 +48,11 @@ async function arizalariYukle(){
     document.getElementById("faultClosed").innerText=
         tumArizalar.filter(x=>x.durum=="Tamamlandı").length;
 
-    document.getElementById("faultAvg").innerText="18 dk";
+    const ortalamaMudahale =
+    ortalamaMudahaleHesapla(tumArizalar);
+
+document.getElementById("faultAvg").innerText =
+    ortalamaMudahale + " dk";
     faultKonumlariniDoldur();
     }
 
