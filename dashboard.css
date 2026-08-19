@@ -1478,55 +1478,12 @@ table td{
 
 }
 /* =====================================================
-   MOBİL GİRİŞ EKRANI
-   ===================================================== */
-
-@media (max-width: 768px) {
-
-    #loginPage {
-        position: fixed !important;
-        inset: 0 !important;
-
-        width: 100vw !important;
-        min-width: 100vw !important;
-        height: 100vh !important;
-        min-height: 100vh !important;
-
-        align-items: center !important;
-        justify-content: center !important;
-
-        padding: 20px !important;
-
-        box-sizing: border-box !important;
-
-        z-index: 10000 !important;
-
-        overflow-y: auto;
-    }
-
-    #loginPage > .panel {
-        width: 100% !important;
-        max-width: 400px !important;
-
-        margin: 0 auto !important;
-
-        padding: 30px 25px !important;
-
-        box-sizing: border-box !important;
-    }
-
-}
-/* =====================================================
-   GİRİŞ EKRANI - TAM EKRAN DÜZELTME
+   GİRİŞ EKRANI
    ===================================================== */
 
 #loginPage {
     position: fixed !important;
-
-    top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    bottom: 0 !important;
+    inset: 0 !important;
 
     width: 100vw !important;
     height: 100vh !important;
@@ -1541,8 +1498,9 @@ table td{
     padding: 20px !important;
 
     box-sizing: border-box !important;
-
     z-index: 99999 !important;
+
+    overflow-y: auto;
 }
 
 #loginPage > .panel {
@@ -1550,6 +1508,20 @@ table td{
     max-width: 100% !important;
 
     margin: 0 auto !important;
-
     box-sizing: border-box !important;
+}
+
+
+/* Mobil */
+@media (max-width: 768px) {
+
+    #loginPage {
+        padding: 15px !important;
+    }
+
+    #loginPage > .panel {
+        width: 100% !important;
+        max-width: 400px !important;
+        padding: 30px 25px !important;
+    }
 }
