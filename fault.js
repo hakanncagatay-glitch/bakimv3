@@ -1040,3 +1040,98 @@ function faultQrOku(){
     );
 
 }
+function ortalamaMudahaleHesapla(arizalar) {
+
+    const sureler = [];
+
+    arizalar.forEach(function (a) {
+
+        // Sadece tamamlanan arızalar
+        if (
+            a.durum !== "kapali" &&
+            a.durum !== "Tamamlandı"
+        ) {
+            return;
+        }
+
+        if (!a.baslama || !a.bitis) {
+            return;
+        }
+
+        const baslama = arizaTarihCevir(a.baslama);
+        const bitis = arizaTarihCevir(a.bitis);
+
+        if (!baslama || !bitis) {
+            return;
+        }
+
+        const dakika =
+            Math.round(
+                (bitis - baslama) / 60000
+            );
+
+        // Negatif veya hatalı süreleri alma
+        if (dakika >= 0) {
+            sureler.push(dakika);
+        }
+
+    });
+
+    if (sureler.length === 0) {
+        return 0;
+    }
+
+    const toplam =
+        sureler.reduce(
+            (a, b) => a + b,
+            0
+        );
+
+    return Math.round(
+        toplam / sureler.length
+    );
+
+}
+function arizaTarihCevir(deger) {
+
+    if (!deger) {
+        return null;
+    }
+
+    // Normal Date / ISO tarih
+    let tarih = new Date(deger);
+
+    if (!isNaN(tarih.getTime())) {
+        return tarih;
+    }
+
+    // 19.08.2026 14:30 gibi Türkçe tarih
+    const metin = String(deger).trim();
+
+    const parcalar = metin.split(" ");
+
+    const tarihKismi = parcalar[0];
+    const saatKismi = parcalar[1] || "00:00";
+
+    const t = tarihKismi.split(".");
+
+    if (t.length !== 3) {
+        return null;
+    }
+
+    const s = saatKismi.split(":");
+
+    tarih = new Date(
+        Number(t[2]),
+        Number(t[1]) - 1,
+        Number(t[0]),
+        Number(s[0]) || 0,
+        Number(s[1]) || 0
+    );
+
+    if (isNaN(tarih.getTime())) {
+        return null;
+    }
+
+    return tarih;
+}
