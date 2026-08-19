@@ -1029,284 +1029,335 @@ table td{
 
 @media (max-width: 768px) {
 
-    /* GENEL */
+    /* =========================
+       GENEL
+       ========================= */
 
-    * {
+    *,
+    *::before,
+    *::after {
         box-sizing: border-box;
     }
 
     html,
-body {
-    width: 100%;
-    max-width: 100%;
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-}
-
-body {
-    display: block;
-}
-
-
-    /* =================================================
-       SIDEBAR
-       ================================================= */
-
-  .sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-
-    width: 90px;
-    height: 100vh;
-
-    z-index: 9999;
-
-    box-shadow: 4px 0 15px rgba(0,0,0,0.15);
-}
-
-.logo h2 {
-    display: none;
-}
-
-.sidebar li {
-    justify-content: center;
-}
-
-.sidebar li span {
-    display: none;
-}
-
-    /* =================================================
-       ANA ALAN
-       ================================================= */
-
-  .main {
-    margin-left: 90px !important;
-    width: calc(100vw - 90px) !important;
-    max-width: calc(100vw - 90px) !important;
-    min-width: 0 !important;
-
-    overflow-x: auto;
-    overflow-y: visible;
-
-    box-sizing: border-box;
-}
-
-    /* =================================================
-       HEADER
-       ================================================= */
-
-    .header {
-        padding: 15px;
-        margin-bottom: 15px;
-
-        flex-direction: column;
-        align-items: flex-start;
-
-        gap: 15px;
+    body {
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
     }
 
+    body {
+        display: block;
+    }
+
+
+    /* =========================
+       SIDEBAR
+       ========================= */
+
+    .sidebar {
+        position: fixed !important;
+
+        top: 0 !important;
+        left: 0 !important;
+
+        width: 90px !important;
+        height: 100vh !important;
+
+        padding: 18px 6px !important;
+
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        z-index: 9999;
+
+        box-shadow: 4px 0 15px rgba(0,0,0,.15);
+    }
+
+    /* Logo */
+
+    .logo {
+        justify-content: center;
+        margin-bottom: 25px;
+    }
+
+    .logo h2 {
+        display: none !important;
+    }
+
+    .logo i {
+        font-size: 30px;
+    }
+
+    /* Menü */
+
+    .sidebar li {
+        width: 100%;
+        justify-content: center !important;
+
+        gap: 0;
+
+        padding: 14px 5px !important;
+        margin-bottom: 6px;
+
+        font-size: 0 !important;
+    }
+
+    .sidebar li i {
+        width: auto;
+        margin: 0;
+
+        font-size: 18px !important;
+    }
+
+    .sidebar li span {
+        display: none !important;
+    }
+
+
+    /* =========================
+       ANA ALAN
+       ========================= */
+
+    .main {
+        margin-left: 90px !important;
+
+        width: calc(100vw - 90px) !important;
+        max-width: calc(100vw - 90px) !important;
+
+        min-width: 0 !important;
+
+        padding: 12px !important;
+
+        box-sizing: border-box;
+
+        overflow-x: auto;
+        overflow-y: visible;
+    }
+
+
+    /* =========================
+       HEADER
+       ========================= */
+
+    .header {
+        width: 100%;
+
+        display: flex;
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 12px;
+
+        padding: 5px 0 !important;
+
+        margin-bottom: 15px;
+    }
 
     .header h1 {
         font-size: 24px;
     }
 
-
     .header p {
         font-size: 13px;
     }
-
 
     .header-right {
         width: 100%;
 
         display: flex;
-        justify-content: space-between;
         align-items: center;
+        justify-content: space-between;
 
-        gap: 10px;
+        flex-wrap: wrap;
+
+        gap: 8px;
     }
-
 
     .date {
-        font-size: 13px;
+        padding: 9px 12px;
+    }
+
+    .notification {
+        font-size: 21px;
     }
 
 
+    /* =========================
+       PROFİL / ÇIKIŞ
+       ========================= */
+
     .profile {
-    max-width: none;
-    min-width: 0;
+        display: flex;
 
-    padding: 7px 10px;
-    gap: 7px;
+        align-items: center;
 
-    display: flex;
-    align-items: center;
-}
+        gap: 7px;
 
-.profile div {
-    display: block !important;
-    min-width: 0;
-}
+        padding: 7px 9px;
 
-.profile img {
-    width: 38px;
-    height: 38px;
-    flex-shrink: 0;
-}
+        max-width: 100%;
 
-.profile button {
-    display: block !important;
-    white-space: nowrap;
+        min-width: 0;
 
-    padding: 4px 8px !important;
-    font-size: 11px !important;
+        flex-shrink: 1;
+    }
 
-    flex-shrink: 0;
-}
+    .profile img {
+        width: 38px;
+        height: 38px;
+
+        flex-shrink: 0;
+    }
+
+    .profile div {
+        display: block !important;
+
+        min-width: 0;
+    }
+
+    .profile strong {
+        font-size: 12px;
+    }
+
+    .profile small {
+        font-size: 10px;
+    }
+
+    .profile button {
+        display: block !important;
+
+        white-space: nowrap;
+
+        padding: 5px 8px !important;
+
+        min-height: 30px !important;
+
+        font-size: 10px !important;
+
+        flex-shrink: 0;
+    }
 
 
-    /* =================================================
+    /* =========================
        KPI KARTLARI
-       ================================================= */
+       ========================= */
 
     .cards {
-        grid-template-columns: repeat(2, 1fr) !important;
+        width: 100%;
+
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
 
         gap: 10px;
 
         margin-bottom: 15px;
     }
 
-
     .card {
-        padding: 15px;
         min-width: 0;
-    }
 
+        padding: 14px;
+    }
 
     .card h3 {
         font-size: 12px;
     }
-
 
     .card h1 {
         font-size: 25px;
     }
 
 
-    /* =================================================
+    /* =========================
        DASHBOARD GRID
-       ================================================= */
+       ========================= */
 
     .dashboard-grid,
     .dashboard-grid.alt {
-        grid-template-columns: 1fr !important;
+        width: 100%;
+        min-width: 0;
+
+        grid-template-columns: minmax(0, 1fr) !important;
 
         gap: 12px;
     }
 
-
     .panel,
     .panel.large {
         width: 100%;
+
         min-width: 0;
+
+        padding: 14px;
+
+        overflow-x: auto;
     }
-
-
-    .panel {
-        padding: 15px;
-    }
-
 
     .panel-header {
-        gap: 10px;
-    }
+        min-width: 0;
 
+        gap: 8px;
+    }
 
     .panel-header h2 {
         font-size: 17px;
     }
 
 
-    /* =================================================
+    /* =========================
        GRAFİKLER
-       ================================================= */
+       ========================= */
 
     .panel canvas {
+        display: block;
+
         width: 100% !important;
-        max-width: 100%;
+        max-width: 100% !important;
     }
 
 
-    /* =================================================
+    /* =========================
        TABLOLAR
-       ================================================= */
+       ========================= */
 
     .panel table {
-        display: block;
         width: 100%;
-        overflow-x: auto;
+
+        min-width: 600px;
+
         white-space: nowrap;
     }
 
 
-    table {
-        min-width: 600px;
-    }
-
-
-    /* =================================================
-       TOOLBAR
-       ================================================= */
-
-    .toolbar {
-        width: 100%;
-
-        display: flex;
-        flex-direction: column;
-
-        gap: 10px;
-
-        margin-bottom: 15px;
-    }
-
-
-    .toolbar input,
-    .toolbar select,
-    .toolbar button {
-        width: 100%;
-        min-height: 45px;
-    }
-
-
-    /* =================================================
+    /* =========================
        MAKİNE KARTLARI
-       ================================================= */
+       ========================= */
 
     .machine-grid {
-        grid-template-columns: 1fr !important;
+        width: 100%;
+
+        grid-template-columns: minmax(0, 1fr) !important;
 
         gap: 12px;
     }
 
 
-    /* =================================================
-       FORM GRID
-       ================================================= */
+    /* =========================
+       FORM
+       ========================= */
 
     .form-grid {
-        grid-template-columns: 1fr !important;
+        grid-template-columns: minmax(0, 1fr) !important;
+
         gap: 12px;
     }
-
 
     .form-group {
         width: 100%;
     }
-
 
     input,
     select,
@@ -1319,29 +1370,51 @@ body {
         font-size: 16px;
     }
 
-
     textarea {
         min-height: 100px;
     }
 
 
-    /* =================================================
+    /* =========================
        BUTONLAR
-       ================================================= */
+       ========================= */
 
     button {
         min-height: 44px;
     }
 
 
-    /* =================================================
+    /* =========================
+       TOOLBAR
+       ========================= */
+
+    .toolbar {
+        width: 100%;
+
+        display: flex;
+        flex-direction: column;
+
+        gap: 10px;
+
+        margin-bottom: 15px;
+    }
+
+    .toolbar input,
+    .toolbar select,
+    .toolbar button {
+        width: 100%;
+
+        min-height: 45px;
+    }
+
+
+    /* =========================
        MODAL
-       ================================================= */
+       ========================= */
 
     .modal {
         padding: 10px;
     }
-
 
     .modal-content {
         width: 100% !important;
@@ -1352,16 +1425,13 @@ body {
         overflow-y: auto;
     }
 
-
     .modal-header {
         padding: 15px;
     }
 
-
     .modal-body {
         padding: 15px;
     }
-
 
     .modal-footer {
         padding: 15px;
@@ -1372,45 +1442,40 @@ body {
         gap: 8px;
     }
 
-
     .modal-footer button {
         width: 100%;
     }
 
 
-    /* =================================================
+    /* =========================
        DRAWER
-       ================================================= */
+       ========================= */
 
-   /* =================================================
-   DRAWER - MOBİL
-   ================================================= */
+    .drawer {
+        width: 100vw !important;
+        max-width: 100vw !important;
 
-.drawer {
-    width: 100vw !important;
-    max-width: 100vw !important;
+        right: -100vw;
+    }
 
-    right: -100vw;
-}
-
-.drawer.active {
-    right: 0;
-}
+    .drawer.active {
+        right: 0;
+    }
 
 
-    /* =================================================
+    /* =========================
        AYARLAR
-       ================================================= */
+       ========================= */
 
     .settings-layout {
         flex-direction: column;
     }
 
-
     .settings-menu {
         width: 100% !important;
 
         display: flex;
+
         overflow-x: auto;
 
         gap: 8px;
@@ -1418,35 +1483,20 @@ body {
         padding-bottom: 5px;
     }
 
-
     .settings-menu-item {
         flex: 0 0 auto;
 
         white-space: nowrap;
     }
 
-
     .settings-content {
         width: 100%;
     }
 
 
-    .settings-section-header {
-        flex-direction: column;
-        align-items: stretch;
-
-        gap: 15px;
-    }
-
-
-    .settings-section-header button {
-        width: 100%;
-    }
-
-
-    /* =================================================
-       QR OKUYUCU
-       ================================================= */
+    /* =========================
+       QR
+       ========================= */
 
     #qrReader {
         width: 100% !important;
@@ -1454,34 +1504,31 @@ body {
     }
 
 
-    /* =================================================
+    /* =========================
        RAPORLAR
-       ================================================= */
+       ========================= */
 
     .report-grid,
     .reports-grid {
-        grid-template-columns: 1fr !important;
+        grid-template-columns: minmax(0, 1fr) !important;
     }
 
 
-    /* =================================================
-       GENEL KÜÇÜK EKRAN DÜZENİ
-       ================================================= */
+    /* =========================
+       YAZILAR
+       ========================= */
 
     h1 {
         font-size: 24px;
     }
 
-
     h2 {
         font-size: 19px;
     }
 
-
     h3 {
         font-size: 16px;
     }
-
 }
 
 
@@ -1492,35 +1539,30 @@ body {
 @media (max-width: 420px) {
 
     .main {
-        padding: 8px;
+        padding: 8px !important;
     }
-
 
     .cards {
-        grid-template-columns: 1fr 1fr !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+
         gap: 8px;
     }
-
 
     .card {
         padding: 12px 8px;
     }
 
-
     .card h3 {
         font-size: 11px;
     }
-
 
     .card h1 {
         font-size: 22px;
     }
 
-
     .header {
-        padding: 12px;
+        padding: 5px 0 !important;
     }
-
 
     .panel {
         padding: 12px;
