@@ -532,6 +532,176 @@ function envanterImportAc() {
 function envanterImportKapat() {
     document.getElementById("envanterImportModal").style.display = "none";
 }
+async function envanterCsvOku() {
+
+    const input = document.getElementById("envanterCsv");
+    const onizleme = document.getElementById("envanterImportOnizleme");
+
+    if (!input.files || input.files.length === 0) {
+        alert("Lütfen CSV dosyası seçiniz.");
+        return;
+    }
+
+    const dosya = input.files[0];
+
+    const metin = await dosya.text();
+
+    const satirlar = metin
+        .replace(/\r/g, "")
+        .split("\n")
+        .filter(s => s.trim() !== "");
+
+    if (satirlar.length < 2) {
+        alert("CSV dosyasında veri bulunamadı.");
+        return;
+    }
+
+    // CSV başlıkları
+    const basliklar = satirlar[0]
+        .split(",")
+        .map(x => x.trim());
+
+    const gerekliBasliklar = [
+        "EnvanterKodu",
+        "Marka",
+        "Model",
+        "SaseNo",
+        "Konum",
+        "BakimPeriyotGun",
+        "SonBakim",
+        "Aciklama"
+    ];
+
+    const eksikBasliklar =
+        gerekliBasliklar.filter(
+            b => !basliklar.includes(b)
+        );
+
+    if (eksikBasliklar.length > 0) {
+
+        alert(
+            "Eksik CSV sütunları:\n\n" +
+            eksikBasliklar.join("\n")
+        );
+
+        return;
+    }
+
+    const veriler = [];
+
+    for (let i = 1; i < satirlar.length; i++) {
+
+        const kolonlar = satirlar[i]
+            .split(",")
+            .map(x => x.trim());
+
+        const satir = {};
+
+        basliklar.forEach((baslik, index) => {
+            satir[baslik] = kolonlar[index] || "";
+        });
+
+        veriler.push(satir);
+    }
+
+    // Önizleme
+    let html = `
+        <h3>📋 Önizleme</h3>
+
+        <p>
+            Toplam <b>${veriler.length}</b> makine bulundu.
+        </p>
+
+        <div style="
+            overflow-x:auto;
+            max-height:350px;
+            border:1px solid #ddd;
+            border-radius:8px;
+        ">
+
+        <table style="
+            width:100%;
+            border-collapse:collapse;
+            white-space:nowrap;
+        ">
+
+        <thead>
+            <tr>
+    `;
+
+    gerekliBasliklar.forEach(b => {
+
+        html += `
+            <th style="
+                padding:8px;
+                border-bottom:1px solid #ddd;
+                text-align:left;
+            ">
+                ${b}
+            </th>
+        `;
+
+    });
+
+    html += `
+            </tr>
+        </thead>
+        <tbody>
+    `;
+
+    veriler.forEach(satir => {
+
+        html += "<tr>";
+
+        gerekliBasliklar.forEach(b => {
+
+            html += `
+                <td style="
+                    padding:8px;
+                    border-bottom:1px solid #eee;
+                ">
+                    ${satir[b] || "-"}
+                </td>
+            `;
+
+        });
+
+        html += "</tr>";
+
+    });
+
+    html += `
+        </tbody>
+        </table>
+        </div>
+
+        <div style="
+            margin-top:20px;
+            display:flex;
+            justify-content:flex-end;
+        ">
+
+            <button
+                class="btn-primary"
+                onclick="envanterTopluAktar()">
+
+                📥 Makineleri İçe Aktar
+
+            </button>
+
+        </div>
+    `;
+
+    onizleme.innerHTML = html;
+
+    // Veriyi geçici olarak sakla
+    window.envanterImportVerileri = veriler;
+}
+function envanterTopluAktar() {
+
+    alert("Toplu aktarım backend bağlantısı hazır olduğunda yapılacak.");
+
+}
 // Modal dışına tıklayınca kapansın
 window.onclick = function (event) {
 
