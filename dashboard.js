@@ -1270,3 +1270,54 @@ function makineAdiBul(envanter){
     return `${m.marka} ${m.model}`;
 
 }
+async function bakimPeriyotlariniYeniMakineyeYukle() {
+
+    const select = document.getElementById("periyot");
+
+    if (!select) return;
+
+    try {
+
+        const response =
+            await fetch(API + "?action=bakimPeriyotlariListele");
+
+        const sonuc =
+            await response.json();
+
+        if (!sonuc.success) {
+
+            select.innerHTML =
+                '<option value="">Periyotlar yüklenemedi</option>';
+
+            return;
+        }
+
+        const periyotlar =
+            (sonuc.data || []).filter(
+                p => p.durum === "Aktif"
+            );
+
+        select.innerHTML =
+            '<option value="">Periyot seçiniz</option>';
+
+        periyotlar.forEach(p => {
+
+            select.innerHTML += `
+                <option value="${p.gun}">
+                    ${p.periyotAdi} (${p.gun} gün)
+                </option>
+            `;
+
+        });
+
+    } catch (err) {
+
+        console.error(
+            "Bakım periyotları yüklenemedi:",
+            err
+        );
+
+        select.innerHTML =
+            '<option value="">Periyotlar yüklenemedi</option>';
+    }
+}
