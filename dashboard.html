@@ -2218,6 +2218,62 @@ Henüz rapor oluşturulmadı.
     </div>
 
 </div>
+    <!-- ENVANTER İÇE AKTAR MODALI -->
+<div id="envanterImportModal" class="modal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h2>📥 Envanter İçe Aktar</h2>
+
+            <span
+                class="close"
+                onclick="envanterImportKapat()">
+                &times;
+            </span>
+
+        </div>
+
+        <div class="modal-body">
+
+            <p>
+                CSV dosyanızı seçin.
+                <br>
+                Sonraki bakım tarihi sistem tarafından otomatik hesaplanacaktır.
+            </p>
+
+            <input
+                type="file"
+                id="envanterCsv"
+                accept=".csv">
+
+            <div
+                id="envanterImportOnizleme"
+                style="margin-top:20px;">
+            </div>
+
+        </div>
+
+        <div class="modal-footer">
+
+            <button
+                class="btn-secondary"
+                onclick="envanterImportKapat()">
+                İptal
+            </button>
+
+            <button
+                class="btn-primary"
+                onclick="envanterCsvOku()">
+                Dosyayı Oku
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://unpkg.com/html5-qrcode"></script>
 
