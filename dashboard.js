@@ -532,7 +532,7 @@ function envanterImportAc() {
 function envanterImportKapat() {
     document.getElementById("envanterImportModal").style.display = "none";
 }
-async function envanterCsvOku() {
+window.envanterCsvOku = async function() {
 
     const input = document.getElementById("envanterCsv");
     const onizleme = document.getElementById("envanterImportOnizleme");
