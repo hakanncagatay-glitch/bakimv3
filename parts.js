@@ -206,11 +206,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function togglePartForm(){
 
-    const form = document.getElementById("partForm");
+    const form =
+        document.getElementById("partForm");
 
     if(form.style.display=="none"){
 
         form.style.display="block";
+
+        parcaKategorileriniYukle();
 
         form.scrollIntoView({
 
@@ -510,4 +513,61 @@ function parcaDuzenleModal(){
         "\n\nDüzenleme ekranı açılacak."
     );
 
+}
+async function parcaKategorileriniYukle() {
+
+    const select = document.getElementById("partCategory");
+
+    if (!select) return;
+
+    select.innerHTML =
+        '<option value="">Kategoriler yükleniyor...</option>';
+
+    try {
+
+        const response =
+            await fetch(
+                API + "?action=parcaKategorileriListele"
+            );
+
+        const sonuc =
+            await response.json();
+
+        if (!sonuc.success) {
+
+            select.innerHTML =
+                '<option value="">Kategoriler yüklenemedi</option>';
+
+            return;
+        }
+
+        const kategoriler =
+            (sonuc.data || []).filter(
+                k => k.durum === "Aktif"
+            );
+
+        select.innerHTML =
+            '<option value="">Kategori seçiniz</option>';
+
+        kategoriler.forEach(function(kategori) {
+
+            select.innerHTML += `
+                <option value="${kategori.kategoriAdi}">
+                    ${kategori.kategoriAdi}
+                </option>
+            `;
+
+        });
+
+    } catch (err) {
+
+        console.error(
+            "Parça kategorileri yüklenemedi:",
+            err
+        );
+
+        select.innerHTML =
+            '<option value="">Kategoriler yüklenemedi</option>';
+
+    }
 }
