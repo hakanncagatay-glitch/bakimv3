@@ -697,9 +697,83 @@ window.envanterCsvOku = async function() {
     // Veriyi geçici olarak sakla
     window.envanterImportVerileri = veriler;
 }
-function envanterTopluAktar() {
+async function envanterTopluAktar() {
 
-    alert("Toplu aktarım backend bağlantısı hazır olduğunda yapılacak.");
+    const veriler = window.envanterImportVerileri;
+
+    if (!veriler || veriler.length === 0) {
+        alert("Aktarılacak makine bulunamadı.");
+        return;
+    }
+
+    if (!confirm(
+        veriler.length +
+        " makine Makineler listesine aktarılacak.\n\nDevam edilsin mi?"
+    )) {
+        return;
+    }
+
+    try {
+
+        const url =
+            API +
+            "?action=makineleriTopluAktar" +
+            "&veriler=" +
+            encodeURIComponent(JSON.stringify(veriler));
+
+        const response = await fetch(url);
+
+        const sonuc = await response.json();
+
+        console.log("Toplu aktarım sonucu:", sonuc);
+
+        if (sonuc.success) {
+
+            let mesaj =
+                "✅ Toplu aktarım tamamlandı.\n\n" +
+                "Eklenen makine: " +
+                sonuc.eklenen;
+
+            if (sonuc.hataSayisi > 0) {
+
+                mesaj +=
+                    "\nAtlanan/Hatalı: " +
+                    sonuc.hataSayisi;
+
+            }
+
+            alert(mesaj);
+
+            window.envanterImportVerileri = [];
+
+            envanterImportKapat();
+
+            // Makine listesini yenile
+            if (typeof makineleriYukle === "function") {
+                await makineleriYukle();
+            }
+
+        } else {
+
+            alert(
+                "❌ Aktarım başarısız:\n\n" +
+                (sonuc.message || "Bilinmeyen hata.")
+            );
+
+        }
+
+    } catch (err) {
+
+        console.error(
+            "Toplu aktarım hatası:",
+            err
+        );
+
+        alert(
+            "Toplu aktarım sırasında hata oluştu."
+        );
+
+    }
 
 }
 // Modal dışına tıklayınca kapansın
