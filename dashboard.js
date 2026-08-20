@@ -1323,3 +1323,59 @@ async function bakimPeriyotlariniYeniMakineyeYukle() {
             '<option value="">Periyotlar yüklenemedi</option>';
     }
 }
+async function konumlariYeniMakineyeYukle() {
+
+    const select = document.getElementById("konum");
+
+    if (!select) return;
+
+    select.innerHTML =
+        '<option value="">Konumlar yükleniyor...</option>';
+
+    try {
+
+        const response =
+            await fetch(
+                API + "?action=konumlariListele"
+            );
+
+        const sonuc =
+            await response.json();
+
+        if (!sonuc.success) {
+
+            select.innerHTML =
+                '<option value="">Konumlar yüklenemedi</option>';
+
+            return;
+        }
+
+        const konumlar =
+            (sonuc.data || []).filter(
+                k => k.durum === "Aktif"
+            );
+
+        select.innerHTML =
+            '<option value="">Konum seçiniz</option>';
+
+        konumlar.forEach(function(konum) {
+
+            select.innerHTML += `
+                <option value="${konum.konumAdi}">
+                    ${konum.konumAdi}
+                </option>
+            `;
+
+        });
+
+    } catch (err) {
+
+        console.error(
+            "Konumlar yüklenemedi:",
+            err
+        );
+
+        select.innerHTML =
+            '<option value="">Konumlar yüklenemedi</option>';
+    }
+}
