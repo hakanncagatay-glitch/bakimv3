@@ -570,7 +570,7 @@ async function yeniMakineKaydet() {
             document.getElementById("model").value = "";
             document.getElementById("sase").value = "";
             document.getElementById("konum").value = "";
-            document.getElementById("periyot").value = 180;
+            document.getElementById("periyot").value = "";
             document.getElementById("aciklama").value = "";
 
             await makineleriYukle();
