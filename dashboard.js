@@ -557,9 +557,15 @@ window.envanterCsvOku = async function() {
     }
 
     // CSV başlıkları
-    const basliklar = satirlar[0]
-        .split(",")
-        .map(x => x.trim());
+    // CSV ayırıcısını otomatik belirle
+const ilkSatir = satirlar[0].replace(/^\uFEFF/, "");
+
+const ayirici = ilkSatir.includes(";") ? ";" : ",";
+
+// CSV başlıkları
+const basliklar = ilkSatir
+    .split(ayirici)
+    .map(x => x.trim().replace(/^"|"$/g, ""));
 
     const gerekliBasliklar = [
         "EnvanterKodu",
@@ -592,8 +598,8 @@ window.envanterCsvOku = async function() {
     for (let i = 1; i < satirlar.length; i++) {
 
         const kolonlar = satirlar[i]
-            .split(",")
-            .map(x => x.trim());
+    .split(ayirici)
+    .map(x => x.trim().replace(/^"|"$/g, ""));
 
         const satir = {};
 
