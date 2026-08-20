@@ -503,6 +503,8 @@ function modalAc() {
 
     document.getElementById("makineModal").style.display = "block";
 
+    bakimPeriyotlariniYeniMakineyeYukle();
+
 }
 
 function modalKapat() {
