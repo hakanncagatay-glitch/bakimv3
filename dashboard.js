@@ -525,7 +525,13 @@ function modalKapat() {
     document.getElementById("makineModal").style.display = "none";
 
 }
+function envanterImportAc() {
+    document.getElementById("envanterImportModal").style.display = "block";
+}
 
+function envanterImportKapat() {
+    document.getElementById("envanterImportModal").style.display = "none";
+}
 // Modal dışına tıklayınca kapansın
 window.onclick = function (event) {
 
