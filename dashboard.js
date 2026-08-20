@@ -546,6 +546,8 @@ async function yeniMakineKaydet() {
     const sase = document.getElementById("sase").value.trim();
     const konum = document.getElementById("konum").value.trim();
     const periyot = document.getElementById("periyot").value;
+    const sonBakim =
+    document.getElementById("sonBakim").value;
     const aciklama = document.getElementById("aciklama").value.trim();
 
     if (!envanter || !marka || !model || !konum) {
@@ -566,6 +568,7 @@ async function yeniMakineKaydet() {
             "&konum=" + encodeURIComponent(konum) +
             "&sase=" + encodeURIComponent(sase) +
             "&periyot=" + encodeURIComponent(periyot) +
+            "&sonBakim=" + encodeURIComponent(sonBakim)
             "&aciklama=" + encodeURIComponent(aciklama);
 
         const response = await fetch(url);
