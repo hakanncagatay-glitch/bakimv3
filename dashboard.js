@@ -506,6 +506,18 @@ function modalAc() {
     bakimPeriyotlariniYeniMakineyeYukle();
     konumlariYeniMakineyeYukle();
 
+    const tarihInput = document.getElementById("sonBakim");
+
+    if (tarihInput) {
+        const bugun = new Date();
+
+        const yil = bugun.getFullYear();
+        const ay = String(bugun.getMonth() + 1).padStart(2, "0");
+        const gun = String(bugun.getDate()).padStart(2, "0");
+
+        tarihInput.value = `${yil}-${ay}-${gun}`;
+    }
+
 }
 
 function modalKapat() {
