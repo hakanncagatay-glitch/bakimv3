@@ -1361,13 +1361,13 @@ async function konumlariYeniMakineyeYukle() {
 
         konumlar.forEach(function(konum) {
 
-            select.innerHTML += `
-                <option value="${konum.konumAdi}">
-                    ${konum.konumAdi}
-                </option>
-            `;
+    select.innerHTML += `
+        <option value="${konum.konum}">
+            ${konum.konum}
+        </option>
+    `;
 
-        });
+});
 
     } catch (err) {
 
