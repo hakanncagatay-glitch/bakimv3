@@ -463,12 +463,16 @@ function misafirArizaBildir() {
 
     }
 
-    if (main) {
+   if (main) {
 
     main.style.display = "block";
 
-    // Sidebar gizlendiği için boşluğunu kaldır
-    main.classList.add("public-fault-mode");
+    main.style.marginLeft = "0";
+    main.style.width = "100%";
+    main.style.maxWidth = "100%";
+    main.style.paddingLeft = "20px";
+    main.style.paddingRight = "20px";
+    main.style.boxSizing = "border-box";
 
 }
 
