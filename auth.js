@@ -468,14 +468,34 @@ function misafirArizaBildir() {
 
     }
 
-   if (main) {
+  if (main) {
 
     main.style.display = "block";
 
-    main.style.marginLeft = "0";
-    main.style.width = "100vw";
-    main.style.maxWidth = "100vw";
-    main.style.padding = "12px";
+    main.style.setProperty(
+        "margin-left",
+        "0px",
+        "important"
+    );
+
+    main.style.setProperty(
+        "width",
+        "100vw",
+        "important"
+    );
+
+    main.style.setProperty(
+        "max-width",
+        "100vw",
+        "important"
+    );
+
+    main.style.setProperty(
+        "padding",
+        "12px",
+        "important"
+    );
+
     main.style.boxSizing = "border-box";
 
 }
