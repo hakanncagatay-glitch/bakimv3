@@ -1657,3 +1657,30 @@ table td{
     }
 
 }
+/* RAPOR TARİH ALANLARI */
+
+.report-date-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.report-date-field label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #475569;
+}
+
+@media (max-width: 768px) {
+
+    .report-date-field {
+        width: 100%;
+    }
+
+    .report-date-field input {
+        width: 100%;
+        min-height: 45px;
+        font-size: 16px;
+    }
+
+}
