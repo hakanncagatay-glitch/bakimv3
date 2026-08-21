@@ -1638,3 +1638,12 @@ table td{
     }
 
 }
+/* =====================================================
+   MİSAFİR ARIZA BİLDİR EKRANI
+   ===================================================== */
+
+.main.public-fault-mode {
+    margin-left: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+}
