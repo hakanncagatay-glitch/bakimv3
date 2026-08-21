@@ -465,10 +465,12 @@ function misafirArizaBildir() {
 
     if (main) {
 
-        main.style.display =
-            "block";
+    main.style.display = "block";
 
-    }
+    // Sidebar gizlendiği için boşluğunu kaldır
+    main.classList.add("public-fault-mode");
+
+}
 
 
     // Sadece arıza sayfasını göster
