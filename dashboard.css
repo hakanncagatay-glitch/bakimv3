@@ -1617,3 +1617,17 @@ table td{
         padding: 30px 25px !important;
     }
 }
+/* =====================================================
+   GİRİŞ YAPMADAN ARIZA BİLDİR - MOBİL
+   ===================================================== */
+
+@media (max-width: 768px) {
+
+    .public-ariza-page {
+        margin-left: 0 !important;
+        width: 100vw !important;
+        max-width: 100vw !important;
+        box-sizing: border-box;
+    }
+
+}
