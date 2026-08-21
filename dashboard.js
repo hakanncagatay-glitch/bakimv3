@@ -544,7 +544,14 @@ window.envanterCsvOku = async function() {
 
     const dosya = input.files[0];
 
-    const metin = await dosya.text();
+    const buffer = await dosya.arrayBuffer();
+
+let metin = new TextDecoder("utf-8").decode(buffer);
+
+// UTF-8 okunamadıysa Türkçe Windows-1254 ile tekrar dene
+if (metin.includes("�")) {
+    metin = new TextDecoder("windows-1254").decode(buffer);
+}
 
     const satirlar = metin
         .replace(/\r/g, "")
