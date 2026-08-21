@@ -473,10 +473,9 @@ function misafirArizaBildir() {
     main.style.display = "block";
 
     main.style.marginLeft = "0";
-    main.style.width = "100%";
-    main.style.maxWidth = "100%";
-    main.style.paddingLeft = "20px";
-    main.style.paddingRight = "20px";
+    main.style.width = "100vw";
+    main.style.maxWidth = "100vw";
+    main.style.padding = "12px";
     main.style.boxSizing = "border-box";
 
 }
