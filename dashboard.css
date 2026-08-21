@@ -1627,7 +1627,14 @@ table td{
         margin-left: 0 !important;
         width: 100vw !important;
         max-width: 100vw !important;
-        box-sizing: border-box;
+    }
+
+    .public-ariza-page .main {
+        margin-left: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        padding-left: 15px !important;
+        padding-right: 15px !important;
     }
 
 }
