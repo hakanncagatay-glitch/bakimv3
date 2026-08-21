@@ -138,7 +138,12 @@ function sistemiAc(user) {
         main.style.display = "block";
 
     }
-
+main.style.marginLeft = "";
+main.style.width = "";
+main.style.maxWidth = "";
+main.style.paddingLeft = "";
+main.style.paddingRight = "";
+main.style.boxSizing = "";
 
     // Kullanıcı bilgisini ekrana yaz
 
