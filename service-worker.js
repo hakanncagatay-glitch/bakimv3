@@ -13,7 +13,7 @@ firebase.initializeApp({
     projectId: "bakimpro",
     storageBucket: "bakimpro.firebasestorage.app",
     messagingSenderId: "1014540679469",
-    appId: "FIREBASE_CONFIG_APP_ID"
+    appId: "1:1014540679469:web:eb594949a3112db533bba4"
 
 });
 
