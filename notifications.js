@@ -115,12 +115,4 @@ messaging.onMessage(function (payload) {
     }
 
 });
-window.addEventListener(
-    "load",
-    function () {
-
-        bildirimleriBaslat();
-
-    }
-);
-
+bildirimleriBaslat();
