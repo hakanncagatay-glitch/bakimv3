@@ -31,8 +31,9 @@ alert("Bildirim sistemi çalışıyor");
         const token =
             await messaging.getToken({
 
-                vapidKey:
-                    "BURAYA_FIREBASE_VAPID_KEY",
+              
+                    vapidKey:
+    "BHtai-0BBUxv59Fn1jD3V0eYFIY2Nca-Art4D8r55JdLKDnVrdLLTlULg23FOCd7V9BbwMXQi4g4JnNI4Y7mRok",
 
                 serviceWorkerRegistration:
                     registration
@@ -117,5 +118,4 @@ window.addEventListener(
 
     }
 );
-vapidKey:
-    "BHtai-0BBUxv59Fn1jD3V0eYFIY2Nca-Art4D8r55JdLKDnVrdLLTlULg23FOCd7V9BbwMXQi4g4JnNI4Y7mRok",
+
