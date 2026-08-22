@@ -1,6 +1,7 @@
 // =====================================================
 // BAKIM PRO - FCM BİLDİRİMLERİ
 // =====================================================
+alert("NOTIFICATIONS JS ÇALIŞTI");
 console.log("🔔 NOTIFICATIONS.JS ÇALIŞTI");
 const messaging = firebase.messaging();
 
