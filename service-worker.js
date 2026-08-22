@@ -20,39 +20,6 @@ firebase.initializeApp({
 const messaging =
     firebase.messaging();
 
-messaging.onBackgroundMessage(
-    function (payload) {
-
-        console.log(
-            "Arka planda bildirim:",
-            payload
-        );
-
-        const notificationTitle =
-            payload.notification?.title ||
-            "🚨 Bakım Pro";
-
-        const notificationOptions = {
-
-            body:
-                payload.notification?.body ||
-                "Yeni arıza bildirildi.",
-
-            icon:
-                "./icon-192.png",
-
-            badge:
-                "./icon-192.png"
-
-        };
-
-        self.registration.showNotification(
-            notificationTitle,
-            notificationOptions
-        );
-
-    }
-);
 const CACHE_NAME = "bakim-pro-v4";
 
 const APP_FILES = [
