@@ -168,6 +168,21 @@ main.style.boxSizing = "";
             rolAdi(user.rol);
 
     }
+    const profileAvatar =
+    document.getElementById("profileAvatar");
+
+if (profileAvatar) {
+
+    const adSoyad =
+        user.adSoyad ||
+        user.kullaniciAdi ||
+        "";
+
+    profileAvatar.src =
+        "https://ui-avatars.com/api/?name=" +
+        encodeURIComponent(adSoyad) +
+        "&background=2563eb&color=fff";
+}
 
 
     // Yetkileri uygula
