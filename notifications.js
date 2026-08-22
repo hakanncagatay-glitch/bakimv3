@@ -5,7 +5,7 @@ console.log("🔔 NOTIFICATIONS.JS ÇALIŞTI");
 const messaging = firebase.messaging();
 
 async function bildirimleriBaslat() {
-
+alert("Bildirim sistemi çalışıyor");
     try {
 
         // Bildirim izni iste
