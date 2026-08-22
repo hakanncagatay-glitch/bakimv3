@@ -8,7 +8,7 @@ importScripts(
 
 firebase.initializeApp({
 
-    apiKey: "FIREBASE_CONFIG_API_KEY",
+    apiKey: "AIzaSyBAKoARFQJRMp31F42su0PeyEGh90GWRBg",
     authDomain: "bakimpro.firebaseapp.com",
     projectId: "bakimpro",
     storageBucket: "bakimpro.firebasestorage.app",
