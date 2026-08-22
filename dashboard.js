@@ -966,7 +966,13 @@ async function bakimKaydet() {
     const bakimTuru =
         document.getElementById("bakimTipi").value;
 
-    const bakimiYapan = "Hakan Çağatay";
+    const kullanici =
+    JSON.parse(localStorage.getItem("bakimProUser") || "{}");
+
+const bakimiYapan =
+    kullanici.adSoyad ||
+    kullanici.kullaniciAdi ||
+    "Bilinmeyen Kullanıcı";
 
     const arizaNedeni =
         document.getElementById("arizaNedeni").value.trim();
