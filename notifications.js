@@ -1,7 +1,7 @@
 // =====================================================
 // BAKIM PRO - FCM BİLDİRİMLERİ
 // =====================================================
-
+console.log("🔔 NOTIFICATIONS.JS ÇALIŞTI");
 const messaging = firebase.messaging();
 
 async function bildirimleriBaslat() {
