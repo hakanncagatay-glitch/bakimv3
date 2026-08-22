@@ -3,8 +3,13 @@
 // =====================================================
 alert("NOTIFICATIONS JS ÇALIŞTI");
 console.log("🔔 NOTIFICATIONS.JS ÇALIŞTI");
-const messaging = firebase.messaging();
 
+// Firebase'i başlat
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+}
+
+const messaging = firebase.messaging();
 async function bildirimleriBaslat() {
 alert("Bildirim sistemi çalışıyor");
     try {
