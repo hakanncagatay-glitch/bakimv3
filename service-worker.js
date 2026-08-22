@@ -56,7 +56,6 @@ messaging.onBackgroundMessage(
 const CACHE_NAME = "bakim-pro-v4";
 
 const APP_FILES = [
-    "./",
     "./dashboard.html",
     "./dashboard.css",
     "./fault.css",
@@ -68,8 +67,13 @@ const APP_FILES = [
     "./parts.js",
     "./maintenanceParts.js",
     "./reports.js",
+    "./reports.css",
     "./settings.js",
-    "./auth.js"
+    "./auth.js",
+    "./notifications.js",
+    "./icon-192.png",
+    "./icon-512.png",
+    "./manifest.json"
 ];
 
 self.addEventListener("install", event => {
