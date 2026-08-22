@@ -100,19 +100,21 @@ self.addEventListener("notificationclick", event => {
             includeUncontrolled: true
         }).then(clientList => {
 
-            // Bakım Pro zaten açıksa onu öne getir
+            // Bakım Pro zaten açıksa öne getir
             for (const client of clientList) {
 
-                if ("focus" in client) {
+                if (client.url.includes("github.io")) {
+
                     return client.focus();
+
                 }
 
             }
 
-            // Kapalıysa aç
-            if (clients.openWindow) {
-                return clients.openWindow("./");
-            }
+            // Kapalıysa Bakım Pro'yu aç
+            return clients.openWindow(
+                "https://hakanncagatay-glitch.github.io"
+            );
 
         })
 
