@@ -1,3 +1,58 @@
+importScripts(
+    "https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"
+);
+
+importScripts(
+    "https://www.gstatic.com/firebasejs/10.13.2/firebase-messaging-compat.js"
+);
+
+firebase.initializeApp({
+
+    apiKey: "FIREBASE_CONFIG_API_KEY",
+    authDomain: "bakimpro.firebaseapp.com",
+    projectId: "bakimpro",
+    storageBucket: "bakimpro.firebasestorage.app",
+    messagingSenderId: "1014540679469",
+    appId: "FIREBASE_CONFIG_APP_ID"
+
+});
+
+const messaging =
+    firebase.messaging();
+
+messaging.onBackgroundMessage(
+    function (payload) {
+
+        console.log(
+            "Arka planda bildirim:",
+            payload
+        );
+
+        const notificationTitle =
+            payload.notification?.title ||
+            "🚨 Bakım Pro";
+
+        const notificationOptions = {
+
+            body:
+                payload.notification?.body ||
+                "Yeni arıza bildirildi.",
+
+            icon:
+                "./icon-192.png",
+
+            badge:
+                "./icon-192.png"
+
+        };
+
+        self.registration.showNotification(
+            notificationTitle,
+            notificationOptions
+        );
+
+    }
+);
 const CACHE_NAME = "bakim-pro-v4";
 
 const APP_FILES = [
