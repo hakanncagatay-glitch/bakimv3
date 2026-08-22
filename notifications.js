@@ -61,14 +61,80 @@ alert("Bildirim sistemi çalışıyor");
         );
 
         // Daha sonra Google Apps Script'e göndereceğiz
-        localStorage.setItem(
-            "bakimProFcmToken",
-            token
-        );
+      localStorage.setItem(
+    "bakimProFcmToken",
+    token
+);
+
+
+// =================================================
+// FCM TOKEN'I GOOGLE APPS SCRIPT'E GÖNDER
+// =================================================
+
+const oturum =
+    localStorage.getItem("bakimProUser");
+
+if (oturum) {
+
+    const user =
+        JSON.parse(oturum);
+
+    const params =
+        new URLSearchParams();
+
+    params.append(
+        "action",
+        "fcmTokenKaydet"
+    );
+
+    params.append(
+        "kullaniciId",
+        user.id
+    );
+
+    params.append(
+        "fcmToken",
+        token
+    );
+
+
+    try {
+
+        const response =
+            await fetch(
+                API,
+                {
+                    method: "POST",
+                    body: params
+                }
+            );
+
+
+        const sonuc =
+            await response.json();
+
 
         console.log(
-            "Telefon bildirim sistemi hazır."
+            "FCM token kayıt sonucu:",
+            sonuc
         );
+
+    }
+    catch (err) {
+
+        console.error(
+            "FCM token gönderilemedi:",
+            err
+        );
+
+    }
+
+}
+
+
+console.log(
+    "Telefon bildirim sistemi hazır."
+);
 
     }
     catch (err) {
