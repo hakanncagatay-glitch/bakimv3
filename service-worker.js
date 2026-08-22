@@ -89,3 +89,33 @@ self.addEventListener("fetch", event => {
             .catch(() => caches.match(event.request))
     );
 });
+self.addEventListener("notificationclick", event => {
+
+    event.notification.close();
+
+    event.waitUntil(
+
+        clients.matchAll({
+            type: "window",
+            includeUncontrolled: true
+        }).then(clientList => {
+
+            // Bakım Pro zaten açıksa onu öne getir
+            for (const client of clientList) {
+
+                if ("focus" in client) {
+                    return client.focus();
+                }
+
+            }
+
+            // Kapalıysa aç
+            if (clients.openWindow) {
+                return clients.openWindow("./");
+            }
+
+        })
+
+    );
+
+});
