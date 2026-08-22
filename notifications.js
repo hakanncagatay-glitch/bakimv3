@@ -115,4 +115,6 @@ messaging.onMessage(function (payload) {
     }
 
 });
+console.log("🔔 BİLDİRİM FONKSİYONU ÇAĞRILIYOR");
+
 bildirimleriBaslat();
