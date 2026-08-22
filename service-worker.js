@@ -113,7 +113,7 @@ self.addEventListener("notificationclick", event => {
 
             // Kapalıysa Bakım Pro'yu aç
             return clients.openWindow(
-                "https://hakanncagatay-glitch.github.io"
+                "https://hakanncagatay-glitch.github.io/bakimv3/dashboard.html"
             );
 
         })
