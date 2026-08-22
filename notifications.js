@@ -1,8 +1,6 @@
 // =====================================================
 // BAKIM PRO - FCM BİLDİRİMLERİ
 // =====================================================
-alert("NOTIFICATIONS JS ÇALIŞTI");
-console.log("🔔 NOTIFICATIONS.JS ÇALIŞTI");
 
 // Firebase'i başlat
 if (!firebase.apps.length) {
@@ -11,7 +9,6 @@ if (!firebase.apps.length) {
 
 const messaging = firebase.messaging();
 async function bildirimleriBaslat() {
-alert("Bildirim sistemi çalışıyor");
     try {
 
         // Bildirim izni iste
@@ -181,6 +178,6 @@ messaging.onMessage(function (payload) {
     }
 
 });
-console.log("🔔 BİLDİRİM FONKSİYONU ÇAĞRILIYOR");
+
 
 bildirimleriBaslat();
