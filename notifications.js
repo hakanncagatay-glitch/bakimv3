@@ -68,35 +68,62 @@ async function bildirimleriBaslat() {
 // FCM TOKEN'I GOOGLE APPS SCRIPT'E GÖNDER
 // =================================================
 
-const oturum =
-    localStorage.getItem("bakimProUser");
+async function fcmTokenKullaniciyaKaydet(token) {
 
-if (oturum) {
+    const oturum =
+        localStorage.getItem("bakimProUser");
 
-    const user =
-        JSON.parse(oturum);
-    console.log("FCM KULLANICI:", user);
-console.log("FCM KULLANICI ID:", user.id);
-    const params =
-        new URLSearchParams();
+    // Kullanıcı henüz hazır değilse
+    if (!oturum) {
 
-    params.append(
-        "action",
-        "fcmTokenKaydet"
-    );
+        console.log(
+            "Kullanıcı oturumu henüz hazır değil."
+        );
 
-    params.append(
-        "kullaniciId",
-        user.id
-    );
-
-    params.append(
-        "fcmToken",
-        token
-    );
-
+        return false;
+    }
 
     try {
+
+        const user =
+            JSON.parse(oturum);
+
+        console.log(
+            "FCM KULLANICI:",
+            user
+        );
+
+        console.log(
+            "FCM KULLANICI ID:",
+            user.id
+        );
+
+        if (!user.id) {
+
+            console.error(
+                "Kullanıcı ID bulunamadı."
+            );
+
+            return false;
+        }
+
+        const params =
+            new URLSearchParams();
+
+        params.append(
+            "action",
+            "fcmTokenKaydet"
+        );
+
+        params.append(
+            "kullaniciId",
+            user.id
+        );
+
+        params.append(
+            "fcmToken",
+            token
+        );
 
         const response =
             await fetch(
@@ -107,15 +134,15 @@ console.log("FCM KULLANICI ID:", user.id);
                 }
             );
 
-
         const sonuc =
             await response.json();
 
-
         console.log(
-            "FCM token kayıt sonucu:",
+            "FCM TOKEN KAYIT SONUCU:",
             sonuc
         );
+
+        return sonuc.success === true;
 
     }
     catch (err) {
@@ -125,9 +152,68 @@ console.log("FCM KULLANICI ID:", user.id);
             err
         );
 
+        return false;
     }
+}
+
+
+// İlk deneme
+let fcmTokenKaydedildi =
+    await fcmTokenKullaniciyaKaydet(token);
+
+
+// Login biraz sonra tamamlanıyorsa
+// tekrar dene
+if (!fcmTokenKaydedildi) {
+
+    let deneme = 0;
+
+    const fcmTimer =
+        setInterval(
+            async function () {
+
+                deneme++;
+
+                console.log(
+                    "FCM kullanıcı bekleniyor... Deneme:",
+                    deneme
+                );
+
+                const basarili =
+                    await fcmTokenKullaniciyaKaydet(token);
+
+                if (
+                    basarili ||
+                    deneme >= 10
+                ) {
+
+                    clearInterval(
+                        fcmTimer
+                    );
+
+                    if (basarili) {
+
+                        console.log(
+                            "✅ FCM TOKEN KULLANICIYA KAYDEDİLDİ."
+                        );
+
+                    }
+                    else {
+
+                        console.error(
+                            "❌ FCM TOKEN KAYDEDİLEMEDİ."
+                        );
+
+                    }
+
+                }
+
+            },
+            1000
+        );
 
 }
+
 
 
 console.log(
