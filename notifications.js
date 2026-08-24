@@ -75,6 +75,8 @@ if (oturum) {
 
     const user =
         JSON.parse(oturum);
+    console.log("FCM KULLANICI:", user);
+console.log("FCM KULLANICI ID:", user.id);
 
     const params =
         new URLSearchParams();
